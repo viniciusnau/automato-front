@@ -1,0 +1,121 @@
+@import "../../colors.css";
+
+.footer::-webkit-scrollbar {
+  width: 0.4rem;
+  background-color: transparent;
+}
+
+.footer::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.footer::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 0.2rem;
+}
+
+.footer::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+
+.footer {
+  justify-content: space-between;
+  background-color: #f1f1f1;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  max-height: 5rem;
+  box-shadow: 0 -10px 8px -10px var(--light-shadow-color);
+  overflow-y: hidden;
+}
+
+.topics {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  text-align: center;
+  margin: 0 1rem;
+}
+
+.description {
+  max-width: 30rem;
+}
+
+.copyright {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 0 0.4rem 0;
+  font-size: var(--font-size)-0.25rem;
+}
+
+.centeredFooter {
+  padding: 1rem;
+}
+
+.redirect {
+  color: var(--first-text-color);
+}
+
+.navLinks button {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: var(--cursor-pointer);
+  font-size: var(--font-size)-0.12rem;
+  padding: 0;
+}
+
+.navLinks button:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 750px) {
+  .footer {
+    overflow-y: scroll;
+    z-index: 10;
+  }
+  .description,
+  .copyright {
+    font-size: var(--font-size)-0.12rem;
+  }
+  .copyright {
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 751px) {
+  .description,
+  .copyright {
+    font-size: var(--font-size)-0.12rem;
+  }
+  .copyright {
+    padding: 0 0 0 0;
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .description,
+  .copyright {
+    font-size: var(--font-size)-0.25rem;
+  }
+  .copyright {
+    padding: 0;
+    align-items: flex-end;
+  }
+}
+
+@media (min-width: 1361px) {
+  .description,
+  .copyright {
+    font-size: var(--font-size)-0.25rem;
+  }
+  .copyright {
+    padding-bottom: 0.5rem;
+    align-items: flex-end;
+  }
+  .description {
+    margin-top: 0;
+  }
+}
