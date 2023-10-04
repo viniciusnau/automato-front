@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Snackbar.module.css";
 import { MdErrorOutline } from "react-icons/md";
-import { handleTypeService } from "../Consts";
+import { snackbarConsts } from "../Consts";
 
 interface iSnackbar {
-  type: keyof typeof handleTypeService;
+  type: keyof typeof snackbarConsts;
   setSnackbarType?: any;
 }
 
@@ -30,14 +30,13 @@ const Snackbar: React.FC<iSnackbar> = ({ type, setSnackbarType }) => {
         <div className={styles.title}>
           <MdErrorOutline
             size={24}
-            color={handleTypeService[type].color}
+            color={snackbarConsts[type].color}
             className={styles.icon}
           />
-          <h3 className={styles.text}>{handleTypeService[type].title}</h3>
+          <h3 className={styles.text}>{snackbarConsts[type].title}</h3>
         </div>
-        <p className={styles.description}>
-          {handleTypeService[type].description}
-        </p>
+
+        <p className={styles.description}>{snackbarConsts[type].description}</p>
       </div>
     </div>
   );

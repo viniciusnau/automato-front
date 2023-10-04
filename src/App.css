@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
+:root {
+  --font-size: 1rem;
+  --cursor-pointer: pointer;
+  --cursor-not-allowed: not-allowed;
+  --cursor-default: default;
+  --cursor-text: text;
 }
 
-.App-logo {
-  height: 40vmin;
+body {
+  margin: 0;
+}
+
+div[class*="Calendar__day"],
+button[class*="Calendar__yearText"],
+button[class*="Calendar__monthText"],
+button[class*="Calendar__yearSelectorText"],
+button[class*="Calendar__monthSelectorItemText"],
+button[class*="Calendar__monthArrowWrapper"] {
+  cursor: var(--cursor-pointer) !important;
+}
+
+.App {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.AppBody {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.cursor {
+  background-image: url(./Assets/pointer.png);
+  display: flex;
+  position: fixed;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin: 0.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  z-index: 10000;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.invert-colors {
+  filter: invert(70%);
+}
+
+.grayscale {
+  filter: grayscale(100%);
+}
+
+@media screen and (min-width: 1800px) {
+  .App {
+    background: linear-gradient(
+      0deg,
+      rgba(204, 34, 41, 0.1516981792717087) 0%,
+      rgba(255, 255, 255, 1) 17.5%,
+      rgba(159, 197, 77, 0.14609593837535018) 100%
+    );
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media screen and (max-width: 1799px) {
+  .App {
+    background: linear-gradient(
+      270deg,
+      rgba(204, 34, 41, 0.1516981792717087) 0%,
+      rgba(255, 255, 255, 1) 17.5%,
+      rgba(159, 197, 77, 0.14609593837535018) 100%
+    );
   }
 }

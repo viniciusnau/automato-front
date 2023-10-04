@@ -1,0 +1,245 @@
+@import "../../colors.css";
+
+.content {
+  margin: 0;
+}
+
+.container {
+  margin: 0 auto;
+  border: 4px solid #f0f0f0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 4px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerTable {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin: 0 0 0.75rem 1rem;
+}
+
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  font-size: var(--font-size);
+}
+
+.columnHeader {
+  flex: 1;
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.tableBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.tableRow {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  align-items: center;
+  padding: 0.25rem 0;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem 0;
+}
+
+.tableCell {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.customPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.customPagination li {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+}
+
+.backButton,
+.downloadButton {
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--first-button-color);
+  box-shadow: 0 10px 10px -10px var(--shadow-color);
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5rem;
+  background-color: var(--first-button-color);
+  box-shadow: 0 10px 10px -10px var(--shadow-color);
+}
+
+.downloadButton {
+  border-radius: 5rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem 0.75rem 0;
+  box-shadow: 0 10px 10px -10px var(--shadow-color);
+}
+
+.backButton {
+  margin: 0 1rem;
+}
+
+.button:hover,
+.backButton:hover,
+.downloadButton:hover {
+  background-color: var(--first-button-color-hover);
+}
+
+.button:disabled,
+.backButton:disabled,
+.downloadButton:disabled {
+  background-color: var(--first-button-color-disabled);
+  cursor: var(--cursor-default);
+}
+
+.tableRow:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 750px) {
+  .content {
+    width: 80vw;
+    margin: 0 auto;
+  }
+
+  .headerTable {
+    font-size: var(--font-size)-0.15rem;
+  }
+
+  .columnTitle,
+  .tableCell,
+  .backButton,
+  .currentPage,
+  .empty {
+    font-size: var(--font-size)-0.3rem;
+  }
+
+  .button,
+  .downloadButton {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+  }
+
+  .backButton {
+    width: 4rem;
+    height: 2rem;
+    padding: 0;
+  }
+}
+
+@media (min-width: 751px) {
+  .content {
+    width: 80vw;
+  }
+
+  .headerTable,
+  .currentPage {
+    font-size: var(--font-size) + 0.2rem;
+  }
+
+  .columnTitle,
+  .tableCell,
+  .backButton,
+  .empty {
+    font-size: var(--font-size);
+  }
+
+  .button,
+  .downloadButton {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .backButton {
+    width: 5rem;
+    height: 2.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content {
+    width: 80vw;
+    max-width: 800px;
+  }
+
+  .headerTable {
+    font-size: var(--font-size) + 0.25rem;
+  }
+
+  .columnTitle,
+  .tableCell,
+  .backButton,
+  .currentPage,
+  .empty {
+    font-size: var(--font-size);
+  }
+
+  .button,
+  .downloadButton {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .backButton {
+    width: 5rem;
+    height: 2.75rem;
+  }
+}

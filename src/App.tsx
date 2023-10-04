@@ -7,6 +7,9 @@ import Header from "./Components/Header/Header";
 import Login from "./Pages/Login/Login";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import { ProtectedRoute } from "./Auth/ProtectedRoute";
+import Home from "./Pages/Home/Home";
+import History from "./Pages/History/History";
+import Visualization from "./Pages/Visualization/Visualization";
 
 function App() {
   const cursorRef = useRef<HTMLDivElement | null>(null);
@@ -75,13 +78,26 @@ function App() {
         <Header />
         <main>
           <Routes>
-            {/* <Route path="/" element={<Home />} /> */}
+            <Route
+              path="/"
+              element={<ProtectedRoute Component={Home} path="/" />}
+            />
             <Route path="/login" element={<Login />} />
-            <Route path="/resetar-senha" element={<ResetPassword />} />
+            <Route path="/alterar-senha" element={<ResetPassword />} />
+            <Route
+              path="/historico"
+              element={<ProtectedRoute Component={History} path="/historico" />}
+            />
             {/* <Route
-              path="/status"
-              element={<ProtectedRoute Component={Status} path="/status" />}
+              path="/visualizacao"
+              element={
+                <ProtectedRoute
+                  Component={Visualization}
+                  path="/visualizacao"
+                />
+              }
             /> */}
+            <Route path="/visualizacao" element={<Visualization />} />
           </Routes>
         </main>
         <A11y

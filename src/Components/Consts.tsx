@@ -1,4 +1,4 @@
-export const handleTypeService = {
+export const snackbarConsts = {
   success: {
     title: "Requisição feita com sucesso!",
     description: "Requisição feita com sucesso!",
@@ -53,89 +53,4 @@ export const handleTypeService = {
       "Todos os campos com * devem ser preenchidos, juntamente com o arquivo em formato .docx.",
     color: "#ff6464",
   },
-};
-
-export const ptLocale = {
-  months: [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
-  ],
-
-  weekDays: [
-    {
-      name: "Domingo",
-      short: "D",
-      isWeekend: true,
-    },
-    {
-      name: "Segunda-feira",
-      short: "S",
-    },
-    {
-      name: "Terça-feira",
-      short: "T",
-    },
-    {
-      name: "Quarta-feira",
-      short: "Q",
-    },
-    {
-      name: "Quinta-feira",
-      short: "Q",
-    },
-    {
-      name: "Sexta-feira",
-      short: "S",
-    },
-    {
-      name: "Sábado",
-      short: "S",
-      isWeekend: true,
-    },
-  ],
-
-  weekStartingIndex: 0,
-
-  getToday(gregorainTodayObject: any) {
-    return gregorainTodayObject;
-  },
-
-  toNativeDate(date: any) {
-    return new Date(date.year, date.month - 1, date.day);
-  },
-
-  getMonthLength(date: any) {
-    return new Date(date.year, date.month, 0).getDate();
-  },
-
-  transformDigit(digit: any) {
-    return digit;
-  },
-
-  nextMonth: "Próximo Mês",
-  previousMonth: "Mês Anterior",
-  openMonthSelector: "Abrir Selecionador de Mês",
-  openYearSelector: "Abrir Selecionador de Ano",
-  closeMonthSelector: "Fechar Selecionador de Mês",
-  closeYearSelector: "Fechar Selecionador de Ano",
-  defaultPlaceholder: "Selecionar...",
-
-  from: "de",
-  to: "até",
-
-  digitSeparator: ",",
-
-  yearLetterSkip: 0,
-
-  isRtl: false,
 };
