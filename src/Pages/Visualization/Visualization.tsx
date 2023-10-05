@@ -1,40 +1,41 @@
 import styles from "./Visualization.module.css";
 import Button from "../../Components/Forms/Button";
 
-interface iVisualization {
-  data?: {
-    result: string;
-    uncertain_words: [{ word: string; minute: number; second: number }];
-  };
-}
+// interface iVisualization {
+//   data?: {
+//     result: string;
+//     uncertain_words: [{ word: string; minute: number; second: number }];
+//   };
+// }
 
 const Visualization = () =>
   // { data }: iVisualization
   {
     const renderHighlightedText = () => {
       const { result, uncertain_words } = {
-        result: "isso é um texto",
+        result:
+          "isso é um texto isso é um texto isso é um texto isso é um texto isso é um textoisso é um texto isso é um texto isso é um texto isso é um texto isso é um textoisso é um texto isso é um texto isso é um texto isso é um texto isso é um texto",
         uncertain_words: [{ word: "isso", minute: 1, second: 3 }],
       };
 
       const words = result.split(" ");
 
+      const uncertainWordsSet = new Set(
+        uncertain_words.map((word) => word.word)
+      );
+
       return words.map((word, index) => {
-        const isUncertain = uncertain_words.some(
-          (uncertainWord) => uncertainWord.word === word
-        );
+        const isUncertain = uncertainWordsSet.has(word);
 
         if (isUncertain) {
+          uncertainWordsSet.delete(word);
           return (
-            <>
-              <span key={index} className={styles.uncertain}>
-                {word}
-              </span>
-              <a> </a>
-            </>
+            <p key={index} className={styles.uncertain}>
+              {word + " "}
+            </p>
           );
         } else {
-          return <span key={index}>{word + " "}</span>;
+          return <p key={index}>{word + " "}</p>;
         }
       });
     };
@@ -44,7 +45,9 @@ const Visualization = () =>
         <div className={styles.modal}>
           <Button className={styles.button}>Return</Button>
         </div>
-        <div className={styles.text}>{renderHighlightedText()}</div>
+        <div className={styles.textContainer}>
+          <div className={styles.text}>{renderHighlightedText()}</div>
+        </div>
       </div>
     );
   };
