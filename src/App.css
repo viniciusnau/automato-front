@@ -53,6 +53,23 @@ button[class*="Calendar__monthArrowWrapper"] {
   filter: grayscale(100%);
 }
 
+::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--second-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 @media screen and (min-width: 1800px) {
   .App {
     background: linear-gradient(

@@ -6,7 +6,7 @@ export const ProtectedRoute: React.FC<{
   Component: React.FC<any>;
   path: any;
 }> = ({ Component, ...rest }) => {
-  return isLoggedIn() ? <Component {...rest} /> : <Navigate to="/" />;
+  return isLoggedIn() ? <Component {...rest} /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;
