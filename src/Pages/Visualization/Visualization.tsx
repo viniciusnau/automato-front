@@ -16,7 +16,7 @@ const Visualization = () =>
     const navigate = useNavigate();
     const data = {
       result:
-        "Almir. Rogério Vaz Boa tarde, Boa tarde. Então? Almiro O senhor tá pretendendo do Capi aqui uma área que o senhor teria comprado de W W e Rosane PA? Ah, o senhor e a sua esposa na rua? Prefeito, Rolan É isso, né? Uma área de quatrocentos e oitenta e dois pra vinte metros quadrados. Isso isso isso. O senhor comprou isso, eh o primeiro. O seu V amor e a dona Rosane são o que seus pai? E mãe, pai e mãe isso. O senhor tem outros irmãos. Tem uma irmã casada, solteira, casada, casada, Seus pais tem outros bens além desse que tá sendo, Usa o capítulo aqui não, não, não é o único bem E a irmã concorda que tivesse vendido isso aqui, pro Senhor naquela época, hein. Qual o nome dela da minha irmã? É Thaisa? Fernanda Vete. E ela é casada logicamente. E ela também concorda com isso, hein? Ah, aqui consta que o senhor teria comprado esse em dois mil e seis. É isso isso foi um contrato verbal, é um contrato, Não, não. Depois, fizeram um contrato em dois mil e dez, Mas dois mil e dez foi de boca mesmo, né? Foi na época que o senhor resolveu fazer a casa ali do lado? É então começou a construir a casa em dois mil e seis, porque a planta é um pouco mais tarde, né, não a Casa! Comecei a construir em dois mil e dez. Ah, então, tá aqui. A planta é dois mil e nove, então o senhor fez aqui em dois mil e dez. É é isso, é o seu pai, o senhor comprou, ou o seu pai? Deu pro senhor. Disse ali não foi comprado comprado? Pagou, quanto lembra dez mil? Acho que foi dez mil. É esse senhor comprou de Boca. Por que que resolveram depois fazer o contrato lá em dois mil e dez, que daí eu queria começar a construir? Daí eu fiquei com com medo, né? Eu queria fazer um contrato pra ter uma garantia, né? Tá, e o senhor também precisou juntar esse contrato com o município pra aprovar a construção. E eu fiz a planta depois da casa, mas não foi no não a planta o senhor fez antes. E a planta que o senhor juntou aqui é anterior. Eu, se não me engano, aqui, a planta que o senhor juntou, deixa eu dar uma olhada aqui tava olhando hoje de manhã A planta é de fevereiro de dois mil e nove aqui esse contrato aqui é de outubro de dois mil e dez, então teve que juntar esse contrato lá no município também pra sim, por questão de ligar a energia também? Ah, sim, Então tá, e como não dava duas escrituras no no mesmo chão, daí tinha que ter um contrato pra poder ligar a energia também, e não dava pra desmembrar isso. Eu até tentei, mas aí de encaminhamento na prefeitura, só que daí não não foi encontrado o vizinho do da esquerda, né não, não foi encontrado ele pra, Foi o que eles me passaram na prefeitura, que eu não consegui o de desmembramento? Foi feito, o desmembramento porque não deu pra fazer desmembramento da prefeitura porque um dos vizinhos estava no local. Incerto é isso eh ninguém, não, não tem conhecimento desse senhor dele. Ele anda. Não é do José Virgílio e da dona Nelsa. É isso isso. Ah, então, tá. Por que que a sua irmã não assinou junto? Nesse contrato, ela era de menor? Até é, era de menor. Ah, na época eu era menor isso agora. A maior tá casada, né? Daí hein, Tá, então tá bom, O senhor construiu a casa lá em dois mil e dez. É isso isso desde então, Ali é a área urbana também, né. Área urbana Então tá? Ah, pelo que eu vi fotos ali da casa da sua casa. É aquela amarela que tá as fotos, É isso isso. Tá tudo cercado ali, tudo cercado com o seu pai, ele tem um muro, né? A sua é amarela e deixa eu ver. Se tem aqui, não dá bem pra ver a o seu pai é aquela acho que é branca, que tá do lado esquerdo ali de quem olha a rua é isso, né Isso então tá bom, como os vizinhos não tem com o seu pai, não tem crença com os vizinhos também. Não. Naquele outro lote vago ali, que tem duas Palmeiras ali não, esse aí que é desse pessoal que tá em isso, Esse do seu. O Virgílio que a gente não, não tem conhecimento dele e isso não tem voo nenhum. Então com ele e dos fundos é com quem ali os fundos, É com o Rio, Daí passa Ribeirão, mas tá, então Tá bom, Ah, Doutor! André Tem alguma pergunta Sim, Ciência! Eh o senhor conhece, chegou a conhecer esse seu José Virgílio e a do Denilson, na não. A ali no no terreno não mora ninguém no terreno deles? Não, não tem nada. Até quem mantém limpo é o meu pai. Mas não, não tem ninguém, nunca vi essa gente. Nem meu pai não conhece eles e, antes de do terreno do seu pai, eh dele com ele, comprou de quem O senhor lembra, sabe Ah, ele comprou do vizinho que mora do lado de cima dele. Não sabe se esse terreno de vocês um dia pertenceu ao seu José Virgílio Ah, não tenho esse conhecimento, não certo. Sem mais é na verda. Na verdade, a matrícula tem. Ele pertenceu antigamente a José Virgílio, que vendeu no domingo sábio Martins, e daí vendeu pro seu Valmor Isso Mas gosto, Não. Obrigado, Não estou me ouvindo Ministério Público, Alguma pergunta Quem há algum documento nos autos comprovando a concordância da irmã com a ação do Quer. Que eu saiba? Não, né? Toca, juntou algum documento da irmã, não amor. Não, não há nenhum documento nesse sentido, doutor, porque é que ela não foi chamada a hoje Eu tô é, eu tava perguntando pro pro autor, o senhor sabe que que a sua irmã não veio no processo? Não não, sem problema. E uma última pergunta si, exatamente se seria um três registro de morte. E ele teria alegado na prefeitura que disseram pro Senhor que não podia fazer o parcelamento ali porque o vizinho não tava pra concordar. Isso não foi encontrado, ele não. Mas na prefeitura disseram que daí não era possível. O parcelamento é daí, não conseguiam fazer, não foi dado em encaminhamento, daí pra frente, daí tem mais. Então tá nada mais.",
+        "Almir[0.009, 0.3, 0.451] Rogério Vaz[0.75, 1.049, 0.794] Boa tarde Boa tarde Então[3.289, 3.46, 0.699] Almiro[3.47, 3.779, 0.372] O senhor tá pretendendo do[4.869, 4.98, 0.567] Capi[4.989, 5.34, 0.653] aqui uma área que o senhor teria comprado de W[7.199, 7.38, 0.109] W[7.389, 7.73, 0.076] e[7.739, 8.05, 0.681] Rosane[8.06, 9.88, 0.542] PA[9.89, 10.72, 0.253] Ah[10.729, 10.739, 0.448] o senhor e a sua esposa na rua Prefeito Rolan[16.639, 16.68, 0.698] É isso né Uma área de quatrocentos e oitenta e dois pra vinte metros quadrados Isso isso[22.76, 23.569, 0.299] isso O senhor comprou isso eh[25.559, 25.569, 0.732] o primeiro O seu V[28.709, 28.77, 0.791] amor[28.78, 29.18, 0.611] e a dona Rosane são o que[30.239, 30.399, 0.486] seus pai E mãe pai e mãe isso O senhor tem outros irmãos Tem uma[36.36, 36.439, 0.784] irmã[36.45, 37.27, 0.674] casada solteira casada casada Seus pais tem[42.419, 42.61, 0.533] outros bens além desse que tá sendo Usa[45.139, 45.169, 0.531] o[45.18, 45.25, 0.638] capítulo[45.259, 45.68, 0.596] aqui não não não é o único bem E a irmã concorda que tivesse vendido isso aqui pro Senhor[53.86, 54.009, 0.745] naquela época hein[55.189, 55.709, 0.648] Qual o nome dela da minha irmã É[62.2, 62.88, 0.25] Thaisa[62.889, 63.61, 0.266] Fernanda Vete[64.449, 65.739, 0.028] E ela é casada logicamente E ela também concorda com isso hein[72.279, 72.3, 0.255] Ah aqui consta que o senhor teria comprado esse em dois mil e seis É isso isso foi um[80.41, 80.5, 0.679] contrato verbal é um contrato Não não Depois fizeram um contrato em dois mil e dez Mas dois mil e dez[88.15, 89.26, 0.024] foi de boca mesmo né Foi na época que o senhor resolveu fazer a casa ali do lado É[95.73, 96.54, 0.778] então[98.379, 98.55, 0.503] começou a construir a casa em dois mil e seis porque a planta é um pouco mais tarde né não a Casa Comecei a construir em dois mil e dez Ah então tá aqui A planta é dois mil e nove então o[107.68, 107.69, 0.607] senhor[107.699, 107.849, 0.723] fez aqui[108.04, 108.279, 0.297] em[108.29, 108.309, 0.322] dois mil e dez É[108.93, 109.059, 0.257] é isso é[109.879, 110.33, 0.792] o seu pai o senhor comprou ou o[112.919, 112.93, 0.39] seu pai Deu pro senhor Disse[113.839, 113.989, 0.501] ali não foi comprado comprado Pagou quanto lembra dez mil Acho que foi dez mil É[121.48, 122.209, 0.704] esse senhor comprou de Boca Por[124.29, 124.5, 0.782] que[124.51, 124.68, 0.623] que resolveram depois fazer o contrato lá em dois mil e dez que[129.419, 129.509, 0.691] daí[129.52, 129.55, 0.716] eu queria começar a construir Daí eu fiquei com com medo né Eu[132.24, 132.309, 0.742] queria fazer um contrato pra ter uma garantia né Tá e[139.399, 140.57, 0.344] o[140.58, 141.85, 0.758] senhor também precisou[142.229, 142.57, 0.788] juntar esse contrato com[143.539, 143.57, 0.326] o[143.58, 143.619, 0.649] município pra[144.1, 144.21, 0.637] aprovar a construção E eu fiz a planta depois da casa mas não foi no[149.729, 150.71, 0.629] não a planta o[151.33, 151.38, 0.788] senhor fez antes E[152.169, 152.179, 0.395] a planta que o senhor juntou aqui é anterior",
     };
 
     const handleCopyClick = () => {
@@ -24,34 +24,19 @@ const Visualization = () =>
     };
 
     const renderHighlightedText = () => {
-      const { uncertain_words } = {
-        uncertain_words: [
-          { word: "rogério", minute: 1, second: 3 },
-          { word: "vaz", minute: 1, second: 3 },
-          { word: "boa", minute: 1, second: 3 },
-        ],
-      };
-
-      const words = data.result.toLowerCase().split(" ");
-      const uncertainWordsArray = uncertain_words.map(
-        (content) => content.word
-      );
-
+      const words = data.result.toLowerCase().split(/\s+/); // Split the text into words
+      const regex = /\[\d+(\.\d+)(,\s*\d+(\.\d+))*\]/;
       return words.map((content, index) => {
-        const isUncertain = uncertainWordsArray.includes(content);
-
+        const isUncertain = regex.test(content);
+        console.log("isUncertain:", isUncertain);
         if (isUncertain) {
-          uncertainWordsArray.splice(uncertainWordsArray.indexOf(content), 1);
           return (
-            <>
-              <p key={index} className={styles.uncertain}>
-                {content}
-              </p>
-              <p> </p>
-            </>
+            <span key={index} className={styles.uncertain}>
+              {content}
+            </span>
           );
         } else {
-          return <p key={index}>{content + " "}</p>;
+          return <span key={index}>{content + " "}</span>;
         }
       });
     };
