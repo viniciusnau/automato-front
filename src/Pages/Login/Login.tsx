@@ -85,7 +85,7 @@ const Login = () => {
             value={form.password}
           />
         </div>
-        <a href="/resetar-senha" className={styles.forgotPassword}>
+        <a href="/alterar-senha" className={styles.forgotPassword}>
           Esqueceu a senha?
         </a>
         <div className={styles.formButton}>

@@ -78,3 +78,30 @@
 .button:disabled {
   background-color: var(--first-button-color-disabled);
 }
+
+@media (max-width: 750px) {
+  .title {
+    font-size: 1.2rem;
+  }
+  .label {
+    font-size: 0.8rem;
+  }
+  .input {
+    width: 15rem;
+  }
+}
+
+@media (min-width: 751px) {
+  .title {
+    font-size: 1.5rem;
+  }
+  .label {
+    font-size: 1rem;
+  }
+  .input {
+    width: 17.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+}

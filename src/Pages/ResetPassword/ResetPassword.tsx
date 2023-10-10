@@ -14,9 +14,9 @@ const ResetPassword = () => {
   const [form, setForm] = useState<any>({
     email: "",
   });
-  const { data, error, loading } = useSelector(
-    (state: any) => state.resetPassword
-  );
+  // const { data, error, loading } = useSelector(
+  //   (state: any) => state.resetPassword
+  // );
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
     setForm((prev: any) => ({
@@ -29,37 +29,34 @@ const ResetPassword = () => {
     // dispatch<any>(fetchResetPassword(form));
   };
 
-  if (loading)
-    return (
-      <div
-        style={{
-          display: "flex",
-          height: "50vw",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Loading size="5rem" type="spin" />
-      </div>
-    );
+  // if (loading)
+  //   return (
+  //     <div className={styles.loading}>
+  //       <Loading size="5rem" type="spin" />
+  //     </div>
+  //   );
 
   return (
     <div className={styles.container}>
-      {error && <Snackbar type="resetError" />}
-      {data.message && <Snackbar type="resetSuccess" />}
+      {/* {error && <Snackbar type="resetError" />}
+      {data.message && <Snackbar type="resetSuccess" />} */}
       <div
         className={styles.form}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
       >
         <h2 className={styles.title}>Redefinir Senha</h2>
-        <Input
-          type="email"
-          className={styles.input}
-          placeholder="Seu endereço de e-mail"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-        />
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="password">
+            Email:
+          </label>
+          <Input
+            type="email"
+            className={styles.input}
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+          />
+        </div>
         <Button
           className={styles.button}
           onClick={handleSubmit}

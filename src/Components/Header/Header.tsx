@@ -64,7 +64,7 @@ const Header = () => {
                         <li
                           onClick={() => {
                             setIsDropdownOpen(!isDropdownOpen);
-                            navigate("/resetar-senha");
+                            navigate("/alterar-senha");
                           }}
                         >
                           <span
@@ -113,7 +113,7 @@ const Header = () => {
                   </span>
                   <span
                     className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/resetar-senha")}
+                    onClick={() => navigate("/alterar-senha")}
                   >
                     Redefinir Senha
                   </span>
