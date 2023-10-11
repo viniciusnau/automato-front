@@ -24,12 +24,13 @@
 
 .buttonContainer {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .copy {
-  width: 3rem;
+  margin: 0.5rem;
   border-radius: 0.75rem;
+  cursor: pointer;
 }
 
 .text {
