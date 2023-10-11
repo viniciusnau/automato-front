@@ -22,21 +22,35 @@ const Visualization = () =>
         {
           word: "elit,",
           previous_words: "consectetur adipiscing",
-          confidence: 0.256,
+          confidence: 0,
           start_time: 1,
           end_time: 3,
         },
         {
-          word: "dolor",
-          previous_words: "lorem ipsum",
-          confidence: 0.256,
+          word: "eiusmod",
+          previous_words: "sed do",
+          confidence: 0.25,
           start_time: 1,
           end_time: 3,
         },
         {
-          word: "dolor",
-          previous_words: "aute irure",
-          confidence: 0.256,
+          word: "labore",
+          previous_words: "incididunt ut",
+          confidence: 0.5,
+          start_time: 1,
+          end_time: 3,
+        },
+        {
+          word: "aliqua",
+          previous_words: "dolore magna",
+          confidence: 0.75,
+          start_time: 1,
+          end_time: 3,
+        },
+        {
+          word: "veniam",
+          previous_words: "ad minim",
+          confidence: 0.1,
           start_time: 1,
           end_time: 3,
         },
@@ -68,7 +82,6 @@ const Visualization = () =>
       const greenHex = green.toString(16).padStart(2, "0");
       const blueHex = blue.toString(16).padStart(2, "0");
 
-      console.log(`#${redHex}${greenHex}${blueHex}`);
       return `#${redHex}${greenHex}${blueHex}`;
     }
 
@@ -89,7 +102,14 @@ const Visualization = () =>
         return (
           <React.Fragment key={index}>
             <p> </p>
-            <p className={`${matchingUncertainWord && styles.uncertain}`}>
+            <p
+              className={`${matchingUncertainWord && styles.uncertain}`}
+              style={{
+                backgroundColor: matchingUncertainWord
+                  ? decimalToHexColor(matchingUncertainWord.confidence)
+                  : "transparent", // Set a default value if matchingUncertainWord is not found
+              }}
+            >
               {content}
             </p>
           </React.Fragment>
