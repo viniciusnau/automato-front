@@ -46,6 +46,31 @@
   border-radius: 0.25rem;
   padding: 0.35rem;
 }
+
+.tooltip {
+  position: absolute;
+  background-color: var(--second-button-color);
+  padding: 1rem;
+  border-radius: 0.35rem;
+  z-index: 1000;
+  height: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 0.75rem 0 0 0;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  line-height: 1.25rem;
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+}
+
 @media (max-width: 750px) {
   .container {
     display: block;
