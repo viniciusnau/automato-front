@@ -44,7 +44,7 @@ export const {
 export default transcriptionsSlice.reducer;
 
 export const fetchTranscriptions =
-  (page: string, headers: any) =>
+  (page: string) =>
   async (
     dispatch: (arg0: {
       payload: any;

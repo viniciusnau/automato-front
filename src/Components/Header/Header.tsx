@@ -82,7 +82,7 @@ const Header = () => {
                           <span
                             className={`${styles.route} ${styles.modalItem}`}
                           >
-                            Agendar
+                            Transcrever
                           </span>
                         </li>
                       </>
@@ -121,7 +121,7 @@ const Header = () => {
                     className={`${styles.route} ${styles.logout}`}
                     onClick={() => navigate("/status")}
                   >
-                    Agendar
+                    Transcrever
                   </span>
                 </>
               )}
