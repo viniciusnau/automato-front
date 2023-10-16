@@ -13,7 +13,7 @@ const services = {
       .get(
         `${PATH.base}/transcriptions/${
           page ? `?page=${page}` : ""
-        }&?is_done=true`,
+        }&is_done=true`,
         header
       )
       .then((data: any) => {
