@@ -84,8 +84,21 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/alterar-senha" element={<ResetPassword />} />
-            <Route path="/transcricoes" element={<History />} />
-            <Route path="/visualizacao" element={<Visualization />} />
+            <Route
+              path="/transcricoes"
+              element={
+                <ProtectedRoute Component={History} path="/transcricoes" />
+              }
+            />
+            <Route
+              path="/visualizacao"
+              element={
+                <ProtectedRoute
+                  Component={Visualization}
+                  path="/visualizacao"
+                />
+              }
+            />
           </Routes>
         </main>
         <A11y
