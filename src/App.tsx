@@ -84,7 +84,7 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/alterar-senha" element={<ResetPassword />} />
-            <Route path="/historico" element={<History />} />
+            <Route path="/transcricoes" element={<History />} />
             <Route path="/visualizacao" element={<Visualization />} />
           </Routes>
         </main>

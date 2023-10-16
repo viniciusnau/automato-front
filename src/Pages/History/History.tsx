@@ -32,11 +32,12 @@ const History = () => {
 
     const columns = [
         { title: "Nome", property: "name" },
-        { title: "Codigo", property: "code" },
+        { title: "Código", property: "code" },
         { title: "Data", property: "created_at" }
     ];
 
     const data = getTranscriptions?.data?.results?.map((item: any) => {
+        console.log(item);
         return {
             name: item.name,
             date: item.date,
