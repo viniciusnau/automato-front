@@ -1,14 +1,13 @@
 import axios from "axios";
 import { PATH } from "../PATH";
 
-const header = {
-  headers: {
-    Authorization: "Basic " + sessionStorage.getItem("credentials"),
-  },
-};
-
 const services = {
   getTranscriptions: async (page: string) => {
+    const header = {
+      headers: {
+        Authorization: "Basic " + sessionStorage.getItem("credentials"),
+      },
+    };
     return axios
       .get(
         `${PATH.base}/transcriptions/${
