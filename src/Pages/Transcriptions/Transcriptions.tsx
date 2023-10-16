@@ -10,7 +10,6 @@ const Transcriptions = () => {
     const [page, setPage] = useState<number>(1);
     const [isDispatched, setIsDispatched] = useState<boolean>(false);
     const [isResponsive, setIsResponsive] = useState<boolean>(false);
-    const [snackbarType, setSnackbarType] = useState<string | null>(null);
 
     function formatDate(dateString: string) {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' } as Intl.DateTimeFormatOptions;
@@ -42,7 +41,6 @@ const Transcriptions = () => {
     ];
 
     const data = getTranscriptions?.data?.results?.map((item: any) => {
-        console.log(item);
         return {
             name: item.name,
             created_at: formatDate(item.created_at),
@@ -53,15 +51,15 @@ const Transcriptions = () => {
     return (
         <div className={styles.container}>
             <Table
-                title="Trancricoes"
+                title="Transcrições"
                 columns={columns}
                 data={data}
                 setPage={setPage}
                 page={page}
-                total={0}
-                isEmpty={false}
-                loading={false}
-                error={false}
+                total={getTranscriptions.data.count}
+                isEmpty={isDispatched && getTranscriptions?.data?.results?.length === 0}
+                loading={getTranscriptions.loading}
+                error={getTranscriptions.error}
             />
         </div>
     );

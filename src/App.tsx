@@ -84,7 +84,10 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/alterar-senha" element={<ResetPassword />} />
-            <Route path="/transcricoes" element={<Transcriptions />} />
+            <Route
+                path="/transcricoes"
+                element={<ProtectedRoute Component={Transcriptions} path="/transcricoes" />}
+            />
             <Route
               path="/visualizacao"
               element={
