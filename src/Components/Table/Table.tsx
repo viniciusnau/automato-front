@@ -3,8 +3,6 @@ import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
 import { MdDelete, MdDownload } from "react-icons/md";
-import services from "../../Services/services";
-import { useDispatch } from "react-redux";
 import Loading from "../Loading/Loading";
 
 interface TableProps {
@@ -13,10 +11,8 @@ interface TableProps {
   data: any;
   setPage: any;
   page: any;
-  downloadButton?: boolean;
   total?: number;
   isEmpty?: boolean;
-  isStatus?: boolean;
   loading?: boolean;
   error?: boolean;
 }
@@ -27,32 +23,14 @@ const Table: React.FC<TableProps> = ({
   data,
   setPage,
   page,
-  downloadButton,
   total,
   isEmpty,
-  isStatus,
   loading,
   error,
 }) => {
   const [currentPage] = useState<number>(1);
   const [isResponsive, setIsResponsive] = useState(false);
-  const dispatch = useDispatch();
 
-  const handleDownloadFile = (file: string) => {
-    const a = document.createElement("a");
-    a.href = file;
-    a.download = "downloadedFile.pdf";
-    a.click();
-  };
-
-  const handleDownloadTemplate = async () => {
-    const file_name = "DIÁRIO OFICIAL Modelo.docx";
-    const file = await services.downloadFiles(file_name);
-    const a = document.createElement("a");
-    a.href = file.data.url;
-    a.download = "template.pdf";
-    a.click();
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -121,15 +99,6 @@ const Table: React.FC<TableProps> = ({
     <div className={styles.content}>
       <div className={styles.header}>
         {title && <div className={styles.headerTable}>{title}</div>}
-        {downloadButton && (
-          <Button
-            className={styles.downloadButton}
-            onClick={handleDownloadTemplate}
-            alt="Baixar template"
-          >
-            <MdDownload size={isResponsive ? 18 : 24} />
-          </Button>
-        )}
       </div>
       <div className={styles.container}>
         <div className={styles.tableHeader}>
@@ -161,7 +130,7 @@ const Table: React.FC<TableProps> = ({
                           {column.property === "presigned_url" ? (
                             <Button
                               onClick={() =>
-                                handleDownloadFile(row[column.property])
+                                null
                               }
                               className={styles.button}
                             >
@@ -170,7 +139,6 @@ const Table: React.FC<TableProps> = ({
                           ) : column.property === "delete" ? (
                             <Button
                               onClick={() =>
-                                // dispatch<any>(fetchDeleteFile(row.delete))
                                 console.log("delete button clicked")
                               }
                               className={styles.button}
