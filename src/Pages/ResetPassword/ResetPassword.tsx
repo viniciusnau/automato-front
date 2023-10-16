@@ -39,7 +39,7 @@ const ResetPassword = () => {
   return (
     <div className={styles.container}>
       {error && <Snackbar type="resetError" />}
-      {/* {data.message && <Snackbar type="resetSuccess" />} */}
+      {data && <Snackbar type="resetSuccess" />}
       <div
         className={styles.form}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
