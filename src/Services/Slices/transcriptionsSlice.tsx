@@ -35,20 +35,28 @@ const transcriptionsSlice = createSlice({
   },
 });
 
-export const { getTranscriptions, getTranscriptionsSuccess, getTranscriptionsFailure } = transcriptionsSlice.actions;
+export const {
+  getTranscriptions,
+  getTranscriptionsSuccess,
+  getTranscriptionsFailure,
+} = transcriptionsSlice.actions;
 
 export default transcriptionsSlice.reducer;
 
-export const fetchTranscriptions = (page: string, headers: any) =>
+export const fetchTranscriptions =
+  (page: string, headers: any) =>
   async (
     dispatch: (arg0: {
       payload: any;
-      type: "transcriptions/getTranscriptions" | "transcriptions/getTranscriptionsSuccess" | "transcriptions/getTranscriptionsFailure";
+      type:
+        | "transcriptions/getTranscriptions"
+        | "transcriptions/getTranscriptionsSuccess"
+        | "transcriptions/getTranscriptionsFailure";
     }) => void
   ) => {
     dispatch(getTranscriptions());
     try {
-      const response = await services.getTranscriptions(page, headers);
+      const response = await services.getTranscriptions(page);
       dispatch(getTranscriptionsSuccess(response.data));
     } catch (err) {
       console.log("err: ", err);
