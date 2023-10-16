@@ -1,16 +1,21 @@
 import React, {useEffect, useState} from "react";
-import styles from "./History.module.css";
+import styles from "./Transcriptions.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import Table from "../../Components/Table/Table";
 import {fetchTranscriptions} from "../../Services/Slices/transcriptionsSlice";
 
-const History = () => {
+const Transcriptions = () => {
     const dispatch = useDispatch();
     const getTranscriptions = useSelector((state: any) => state.transcriptionsSlice);
     const [page, setPage] = useState<number>(1);
     const [isDispatched, setIsDispatched] = useState<boolean>(false);
     const [isResponsive, setIsResponsive] = useState<boolean>(false);
     const [snackbarType, setSnackbarType] = useState<string | null>(null);
+
+    function formatDate(dateString: string) {
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' } as Intl.DateTimeFormatOptions;
+        return new Date(dateString).toLocaleDateString('pt-BR', options);
+    }
 
     useEffect(() => {
         const handleResize = () => { setIsResponsive(window.innerWidth <= 750); };
@@ -25,7 +30,7 @@ const History = () => {
 
     useEffect(() => {
         dispatch<any>(
-            fetchTranscriptions(page.toString(), sessionStorage.getItem("credentials"))
+            fetchTranscriptions(page.toString())
         );
         setIsDispatched(true);
     }, [dispatch, page]);
@@ -40,11 +45,10 @@ const History = () => {
         console.log(item);
         return {
             name: item.name,
-            date: item.date,
+            created_at: formatDate(item.created_at),
             code: item.code
         };
     });
-
 
     return (
         <div className={styles.container}>
@@ -63,4 +67,4 @@ const History = () => {
     );
 };
 
-export default History;
+export default Transcriptions;

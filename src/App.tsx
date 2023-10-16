@@ -8,7 +8,7 @@ import Login from "./Pages/Login/Login";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import { ProtectedRoute } from "./Auth/ProtectedRoute";
 import Home from "./Pages/Home/Home";
-import History from "./Pages/History/History";
+import Transcriptions from "./Pages/Transcriptions/Transcriptions";
 import Visualization from "./Pages/Visualization/Visualization";
 
 function App() {
@@ -84,7 +84,7 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/alterar-senha" element={<ResetPassword />} />
-            <Route path="/transcricoes" element={<History />} />
+            <Route path="/transcricoes" element={<Transcriptions />} />
             <Route path="/visualizacao" element={<Visualization />} />
           </Routes>
         </main>
