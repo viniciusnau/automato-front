@@ -3,10 +3,10 @@ import Input from "../../Components/Forms/Input";
 import styles from "./ResetPassword.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../Components/Forms/Button";
-// import { fetchResetPassword } from "../../Services/Slices/resetPassword";
 import { handleKeyPress } from "../../Components/Helper";
 import Snackbar from "../../Components/Snackbar/Snackbar";
 import Loading from "../../Components/Loading/Loading";
+import { fetchResetPassword } from "../../Services/Slices/resetPassword";
 
 const ResetPassword = () => {
   const dispatch = useDispatch();
@@ -14,9 +14,9 @@ const ResetPassword = () => {
   const [form, setForm] = useState<any>({
     email: "",
   });
-  // const { data, error, loading } = useSelector(
-  //   (state: any) => state.resetPassword
-  // );
+  const { data, error, loading } = useSelector(
+    (state: any) => state.resetPassword
+  );
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
     setForm((prev: any) => ({
@@ -26,20 +26,20 @@ const ResetPassword = () => {
   };
 
   const handleSubmit = () => {
-    // dispatch<any>(fetchResetPassword(form));
+    dispatch<any>(fetchResetPassword(form));
   };
 
-  // if (loading)
-  //   return (
-  //     <div className={styles.loading}>
-  //       <Loading size="5rem" type="spin" />
-  //     </div>
-  //   );
+  if (loading)
+    return (
+      <div className={styles.loading}>
+        <Loading size="5rem" type="spin" />
+      </div>
+    );
 
   return (
     <div className={styles.container}>
-      {/* {error && <Snackbar type="resetError" />}
-      {data.message && <Snackbar type="resetSuccess" />} */}
+      {error && <Snackbar type="resetError" />}
+      {/* {data.message && <Snackbar type="resetSuccess" />} */}
       <div
         className={styles.form}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}

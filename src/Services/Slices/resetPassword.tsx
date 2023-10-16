@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import services from "../services";
 
 interface resetPasswordState {
-  data: any[];
+  data: any;
   loading: boolean;
   error: boolean;
 }
@@ -20,7 +20,7 @@ const resetPasswordSlice = createSlice({
     getResetPassword: (state) => {
       state.loading = true;
       state.error = false;
-      state.data = [];
+      state.data = null;
     },
     getResetPasswordSuccess: (state, actions) => {
       state.loading = false;
@@ -30,7 +30,7 @@ const resetPasswordSlice = createSlice({
     getResetPasswordFailure: (state) => {
       state.loading = false;
       state.error = true;
-      state.data = [];
+      state.data = null;
     },
   },
 });
@@ -57,9 +57,7 @@ export const fetchResetPassword =
     dispatch(getResetPassword());
     try {
       const response = await services.resetPassword(form);
-      dispatch(
-        getResetPasswordSuccess(response.data)
-      );
+      dispatch(getResetPasswordSuccess(response));
     } catch (err) {
       console.log("err: ", err);
       dispatch(getResetPasswordFailure());
