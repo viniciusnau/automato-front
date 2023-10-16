@@ -20,6 +20,24 @@ const services = {
       })
       .catch((err: any) => console.log(err));
   },
+  getTranscribe: async (page: string) => {
+    const header = {
+      headers: {
+        Authorization: "Basic " + sessionStorage.getItem("credentials"),
+      },
+    };
+    return axios
+        .get(
+            `${PATH.base}/transcriptions/${
+                page ? `?page=${page}` : ""
+            }&is_done=false`,
+            header
+        )
+        .then((data: any) => {
+          return data;
+        })
+        .catch((err: any) => console.log(err));
+  },
   login: async (credentials: { username: string; password: string }) => {
     const headers = {
       headers: {

@@ -76,7 +76,7 @@ const Header = () => {
                         <li
                           onClick={() => {
                             setIsDropdownOpen(!isDropdownOpen);
-                            navigate("/status");
+                            navigate("/transcrever");
                           }}
                         >
                           <span
@@ -119,7 +119,7 @@ const Header = () => {
                   </span>
                   <span
                     className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/status")}
+                    onClick={() => navigate("/transcrever")}
                   >
                     Transcrever
                   </span>
