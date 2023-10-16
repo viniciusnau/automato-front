@@ -130,7 +130,6 @@ const Visualization = () =>
 
         return (
           <React.Fragment key={index}>
-            <> </>
             <p
               className={`${matchUncertain && styles.uncertain}`}
               style={{
@@ -153,6 +152,7 @@ const Visualization = () =>
                 </span>
               )}
             </p>
+            <p> </p>
           </React.Fragment>
         );
       });
