@@ -22,6 +22,7 @@
     max-height: 18rem;
     margin: 3rem 0 0 0;
     height: auto;
+    flex-direction: row;
 }
 
 .fileContainer {

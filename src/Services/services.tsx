@@ -38,6 +38,19 @@ const services = {
         })
         .catch((err: any) => console.log(err));
   },
+  upload: async (body: FormData) => {
+    const header = {
+      headers: {
+        Authorization: "Basic " + sessionStorage.getItem("credentials"),
+      },
+    };
+    return axios
+        .post(PATH.base + "/transcribe/", body, header)
+        .then((response: any) => {
+          return response;
+        })
+        .catch((err: any) => console.log(err));
+  },
   login: async (credentials: { username: string; password: string }) => {
     const headers = {
       headers: {
