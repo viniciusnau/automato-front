@@ -21,14 +21,14 @@ const services = {
         })
         .catch((err: any) => console.log(err));
   },
-  login: async (page: string, credentials: { username: string; password: string }) => {
+  login: async (credentials: { username: string; password: string }) => {
     const headers = {
       headers: {
         Authorization: "Basic " + btoa(`${credentials.username}:${credentials.password}`),
       },
     };
     return axios
-      .get(`${PATH.base}/transcriptions/${page ? `?page=${page}` : ""}&?is_done=true`, headers)
+      .get(`${PATH.base}/transcriptions/?is_done=true`, headers)
       .then((data: any) => {
         if (credentials.username && credentials.password) {
           sessionStorage.setItem("username", credentials.username);

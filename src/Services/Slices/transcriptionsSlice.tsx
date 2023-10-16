@@ -1,18 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import services from "../services";
 
-interface MeState {
+interface TranscriptionState {
   data: any[];
   loading: boolean;
   error: boolean;
 }
 
-interface Body {
-  username: string;
-  password: string;
-}
-
-const initialState: MeState = {
+const initialState: TranscriptionState = {
   data: [],
   loading: false,
   error: false,
