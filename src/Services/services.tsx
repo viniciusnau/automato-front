@@ -48,6 +48,19 @@ const services = {
       })
       .catch((err: any) => console.log(err));
   },
+  getTranscript: async (id: string) => {
+    const header = {
+      headers: {
+        Authorization: "Basic " + sessionStorage.getItem("credentials"),
+      },
+    };
+    return axios
+      .get(`${PATH.base}/audio/?audio_id=${id}`, header)
+      .then((data: any) => {
+        return data;
+      })
+      .catch((err: any) => console.log(err));
+  },
 };
 
 export default services;
