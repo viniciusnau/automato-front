@@ -1,33 +1,33 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import services from "../services";
 
-interface PostState {
+interface UploadState {
   data: any[];
   loading: boolean;
   error: boolean;
 }
 
-const initialState: PostState = {
+const initialState: UploadState = {
   data: [],
   loading: false,
   error: false,
 };
 
-const postSlice = createSlice({
-  name: "post",
+const uploadSlice = createSlice({
+  name: "upload",
   initialState,
   reducers: {
-    getPost: (state) => {
+    getUpload: (state) => {
       state.loading = true;
       state.error = false;
       state.data = [];
     },
-    getPostSuccess: (state, action: PayloadAction<any>) => {
+    getUploadSuccess: (state, action: PayloadAction<any>) => {
       state.loading = false;
       state.error = false;
       state.data = action.payload;
     },
-    getPostFailure: (state) => {
+    getUploadFailure: (state) => {
       state.loading = false;
       state.error = true;
       state.data = [];
@@ -35,18 +35,18 @@ const postSlice = createSlice({
   },
 });
 
-export const { getPost, getPostSuccess, getPostFailure } = postSlice.actions;
+export const { getUpload, getUploadSuccess, getUploadFailure } = uploadSlice.actions;
 
-export const fetchPost = (formData: FormData) => async (dispatch: any) => {
-  dispatch(getPost());
+export const fetchUpload = (formData: FormData) => async (dispatch: any) => {
+  dispatch(getUpload());
   try {
     await services.upload(formData);
-    dispatch(getPostSuccess({ response: "Agendamento efetuado com sucesso" }));
+    dispatch(getUploadSuccess({ response: "Transcrição agendada com sucesso" }));
     window.location.reload();
   } catch (err) {
     console.log("err: ", err);
-    dispatch(getPostFailure());
+    dispatch(getUploadFailure());
   }
 };
 
-export default postSlice.reducer;
+export default uploadSlice.reducer;

@@ -6,7 +6,7 @@ import Input from "../../Components/Forms/Input";
 import {fetchTranscribe} from "../../Services/Slices/transcribeSlice";
 import {MdUpload} from "react-icons/md";
 import Button from "../../Components/Forms/Button";
-import {fetchPost} from "../../Services/Slices/uploadSlice";
+import {fetchUpload} from "../../Services/Slices/uploadSlice";
 
 const Transcribe: React.FC = () => {
     const dispatch = useDispatch();
@@ -35,13 +35,12 @@ const Transcribe: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         const formData = new FormData();
+        console.log(form.file);
         formData.append("file", form.file);
-        dispatch<any>(fetchPost(formData));
-        setForm({
-            file: File,
-        });
+        console.log(formData);
+        dispatch<any>(fetchUpload(formData));
+        setForm({file: File});
     };
 
     useEffect(() => {
