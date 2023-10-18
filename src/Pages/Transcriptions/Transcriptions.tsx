@@ -42,14 +42,29 @@ const Transcriptions: React.FC = () => {
     setIsDispatched(true);
   }, [dispatch, page]);
 
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch<any>(fetchTranscriptions(page.toString()));
+    setIsDispatched(true);
+  }, [dispatch, page]);
+
   const columns = [
     { title: "Nome", property: "name" },
     { title: "Código", property: "code" },
     { title: "Data", property: "created_at" },
+    { title: "Excluir", property: "delete" },
   ];
 
   const handleRowClick = (id: number) => {
-    navigate("/visualizacao", { state: id });
+    console.log("Clicked on transcription with ID:", id);
   };
 
   const data = getTranscriptions?.data?.results?.map((item: any) => {

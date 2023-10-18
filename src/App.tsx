@@ -10,6 +10,7 @@ import { ProtectedRoute } from "./Auth/ProtectedRoute";
 import Home from "./Pages/Home/Home";
 import Transcriptions from "./Pages/Transcriptions/Transcriptions";
 import Visualization from "./Pages/Visualization/Visualization";
+import Transcribe from "./Pages/Transcribe/Transcribe";
 
 function App() {
   const cursorRef = useRef<HTMLDivElement | null>(null);
@@ -87,6 +88,10 @@ function App() {
             <Route
                 path="/transcricoes"
                 element={<ProtectedRoute Component={Transcriptions} path="/transcricoes" />}
+            />
+            <Route
+                path="/transcrever"
+                element={<ProtectedRoute Component={Transcribe} path="/transcrever" />}
             />
             <Route
               path="/visualizacao"

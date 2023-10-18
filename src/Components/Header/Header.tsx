@@ -76,13 +76,25 @@ const Header = () => {
                         <li
                           onClick={() => {
                             setIsDropdownOpen(!isDropdownOpen);
-                            navigate("/status");
+                            navigate("/transcrever");
                           }}
                         >
                           <span
                             className={`${styles.route} ${styles.modalItem}`}
                           >
                             Transcrever
+                          </span>
+                        </li>
+                        <li
+                            onClick={() => {
+                              setIsDropdownOpen(!isDropdownOpen);
+                              navigate("/transcricoes");
+                            }}
+                        >
+                          <span
+                              className={`${styles.route} ${styles.modalItem}`}
+                          >
+                            Minhas Transcrições
                           </span>
                         </li>
                       </>
@@ -118,8 +130,14 @@ const Header = () => {
                     Redefinir Senha
                   </span>
                   <span
+                      className={`${styles.route} ${styles.logout}`}
+                      onClick={() => navigate("/transcricoes")}
+                  >
+                    Minhas Transcrições
+                  </span>
+                  <span
                     className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/status")}
+                    onClick={() => navigate("/transcrever")}
                   >
                     Transcrever
                   </span>
