@@ -55,6 +55,7 @@ export const fetchDeleteFile =
     try {
       await services.deleteFile(file);
       dispatch(deleteFileSuccess({ response: "Arquivo deletado com sucesso" }));
+      window.location.reload();
     } catch (err) {
       console.log("err: ", err);
       dispatch(deleteFileFailure());
