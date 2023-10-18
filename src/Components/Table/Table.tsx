@@ -4,6 +4,8 @@ import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
 import { MdDelete, MdDownload } from "react-icons/md";
 import Loading from "../Loading/Loading";
+import {useDispatch} from "react-redux";
+import { fetchDeleteFile } from "../../Services/Slices/deleteFileSlice";
 
 interface Column {
     title: string;
@@ -35,6 +37,7 @@ const Table: React.FC<TableProps> = ({
                                          error,
                                          onRowClick,
                                      }) => {
+    const dispatch = useDispatch();
     const [isResponsive, setIsResponsive] = useState(false);
 
     useEffect(() => {
@@ -128,7 +131,9 @@ const Table: React.FC<TableProps> = ({
                                                         </Button>
                                                     ) : column.property === "delete" ? (
                                                         <Button
-                                                            onClick={() => console.log("delete button clicked")}
+                                                            onClick={() => {
+                                                                dispatch<any>(fetchDeleteFile(row.id));
+                                                            }}
                                                             className={styles.button}
                                                         >
                                                             <MdDelete size={isResponsive ? 18 : 24} />

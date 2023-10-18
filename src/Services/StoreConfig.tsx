@@ -4,13 +4,15 @@ import resetPassword from "./Slices/resetPassword";
 import meSlice from "./Slices/meSlice";
 import transcribeSlice from "./Slices/transcribeSlice";
 import uploadSlice from "./Slices/uploadSlice";
+import deleteFileSlice from "./Slices/deleteFileSlice";
 
 const reducer = combineReducers({
   transcriptionsSlice,
   transcribeSlice,
   meSlice,
   resetPassword,
-  uploadSlice
+  uploadSlice,
+  deleteFileSlice,
 });
 
 export const store = configureStore({ reducer });

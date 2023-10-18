@@ -37,7 +37,8 @@ const Transcriptions: React.FC = () => {
     const columns = [
         { title: "Nome", property: "name" },
         { title: "Código", property: "code" },
-        { title: "Data", property: "created_at" }
+        { title: "Data", property: "created_at" },
+        { title: "Excluir", property: "delete" },
     ];
 
     const handleRowClick = (id: number) => {

@@ -71,6 +71,19 @@ const services = {
       })
       .catch((err: any) => console.log(err));
   },
+  deleteFile: async (file: string) => {
+    const header = {
+      headers: {
+        Authorization: "Basic " + sessionStorage.getItem("credentials"),
+      },
+    };
+    return axios
+        .get(`${PATH.base}/delete/?audio_id=${file}`, header)
+        .then((data: any) => {
+          return data;
+        })
+        .catch((err: any) => console.log(err));
+  },
   resetPassword: async (body: any) => {
     return axios
       .post(`${PATH.base}/password-reset/`, body)
