@@ -49,7 +49,6 @@ const Transcriptions: React.FC = () => {
   ];
 
   const handleRowClick = (id: number) => {
-    console.log("Clicked on transcription with ID:", id);
     navigate("/visualizacao", { state: id });
   };
 
