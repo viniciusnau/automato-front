@@ -64,7 +64,7 @@ const Transcriptions: React.FC = () => {
   ];
 
   const handleRowClick = (id: number) => {
-    console.log("Clicked on transcription with ID:", id);
+    navigate(`/visualizacao/${id}`);
   };
 
   const data = getTranscriptions?.data?.results?.map((item: any) => {
