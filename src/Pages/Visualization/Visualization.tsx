@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTranscript } from "../../Services/Slices/transcriptSlice";
+import Loading from "../../Components/Loading/Loading";
 
 const Visualization = () => {
   const dispatch = useDispatch();
@@ -35,20 +36,16 @@ const Visualization = () => {
     navigator.clipboard.writeText(data.transcript);
   };
 
-  function formatTime(milliseconds: number) {
-    var hours = Math.floor(milliseconds / (60 * 60 * 1000));
-    var divisor_for_minutes = milliseconds % (60 * 60 * 1000);
-    var minutes = Math.floor(divisor_for_minutes / (60 * 1000));
-    var divisor_for_seconds = divisor_for_minutes % (60 * 1000);
-    var seconds = Math.ceil(divisor_for_seconds / 1000);
-    var newSeconds =
-      seconds < 10 ? "0" + seconds.toString() : seconds.toString();
-    return (
-      (hours ? hours + ":" : "") +
-      (minutes < 10 ? "0" + minutes : minutes) +
-      ":" +
-      newSeconds
-    );
+  function formatTime(seconds: number) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = Math.round(seconds % 60);
+
+    const formattedTime = `${String(hours).padStart(2, "0")}:${String(
+      minutes
+    ).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+
+    return formattedTime;
   }
 
   function decimalToHexColor(percentage: number) {
@@ -68,7 +65,6 @@ const Visualization = () => {
     if (data) {
       const lowerCaseData = data?.uncertain_words?.map((content: any) => ({
         ...content,
-        word: content?.word?.toLowerCase(),
         showTooltip: false,
       }));
 
@@ -77,103 +73,36 @@ const Visualization = () => {
         uncertain_words: lowerCaseData,
       });
 
-      setSeparatedWords(data?.transcript?.toLowerCase().split(" "));
+      setSeparatedWords(data?.transcript?.split(" "));
     }
   };
-
-  // const highlightedText = () => {
-  //   const uncertainWordsMap = new Map();
-
-  //   content?.uncertain_words?.forEach((item: any) => {
-  //     const itemWords = item.word.toLowerCase().split(" ");
-  //     itemWords.forEach((word: any) => {
-  //       uncertainWordsMap.set(word, item);
-  //     });
-  //   });
-
-  //   const handleRange = 10;
-  //   const highlightedElements = [];
-
-  //   for (let index = 0; index < separatedWords?.length; index++) {
-  //     const word = separatedWords[index];
-  //     const previousWords = separatedWords
-  //       .slice(Math.max(0, index - handleRange), index)
-  //       .join(" ")
-  //       .toLowerCase();
-  //     console.log("previousWords: ", previousWords);
-  //     const matchUncertain = uncertainWordsMap.get(word);
-  //     console.log("matchUncertain: ", matchUncertain);
-
-  //     const element = (
-  //       <React.Fragment key={index}>
-  //         <p
-  //           className={`${matchUncertain ? styles.uncertain : ""}`}
-  //           style={{
-  //             backgroundColor: matchUncertain
-  //               ? decimalToHexColor(matchUncertain.confidence)
-  //               : "transparent",
-  //           }}
-  //           onMouseEnter={() => {
-  //             matchUncertain && handleMouseToggle(matchUncertain);
-  //           }}
-  //           onMouseLeave={() => {
-  //             matchUncertain && handleMouseToggle(matchUncertain);
-  //           }}
-  //         >
-  //           <span className={styles.word}>{word}</span>
-  //           {matchUncertain && matchUncertain.showTooltip && (
-  //             <span className={styles.tooltip}>
-  //               Começa em: {formatTime(matchUncertain.start_time)}, Termina em:{" "}
-  //               {formatTime(matchUncertain.end_time)}
-  //             </span>
-  //           )}
-  //         </p>
-  //         <p> </p>
-  //       </React.Fragment>
-  //     );
-
-  //     highlightedElements.push(element);
-  //   }
-
-  //   return highlightedElements;
-  // };
 
   const highlightedText = () => {
     const uncertainWordsMap = new Map();
 
     content?.uncertain_words?.forEach((item: any) => {
-      const itemWords = item.word.toLowerCase().split(" ");
+      const itemWords = item.word.split(" ");
       itemWords.forEach((word: any) => {
         uncertainWordsMap.set(word, item);
       });
     });
 
-    const handleRange = 10;
     const highlightedElements = [];
-
     for (let index = 0; index < separatedWords?.length; index++) {
+      const handleRange = index <= 10 ? index : 10;
       const word = separatedWords[index];
-      const previousWords = separatedWords
-        .slice(Math.max(0, index - handleRange), index)
-        .join(" ")
-        .toLowerCase();
-
       const matchUncertain = uncertainWordsMap.get(word);
+      const matchPrevious = matchUncertain?.previous_words;
+      const previousWords = separatedWords
+        .slice(index - handleRange, index - 1)
+        .join(" ");
 
-      // Check if both the current word and its previous words are marked as uncertain
-      const shouldHighlight = false;
-      // uncertainWordsMap.has(word) &&
-      // matchUncertain.previous_words.has(previousWords);
-      // console.log(
-      //   "matchUncertain.previous_words: ",
-      //   matchUncertain?.previous_words
-      // );
-      // console.log("previousWords: ", previousWords);
-      console.log("equal: ", matchUncertain?.previous_words === previousWords);
+      const shouldHighlight =
+        matchPrevious && matchPrevious?.match(previousWords);
 
       const element = (
         <React.Fragment key={index}>
-          <p
+          <div
             className={`${shouldHighlight ? styles.uncertain : ""}`}
             style={{
               backgroundColor: shouldHighlight
@@ -189,12 +118,14 @@ const Visualization = () => {
           >
             <span className={styles.word}>{word}</span>
             {shouldHighlight && matchUncertain.showTooltip && (
-              <span className={styles.tooltip}>
-                Começa em: {formatTime(matchUncertain.start_time)}, Termina em:{" "}
-                {formatTime(matchUncertain.end_time)}
-              </span>
+              <div className={styles.tpContainer}>
+                <span className={styles.tooltip}>
+                  Começa em: {formatTime(matchUncertain.start_time)}, Termina
+                  em: {formatTime(matchUncertain.end_time)}
+                </span>
+              </div>
             )}
-          </p>
+          </div>
           <p> </p>
         </React.Fragment>
       );
@@ -214,6 +145,20 @@ const Visualization = () => {
       updateData();
     }
   }, [data]);
+
+  if (loading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          height: "50vw",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Loading size="5rem" type="spin" />
+      </div>
+    );
 
   return (
     <div className={styles.container}>

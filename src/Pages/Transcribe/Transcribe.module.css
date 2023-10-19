@@ -1,203 +1,203 @@
 @import "../../colors.css";
 
 .loading {
-    display: flex;
-    height: 60vh;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  height: 60vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 1.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem 0 0;
 }
 
 .postContainer {
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    width: 100%;
-    max-height: 18rem;
-    margin: 3rem 0 0 0;
-    height: auto;
-    flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-height: 18rem;
+  margin: 3rem 0 0 0;
+  height: auto;
+  flex-direction: row;
 }
 
 .fileContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .fakeInput {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 5rem;
-    margin: 0 0.5rem;
-    background-color: var(--first-button-color);
-    box-shadow: 0 10px 10px -10px var(--shadow-color);
-    font-size: var(--font-size);
-    cursor: var(--cursor-pointer);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5rem;
+  margin: 0 0.5rem;
+  background-color: var(--first-button-color);
+  box-shadow: 0 10px 10px -10px var(--shadow-color);
+  font-size: var(--font-size);
+  cursor: var(--cursor-pointer);
 }
 
 .file {
-    display: none;
+  display: none;
 }
 
 .fileText {
-    margin-right: 15px;
-    margin-top: 15px;
-    text-align: center;
+  margin-right: 15px;
+  margin-top: 15px;
+  text-align: center;
 }
 
 .calendarContainer {
-    display: flex;
-    align-items: center;
-    margin: 0 1rem;
-    height: 3rem;
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+  height: 3rem;
 }
 
 input {
-    cursor: var(--cursor-text);
-    height: 2.25rem;
-    border-radius: 0.5rem;
-    background-color: var(--second-button-color) !important;
-    border: none !important;
-    box-shadow: 0 10px 10px -10px var(--shadow-color);
+  cursor: var(--cursor-text);
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  background-color: var(--second-button-color) !important;
+  border: none !important;
+  box-shadow: 0 10px 10px -10px var(--shadow-color);
 }
 
 .type {
-    display: flex;
-    justify-content: start;
-    align-items: start;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .lastColumn {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .input,
 .date,
 .time {
-    background-color: var(--second-button-color);
-    display: flex;
-    border: none;
-    width: 7.5rem;
-    height: 3rem;
-    margin: 0 0.5rem;
-    border-radius: 0.5rem;
-    padding: 0 0.75rem;
-    font-size: var(--font-size);
+  background-color: var(--second-button-color);
+  display: flex;
+  border: none;
+  width: 7.5rem;
+  height: 3rem;
+  margin: 0 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0 0.75rem;
+  font-size: var(--font-size);
 }
 
 input[class*="DatePicker__input"] {
-    font-size: var(--font-size);
-    font-weight: 400;
-    color: var(--first-text-color);
+  font-size: var(--font-size);
+  font-weight: 400;
+  color: var(--first-text-color);
 }
 
 .button {
-    min-height: 2.5rem;
-    width: 7.5rem;
-    border: none;
-    border-radius: 0.5rem;
-    margin: 0 0.5rem;
-    background-color: var(--first-button-color);
-    box-shadow: 0 10px 10px -10px var(--shadow-color);
-    font-size: var(--font-size);
+  min-height: 2.5rem;
+  width: 7.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  margin: 0 0.5rem;
+  background-color: var(--first-button-color);
+  box-shadow: 0 10px 10px -10px var(--shadow-color);
+  font-size: var(--font-size);
 }
 
 .button:hover,
 .fakeInput:hover {
-    background-color: var(--first-button-color-hover);
+  background-color: var(--first-button-color-hover);
 }
 
 .button:disabled,
 .fakeInput:disabled {
-    background-color: var(--first-button-color-disabled);
+  background-color: var(--first-button-color-disabled);
 }
 
 .schedule {
-    padding: 0 0.75rem;
+  padding: 0 0.75rem;
 }
 
 .table {
-    display: flex;
-    justify-content: center;
-    width: 60vw;
-    margin: 5rem 0 3rem 0;
+  display: flex;
+  justify-content: center;
+  width: 60vw;
+  margin: 5rem 0 3rem 0;
 }
 
 .input:hover,
 .time:hover {
-    background-color: var(--second-button-color-hover);
+  background-color: var(--second-button-color-hover);
 }
 
 .input:disabled,
 .time:disabled {
-    background-color: var(--second-button-color-disabled);
+  background-color: var(--second-button-color-disabled);
 }
 
 @media (min-width: 70px) {
-    .postContainer,
-    .lastColumn {
-        flex-direction: column;
-        align-items: center;
-    }
-    .input,
-    .time,
-    .fakeInput,
-    .type {
-        margin: 1rem 0;
-    }
+  .postContainer,
+  .lastColumn {
+    flex-direction: column;
+    align-items: center;
+  }
+  .input,
+  .time,
+  .fakeInput,
+  .type {
+    margin: 1rem 0;
+  }
 
-    input[type="text"],
-    .input,
-    input[class*="DatePicker__input"],
-    .time {
-        width: 10rem;
-    }
+  input[type="text"],
+  .input,
+  input[class*="DatePicker__input"],
+  .time {
+    width: 10rem;
+  }
 
-    .fakeInput {
-        width: 2rem;
-        height: 2rem;
-    }
+  .fakeInput {
+    width: 2rem;
+    height: 2rem;
+  }
 }
 @media (min-width: 751px) {
-    .fakeInput {
-        width: 3rem;
-        height: 3rem;
-    }
+  .fakeInput {
+    width: 3rem;
+    height: 3rem;
+  }
 }
 
 @media (min-width: 1024px) {
-    .postContainer {
-        display: flex;
-        align-items: start;
-    }
-    .postContainer,
-    .lastColumn {
-        flex-direction: row;
-    }
-    .calendarContainer,
-    .button {
-        margin: 1rem 0 0;
-    }
-    .fakeInput {
-        width: 3rem;
-        height: 3rem;
-    }
-    .fakeInput,
-    .calendarContainer,
-    .type,
-    .input,
-    .time {
-        margin-right: 1rem;
-    }
+  .postContainer {
+    display: flex;
+    align-items: flex-start;
+  }
+  .postContainer,
+  .lastColumn {
+    flex-direction: row;
+  }
+  .calendarContainer,
+  .button {
+    margin: 1rem 0 0;
+  }
+  .fakeInput {
+    width: 3rem;
+    height: 3rem;
+  }
+  .fakeInput,
+  .calendarContainer,
+  .type,
+  .input,
+  .time {
+    margin-right: 1rem;
+  }
 }

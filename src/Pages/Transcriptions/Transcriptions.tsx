@@ -28,34 +28,6 @@ const Transcriptions: React.FC = () => {
     setIsResponsive(window.innerWidth <= 750);
   };
 
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    dispatch<any>(fetchTranscriptions(page.toString()));
-    setIsDispatched(true);
-  }, [dispatch, page]);
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    dispatch<any>(fetchTranscriptions(page.toString()));
-    setIsDispatched(true);
-  }, [dispatch, page]);
-
   const columns = [
     { title: "Nome", property: "name" },
     { title: "Código", property: "code" },
@@ -64,7 +36,7 @@ const Transcriptions: React.FC = () => {
   ];
 
   const handleRowClick = (id: number) => {
-    console.log("Clicked on transcription with ID:", id);
+    navigate("/visualizacao", { state: id });
   };
 
   const data = getTranscriptions?.data?.results?.map((item: any) => {
@@ -75,6 +47,20 @@ const Transcriptions: React.FC = () => {
       id: item.id,
     };
   });
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch<any>(fetchTranscriptions(page.toString()));
+    setIsDispatched(true);
+  }, [dispatch, page]);
 
   return (
     <div className={styles.container}>

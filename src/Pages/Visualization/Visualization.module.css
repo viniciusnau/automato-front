@@ -20,6 +20,8 @@
   margin: 7.5rem auto;
   border: 0.5rem solid var(--fifth-color);
   border-radius: 0.85rem;
+  overflow-x: hidden;
+  z-index: 1;
 }
 
 .buttonContainer {
@@ -47,13 +49,19 @@
   padding: 0.35rem;
 }
 
+.tpContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
 .tooltip {
   position: absolute;
   background-color: var(--second-button-color);
-  padding: 1rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 0.35rem;
-  z-index: 1000;
   height: auto;
+  width: 10rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   text-align: center;
   margin: 0.75rem 0 0 0;
@@ -61,6 +69,7 @@
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
   line-height: 1.25rem;
+  z-index: 2;
 }
 
 .fadeIn {
@@ -77,7 +86,7 @@
   }
   .textContainer {
     max-height: 50vh;
-    padding: 0.5rem 0.75rem;
+    padding: 0.75rem 0.75rem 2.5rem 0.75rem;
   }
   .text {
     line-height: 0.25rem;
@@ -88,7 +97,7 @@
   .textContainer {
     min-width: 25%;
     min-height: 25%;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 3rem 3rem;
   }
   .text {
     line-height: 0.75rem;
