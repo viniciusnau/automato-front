@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import styles from "./Transcribe.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../../Components/Table/Table";
 import Input from "../../Components/Forms/Input";
-import {fetchTranscribe} from "../../Services/Slices/transcribeSlice";
-import {MdUpload} from "react-icons/md";
+import { fetchTranscribe } from "../../Services/Slices/transcribeSlice";
+import { MdUpload } from "react-icons/md";
 import Button from "../../Components/Forms/Button";
-import {fetchUpload} from "../../Services/Slices/uploadSlice";
+import { fetchUpload } from "../../Services/Slices/uploadSlice";
 
 const Transcribe: React.FC = () => {
     const dispatch = useDispatch();
@@ -14,7 +14,8 @@ const Transcribe: React.FC = () => {
     const [page, setPage] = useState<number>(1);
     const [isDispatched, setIsDispatched] = useState<boolean>(false);
     const [isResponsive, setIsResponsive] = useState<boolean>(false);
-    const [form, setForm] = useState<any>({file: File});
+    const [form, setForm] = useState<any>({ file: null });
+    const [fileError, setFileError] = useState<string | null>(null);
 
     const formatDate = (dateString: string) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' } as Intl.DateTimeFormatOptions;
@@ -25,22 +26,32 @@ const Transcribe: React.FC = () => {
         setIsResponsive(window.innerWidth <= 750);
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
         setForm((prev: any) => ({
             ...prev,
             file: file,
         }));
+        setFileError(null);
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const formData = new FormData();
-        console.log(form.file);
-        formData.append("file", form.file);
-        console.log(formData);
-        dispatch<any>(fetchUpload(formData));
-        setForm({file: File});
+        if (form.file && validateFileFormat(form.file.name)) {
+            const formData = new FormData();
+            formData.append("file", form.file);
+            dispatch<any>(fetchUpload(formData));
+            setForm({ file: null });
+            setFileError(null);
+        } else {
+            setFileError("Formatos válidos são: MP3, MP4, WAV, FLAC, AMR, OGG e WebM");
+        }
+    };
+
+    const validateFileFormat = (fileName: string) => {
+        const acceptedFormats = ["mp3", "mp4", "wav", "flac", "amr", "ogg", "webm"];
+        const fileExtension = fileName.split(".").pop()?.toLowerCase();
+        return fileExtension && acceptedFormats.includes(fileExtension);
     };
 
     useEffect(() => {
@@ -85,7 +96,7 @@ const Transcribe: React.FC = () => {
                     id="file"
                     onChange={handleFileChange}
                 />
-                {form.file.size && (
+                {form.file && (
                     <div className={styles.fileText}>Arquivo: {form.file.name}</div>
                 )}
                 <Button
@@ -95,7 +106,9 @@ const Transcribe: React.FC = () => {
                     Transcrever
                 </Button>
             </div>
-
+            {fileError && (
+                <div className={styles.errorText}>{fileError}</div>
+            )}
             <Table
                 title="Transcrições em andamento"
                 columns={columns}

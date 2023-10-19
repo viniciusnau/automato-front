@@ -1,6 +1,6 @@
 import styles from "./Visualization.module.css";
 import { BiSolidFile, BiSolidShare, BiSolidEdit } from "react-icons/bi";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTranscript } from "../../Services/Slices/transcriptSlice";
@@ -13,6 +13,7 @@ const Visualization = () => {
   const { data, error, loading } = useSelector(
     (state: any) => state.transcriptSlice
   );
+  const { id } = useParams();
   const [content, setContent] = useState<any>();
   const [separatedWords, setSeparatedWords] = useState<any>();
 
@@ -36,16 +37,20 @@ const Visualization = () => {
     navigator.clipboard.writeText(data.transcript);
   };
 
-  function formatTime(seconds: number) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = Math.round(seconds % 60);
-
-    const formattedTime = `${String(hours).padStart(2, "0")}:${String(
-      minutes
-    ).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
-
-    return formattedTime;
+  function formatTime(milliseconds: number) {
+    const hours = Math.floor(milliseconds / (60 * 60 * 1000));
+    const divisor_for_minutes = milliseconds % (60 * 60 * 1000);
+    const minutes = Math.floor(divisor_for_minutes / (60 * 1000));
+    const divisor_for_seconds = divisor_for_minutes % (60 * 1000);
+    const seconds = Math.ceil(divisor_for_seconds / 1000);
+    const newSeconds =
+      seconds < 10 ? "0" + seconds.toString() : seconds.toString();
+    return (
+      (hours ? hours + ":" : "") +
+      (minutes < 10 ? "0" + minutes : minutes) +
+      ":" +
+      newSeconds
+    );
   }
 
   function decimalToHexColor(percentage: number) {
@@ -137,8 +142,10 @@ const Visualization = () => {
   };
 
   useEffect(() => {
-    dispatch<any>(fetchTranscript(state));
-  }, [dispatch, state]);
+    if (id) {
+      dispatch<any>(fetchTranscript(id.toString()));
+    }
+  }, [dispatch, id]);
 
   useEffect(() => {
     if (data) {
@@ -162,13 +169,6 @@ const Visualization = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.modal}>
-        <BiSolidShare
-          size={20}
-          className={styles.return}
-          onClick={() => navigate(-1)}
-        />
-      </div>
       <div className={styles.textContainer}>
         <div className={styles.buttonContainer}>
           <BiSolidEdit

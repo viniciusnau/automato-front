@@ -36,7 +36,7 @@ const Transcriptions: React.FC = () => {
   ];
 
   const handleRowClick = (id: number) => {
-    navigate("/visualizacao", { state: id });
+    navigate(`/visualizacao/${id}`);
   };
 
   const data = getTranscriptions?.data?.results?.map((item: any) => {

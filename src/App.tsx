@@ -102,6 +102,10 @@ function App() {
                 />
               }
             />
+            <Route
+                path="/visualizacao/:id"
+                element={<ProtectedRoute Component={Visualization} path="/visualizacao/:id" />}
+            />
           </Routes>
         </main>
         <A11y
