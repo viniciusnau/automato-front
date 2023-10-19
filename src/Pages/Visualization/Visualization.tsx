@@ -37,20 +37,16 @@ const Visualization = () => {
     navigator.clipboard.writeText(data.transcript);
   };
 
-  function formatTime(milliseconds: number) {
-    const hours = Math.floor(milliseconds / (60 * 60 * 1000));
-    const divisor_for_minutes = milliseconds % (60 * 60 * 1000);
-    const minutes = Math.floor(divisor_for_minutes / (60 * 1000));
-    const divisor_for_seconds = divisor_for_minutes % (60 * 1000);
-    const seconds = Math.ceil(divisor_for_seconds / 1000);
-    const newSeconds =
-      seconds < 10 ? "0" + seconds.toString() : seconds.toString();
-    return (
-      (hours ? hours + ":" : "") +
-      (minutes < 10 ? "0" + minutes : minutes) +
-      ":" +
-      newSeconds
-    );
+  function formatTime(seconds: number) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = Math.round(seconds % 60);
+
+    const formattedTime = `${String(hours).padStart(2, "0")}:${String(
+      minutes
+    ).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+
+    return formattedTime;
   }
 
   function decimalToHexColor(percentage: number) {
