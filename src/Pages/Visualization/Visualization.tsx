@@ -1,6 +1,6 @@
 import styles from "./Visualization.module.css";
 import { BiSolidFile, BiSolidEdit } from "react-icons/bi";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTranscript } from "../../Services/Slices/transcriptSlice";
@@ -11,7 +11,7 @@ const Visualization = () => {
   const { data, error, loading } = useSelector(
     (state: any) => state.transcriptSlice
   );
-  const { id } = useParams();
+  const { state } = useLocation();
   const [content, setContent] = useState<any>();
   const [separatedWords, setSeparatedWords] = useState<any>();
 
@@ -136,10 +136,10 @@ const Visualization = () => {
   };
 
   useEffect(() => {
-    if (id) {
-      dispatch<any>(fetchTranscript(id.toString()));
+    if (state) {
+      dispatch<any>(fetchTranscript(state.toString()));
     }
-  }, [dispatch, id]);
+  }, [dispatch, state]);
 
   useEffect(() => {
     if (data) {
