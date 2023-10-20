@@ -1,6 +1,6 @@
 import styles from "./Visualization.module.css";
-import { BiSolidFile, BiSolidShare, BiSolidEdit } from "react-icons/bi";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { BiSolidFile, BiSolidEdit } from "react-icons/bi";
+import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTranscript } from "../../Services/Slices/transcriptSlice";
@@ -8,8 +8,6 @@ import Loading from "../../Components/Loading/Loading";
 
 const Visualization = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { state } = useLocation();
   const { data, error, loading } = useSelector(
     (state: any) => state.transcriptSlice
   );
