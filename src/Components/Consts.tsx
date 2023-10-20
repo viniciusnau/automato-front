@@ -53,4 +53,21 @@ export const snackbarConsts = {
       "Todos os campos com * devem ser preenchidos, juntamente com o arquivo em formato .docx.",
     color: "#ff6464",
   },
+
+  transcriptError: {
+    title: "Erro ao carregar transcrição!",
+    description: "Tente novamente mais tarde.",
+    color: "#ff6464",
+  },
+
+  editError: {
+    title: "Erro ao editar transcrição!",
+    description: "Tente novamente mais tarde.",
+    color: "#ff6464",
+  },
+  editSuccess: {
+    title: "Transcrição alterada com sucesso!",
+    description: "",
+    color: "#9fc54d",
+  },
 };

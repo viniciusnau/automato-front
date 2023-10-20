@@ -36,7 +36,11 @@ const Snackbar: React.FC<iSnackbar> = ({ type, setSnackbarType }) => {
           <h3 className={styles.text}>{snackbarConsts[type].title}</h3>
         </div>
 
-        <p className={styles.description}>{snackbarConsts[type].description}</p>
+        {snackbarConsts[type].description && (
+          <p className={styles.description}>
+            {snackbarConsts[type].description}
+          </p>
+        )}
       </div>
     </div>
   );

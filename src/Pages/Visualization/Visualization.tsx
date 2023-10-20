@@ -1,13 +1,16 @@
 import styles from "./Visualization.module.css";
 import { BiSolidFile, BiSolidEdit } from "react-icons/bi";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTranscript } from "../../Services/Slices/transcriptSlice";
 import Loading from "../../Components/Loading/Loading";
+import Modal from "./Modal/Modal";
+import Snackbar from "../../Components/Snackbar/Snackbar";
 
 const Visualization = () => {
   const dispatch = useDispatch();
+  const [handleModal, setHandleModal] = useState<boolean>(false);
   const { data, error, loading } = useSelector(
     (state: any) => state.transcriptSlice
   );
@@ -29,10 +32,12 @@ const Visualization = () => {
     });
   };
 
-  const handleEditText = () => {};
+  const handleEditText = () => {
+    setHandleModal(!handleModal);
+  };
 
   const handleCopyText = () => {
-    navigator.clipboard.writeText(data.transcript);
+    navigator.clipboard.writeText(data?.transcript);
   };
 
   function formatTime(seconds: number) {
@@ -162,23 +167,33 @@ const Visualization = () => {
     );
 
   return (
-    <div className={styles.container}>
-      <div className={styles.textContainer}>
-        <div className={styles.buttonContainer}>
-          <BiSolidEdit
-            size={28}
-            onClick={handleEditText}
-            className={styles.copy}
-          />
-          <BiSolidFile
-            size={28}
-            onClick={handleCopyText}
-            className={styles.copy}
-          />
+    <>
+      {error && <Snackbar type="transcriptError" />}
+      <div className={styles.container}>
+        <div className={styles.textContainer}>
+          <div className={styles.buttonContainer}>
+            <BiSolidEdit
+              size={28}
+              onClick={handleEditText}
+              className={styles.copy}
+            />
+            <BiSolidFile
+              size={28}
+              onClick={handleCopyText}
+              className={styles.copy}
+            />
+          </div>
+          <div className={styles.text}>{highlightedText()}</div>
         </div>
-        <div className={styles.text}>{highlightedText()}</div>
+        {handleModal && (
+          <Modal
+            handleModal={handleModal}
+            setHandleModal={setHandleModal}
+            transcript={data?.transcript}
+          />
+        )}
       </div>
-    </div>
+    </>
   );
 };
 

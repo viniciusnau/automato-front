@@ -1,0 +1,62 @@
+.container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 7.5vh;
+  left: 0vw;
+  background-color: #fbfcf7;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  height: auto;
+  max-height: 40rem;
+  overflow-y: auto;
+  margin: 7.5rem auto;
+  border: 0.5rem solid var(--fifth-color);
+  border-radius: 0.85rem;
+  overflow-x: hidden;
+  z-index: 1;
+}
+
+.textarea {
+  min-height: 20rem;
+  height: 50rem;
+  max-height: 80%;
+  border-radius: 0.85rem;
+  line-height: 1.5rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1rem 0 0;
+}
+
+.button {
+  border-radius: 0.5rem;
+  max-width: 5rem;
+}
+.button:last-child {
+  margin: 0 0 0 1rem;
+}
+
+@media (max-width: 750px) {
+  .modal {
+    max-height: 50vh;
+    padding: 0.75rem 0.75rem 2.5rem 0.75rem;
+  }
+}
+
+@media (min-width: 751px) {
+  .modal {
+    min-width: 25%;
+    min-height: 25%;
+    padding: 0.75rem 3rem 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+}
