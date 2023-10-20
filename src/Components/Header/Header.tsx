@@ -64,7 +64,7 @@ const Header = () => {
                         <li
                           onClick={() => {
                             setIsDropdownOpen(!isDropdownOpen);
-                            navigate("/alterar-senha");
+                            navigate("automato/alterar-senha");
                           }}
                         >
                           <span
@@ -76,7 +76,7 @@ const Header = () => {
                         <li
                           onClick={() => {
                             setIsDropdownOpen(!isDropdownOpen);
-                            navigate("/transcrever");
+                            navigate("automato/transcrever");
                           }}
                         >
                           <span
@@ -86,13 +86,13 @@ const Header = () => {
                           </span>
                         </li>
                         <li
-                            onClick={() => {
-                              setIsDropdownOpen(!isDropdownOpen);
-                              navigate("/transcricoes");
-                            }}
+                          onClick={() => {
+                            setIsDropdownOpen(!isDropdownOpen);
+                            navigate("automato/transcricoes");
+                          }}
                         >
                           <span
-                              className={`${styles.route} ${styles.modalItem}`}
+                            className={`${styles.route} ${styles.modalItem}`}
                           >
                             Minhas Transcrições
                           </span>
@@ -125,19 +125,19 @@ const Header = () => {
                   </span>
                   <span
                     className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/alterar-senha")}
+                    onClick={() => navigate("/automato/alterar-senha")}
                   >
                     Redefinir Senha
                   </span>
                   <span
-                      className={`${styles.route} ${styles.logout}`}
-                      onClick={() => navigate("/transcricoes")}
+                    className={`${styles.route} ${styles.logout}`}
+                    onClick={() => navigate("/automato/transcricoes")}
                   >
                     Minhas Transcrições
                   </span>
                   <span
                     className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/transcrever")}
+                    onClick={() => navigate("/automato/transcrever")}
                   >
                     Transcrever
                   </span>
