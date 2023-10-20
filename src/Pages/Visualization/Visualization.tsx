@@ -13,7 +13,6 @@ const Visualization = () => {
   const { data, error, loading } = useSelector(
     (state: any) => state.transcriptSlice
   );
-  const { id } = useParams();
   const [content, setContent] = useState<any>();
   const [separatedWords, setSeparatedWords] = useState<any>();
 
@@ -138,10 +137,10 @@ const Visualization = () => {
   };
 
   useEffect(() => {
-    if (id) {
-      dispatch<any>(fetchTranscript(id.toString()));
+    if (state) {
+      dispatch<any>(fetchTranscript(state.toString()));
     }
-  }, [dispatch, id]);
+  }, [dispatch, state]);
 
   useEffect(() => {
     if (data) {
