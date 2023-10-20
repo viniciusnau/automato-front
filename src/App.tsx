@@ -80,31 +80,31 @@ function App() {
         <main>
           <Routes>
             <Route
-              path="/"
-              element={<ProtectedRoute Component={Home} path="/" />}
+              path="/automato"
+              element={<ProtectedRoute Component={Home} path="/automato" />}
             />
-            <Route path="/login" element={<Login />} />
-            <Route path="/alterar-senha" element={<ResetPassword />} />
+            <Route path="/automato/login" element={<Login />} />
+            <Route path="/automato/alterar-senha" element={<ResetPassword />} />
             <Route
-                path="/transcricoes"
-                element={<ProtectedRoute Component={Transcriptions} path="/transcricoes" />}
-            />
-            <Route
-                path="/transcrever"
-                element={<ProtectedRoute Component={Transcribe} path="/transcrever" />}
+                path="/automato/transcricoes"
+                element={<ProtectedRoute Component={Transcriptions} path="/automato/transcricoes" />}
             />
             <Route
-              path="/visualizacao"
+                path="/automato/transcrever"
+                element={<ProtectedRoute Component={Transcribe} path="/automato/transcrever" />}
+            />
+            <Route
+              path="/automato/visualizacao"
               element={
                 <ProtectedRoute
                   Component={Visualization}
-                  path="/visualizacao"
+                  path="/automato/visualizacao"
                 />
               }
             />
             <Route
-                path="/visualizacao/:id"
-                element={<ProtectedRoute Component={Visualization} path="/visualizacao/:id" />}
+                path="/automato/visualizacao/:id"
+                element={<ProtectedRoute Component={Visualization} path="/automato/visualizacao/:id" />}
             />
           </Routes>
         </main>
