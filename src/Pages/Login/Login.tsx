@@ -61,6 +61,9 @@ const Login = () => {
             className={styles.loginForm}
             onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
         >
+          <form action="http://webserver.sc.def.br:8001/api/google-redirect/" method="get">
+            <input type="submit" value="Google Login"/>
+          </form>
           <h2 className={styles.title}>Bem vindo(a)</h2>
           <div className={styles.formGroup}>
             <label className={styles.label} htmlFor="username">

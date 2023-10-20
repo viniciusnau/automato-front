@@ -80,10 +80,10 @@ function App() {
         <main>
           <Routes>
             <Route
-              path="/"
+              path="/automato/"
               element={<ProtectedRoute Component={Home} path="/" />}
             />
-            <Route path="/login" element={<Login />} />
+            <Route path="/automato/login" element={<Login />} />
             <Route path="/alterar-senha" element={<ResetPassword />} />
             <Route
                 path="/transcricoes"
