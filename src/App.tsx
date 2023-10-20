@@ -80,21 +80,21 @@ function App() {
         <main>
           <Routes>
             <Route
-              path="/automato/"
+              path="/automato"
               element={<ProtectedRoute Component={Home} path="/" />}
             />
             <Route path="/automato/login" element={<Login />} />
             <Route path="/alterar-senha" element={<ResetPassword />} />
             <Route
-                path="/transcricoes"
+                path="/automato/transcricoes"
                 element={<ProtectedRoute Component={Transcriptions} path="/transcricoes" />}
             />
             <Route
-                path="/transcrever"
+                path="/automato/transcrever"
                 element={<ProtectedRoute Component={Transcribe} path="/transcrever" />}
             />
             <Route
-              path="/visualizacao"
+              path="/automato/visualizacao"
               element={
                 <ProtectedRoute
                   Component={Visualization}
@@ -103,7 +103,7 @@ function App() {
               }
             />
             <Route
-                path="/visualizacao/:id"
+                path="/automato/visualizacao/:id"
                 element={<ProtectedRoute Component={Visualization} path="/visualizacao/:id" />}
             />
           </Routes>
