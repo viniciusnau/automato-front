@@ -96,13 +96,14 @@ const Visualization = () => {
       const handleRange = index <= 10 ? index : 10;
       const word = separatedWords[index];
       const matchUncertain = uncertainWordsMap.get(word);
-      const matchPrevious = matchUncertain?.previous_words;
       const previousWords = separatedWords
         .slice(index - handleRange, index - 1)
         .join(" ");
 
       const shouldHighlight =
-        matchPrevious && matchPrevious?.match(previousWords);
+        matchUncertain?.previous_words === ""
+          ? true
+          : matchUncertain?.previous_words?.match(previousWords);
 
       const element = (
         <React.Fragment key={index}>
@@ -136,7 +137,6 @@ const Visualization = () => {
 
       highlightedElements.push(element);
     }
-
     return highlightedElements;
   };
 
@@ -172,11 +172,11 @@ const Visualization = () => {
       <div className={styles.container}>
         <div className={styles.textContainer}>
           <div className={styles.buttonContainer}>
-            <BiSolidEdit
+            {/* <BiSolidEdit
               size={28}
               onClick={handleEditText}
               className={styles.copy}
-            />
+            /> */}
             <BiSolidFile
               size={28}
               onClick={handleCopyText}
