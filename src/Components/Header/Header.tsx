@@ -64,7 +64,7 @@ const Header = () => {
                         <li
                           onClick={() => {
                             setIsDropdownOpen(!isDropdownOpen);
-                            navigate("automato/alterar-senha");
+                            navigate("automato/alterar-senha/");
                           }}
                         >
                           <span
@@ -76,7 +76,7 @@ const Header = () => {
                         <li
                           onClick={() => {
                             setIsDropdownOpen(!isDropdownOpen);
-                            navigate("automato/transcrever");
+                            navigate("automato/transcrever/");
                           }}
                         >
                           <span
@@ -88,7 +88,7 @@ const Header = () => {
                         <li
                           onClick={() => {
                             setIsDropdownOpen(!isDropdownOpen);
-                            navigate("automato/transcricoes");
+                            navigate("automato/transcricoes/");
                           }}
                         >
                           <span
@@ -125,19 +125,19 @@ const Header = () => {
                   </span>
                   <span
                     className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/automato/alterar-senha")}
+                    onClick={() => navigate("/automato/alterar-senha/")}
                   >
                     Redefinir Senha
                   </span>
                   <span
                     className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/automato/transcricoes")}
+                    onClick={() => navigate("/automato/transcricoes/")}
                   >
                     Minhas Transcrições
                   </span>
                   <span
                     className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/automato/transcrever")}
+                    onClick={() => navigate("/automato/transcrever/")}
                   >
                     Transcrever
                   </span>

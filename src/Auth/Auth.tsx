@@ -1,6 +1,6 @@
 export const logout = (navigate: any) => {
   sessionStorage.clear();
-  navigate("/login");
+  navigate("/automato/login/");
 };
 
 export const isLoggedIn = (isLogged?: boolean) => {
