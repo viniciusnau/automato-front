@@ -2,6 +2,7 @@
   "name": "automato-front",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/automato/",
   "dependencies": {
     "@react-pdf/renderer": "^3.1.12",
     "@reduxjs/toolkit": "^1.9.6",
