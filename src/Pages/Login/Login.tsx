@@ -36,7 +36,7 @@ const Login = () => {
   useEffect(() => {
     if (data.results) {
       isLoggedIn(true);
-      navigate("/transcricoes");
+      navigate("/automato/transcricoes");
     }
   }, [data.results, navigate]);
 
@@ -88,7 +88,7 @@ const Login = () => {
                 value={form.password}
             />
           </div>
-          <a href="/resetar-senha" className={styles.forgotPassword}>
+          <a href="/automato/resetar-senha" className={styles.forgotPassword}>
             Esqueceu a senha?
           </a>
           <div className={styles.formButton}>
