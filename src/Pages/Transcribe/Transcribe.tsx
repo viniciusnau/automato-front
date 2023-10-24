@@ -39,7 +39,7 @@ const Transcribe: React.FC = () => {
         e.preventDefault();
         if (form.file && validateFileFormat(form.file.name)) {
             const formData = new FormData();
-            formData.append("file", form.file);
+            formData.append("audio_file", form.file);
             dispatch<any>(fetchUpload(formData));
             setForm({ file: null });
             setFileError(null);
