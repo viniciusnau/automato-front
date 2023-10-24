@@ -3,9 +3,12 @@ import { PATH } from "../PATH";
 
 const services = {
   getTranscriptions: async (page: string) => {
+    const apiToken = sessionStorage.getItem("apiToken");
+    const authorizationMethod = apiToken ? "Token" : "Basic";
+
     const header = {
       headers: {
-        Authorization: "Basic " + sessionStorage.getItem("credentials"),
+        Authorization: `${authorizationMethod} ${apiToken || sessionStorage.getItem("credentials")}`,
       },
     };
     return axios
@@ -21,9 +24,12 @@ const services = {
       .catch((err: any) => console.log(err));
   },
   getTranscribe: async (page: string) => {
+    const apiToken = sessionStorage.getItem("apiToken");
+    const authorizationMethod = apiToken ? "Token" : "Basic";
+
     const header = {
       headers: {
-        Authorization: "Basic " + sessionStorage.getItem("credentials"),
+        Authorization: `${authorizationMethod} ${apiToken || sessionStorage.getItem("credentials")}`,
       },
     };
     return axios
@@ -39,9 +45,12 @@ const services = {
         .catch((err: any) => console.log(err));
   },
   upload: async (body: FormData) => {
+    const apiToken = sessionStorage.getItem("apiToken");
+    const authorizationMethod = apiToken ? "Token" : "Basic";
+
     const header = {
       headers: {
-        Authorization: "Basic " + sessionStorage.getItem("credentials"),
+        Authorization: `${authorizationMethod} ${apiToken || sessionStorage.getItem("credentials")}`,
       },
     };
     return axios
@@ -72,9 +81,12 @@ const services = {
       .catch((err: any) => console.log(err));
   },
   deleteFile: async (file: string) => {
+    const apiToken = sessionStorage.getItem("apiToken");
+    const authorizationMethod = apiToken ? "Token" : "Basic";
+
     const header = {
       headers: {
-        Authorization: "Basic " + sessionStorage.getItem("credentials"),
+        Authorization: `${authorizationMethod} ${apiToken || sessionStorage.getItem("credentials")}`,
       },
     };
     return axios
@@ -93,9 +105,12 @@ const services = {
       .catch((err: any) => console.log(err));
   },
   getTranscript: async (id: string) => {
+    const apiToken = sessionStorage.getItem("apiToken");
+    const authorizationMethod = apiToken ? "Token" : "Basic";
+
     const header = {
       headers: {
-        Authorization: "Basic " + sessionStorage.getItem("credentials"),
+        Authorization: `${authorizationMethod} ${apiToken || sessionStorage.getItem("credentials")}`,
       },
     };
     return axios

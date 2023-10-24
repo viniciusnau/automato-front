@@ -11,6 +11,7 @@ import Home from "./Pages/Home/Home";
 import Transcriptions from "./Pages/Transcriptions/Transcriptions";
 import Visualization from "./Pages/Visualization/Visualization";
 import Transcribe from "./Pages/Transcribe/Transcribe";
+import Callback from "./Pages/Callback/Callback";
 
 function App() {
   const cursorRef = useRef<HTMLDivElement | null>(null);
@@ -105,6 +106,10 @@ function App() {
             <Route
                 path="/automato/visualizacao/:id/"
                 element={<ProtectedRoute Component={Visualization} path="/automato/visualizacao/:id" />}
+            />
+            <Route
+                path="/automato/callback/:id/"
+                element={<ProtectedRoute Component={Callback} path="/automato/callback/:id" />}
             />
           </Routes>
         </main>
