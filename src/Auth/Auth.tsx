@@ -4,5 +4,8 @@ export const logout = (navigate: any) => {
 };
 
 export const isLoggedIn = (isLogged?: boolean) => {
-  return sessionStorage.getItem("credentials") || isLogged ? true : false;
+  const hasCredentials = !!sessionStorage.getItem("credentials");
+  const hasApiToken = !!sessionStorage.getItem("apiToken");
+
+  return (hasCredentials || isLogged) || hasApiToken;
 };
