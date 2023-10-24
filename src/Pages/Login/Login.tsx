@@ -61,9 +61,6 @@ const Login = () => {
             className={styles.loginForm}
             onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
         >
-          <form action="http://webserver.sc.def.br:8001/api/google-redirect/" method="get">
-            <input type="submit" value="Google Login"/>
-          </form>
           <h2 className={styles.title}>Bem vindo(a)</h2>
           <div className={styles.formGroup}>
             <label className={styles.label} htmlFor="username">
@@ -88,7 +85,16 @@ const Login = () => {
                 value={form.password}
             />
           </div>
-          <a href="/automato/resetar-senha" className={styles.forgotPassword}>
+          <img
+              width="20px"
+              style={{ marginTop: "7px", marginRight: "8px" }}
+              alt="Google sign-in"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+          />
+          <form action="http://webserver.sc.def.br:8001/api/google-redirect/" method="get">
+            <input type="submit" value="Login com Google"/>
+          </form>
+          <a href="/automato/alterar-senha" className={styles.forgotPassword}>
             Esqueceu a senha?
           </a>
           <div className={styles.formButton}>
