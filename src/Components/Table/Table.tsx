@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
-import { MdDelete, MdDownload } from "react-icons/md";
-import Loading from "../Loading/Loading";
-import {useDispatch} from "react-redux";
+import {MdArrowCircleRight, MdDelete, MdDownload} from "react-icons/md";
+import { useDispatch } from "react-redux";
 import { fetchDeleteFile } from "../../Services/Slices/deleteFileSlice";
+import {useNavigate} from "react-router-dom";
 
 interface Column {
     title: string;
@@ -22,7 +22,6 @@ interface TableProps {
     isEmpty?: boolean;
     loading?: boolean;
     error?: boolean;
-    onRowClick?: (id: number) => void;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -35,9 +34,9 @@ const Table: React.FC<TableProps> = ({
                                          isEmpty,
                                          loading,
                                          error,
-                                         onRowClick,
                                      }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isResponsive, setIsResponsive] = useState(false);
 
     useEffect(() => {
@@ -57,12 +56,16 @@ const Table: React.FC<TableProps> = ({
         setPage(page);
     };
 
+    const handleDetailsClick = (id: string) => {
+        navigate("/automato/visualizacao", { state: id });
+    };
+
     const customItemRender = (current: number, type: string) => {
         if (type === "page") {
             return current === page && (
                 <span className={styles.currentPage}>
-                    {data?.length > 0 ? page : "0"}
-                </span>
+          {data?.length > 0 ? page : "0"}
+        </span>
             );
         }
 
@@ -101,7 +104,6 @@ const Table: React.FC<TableProps> = ({
                 <div className={styles.tableBody}>
                     {loading ? (
                         <div style={{ marginBottom: "3rem" }}>
-                            <Loading size="5rem" type="spin" />
                         </div>
                     ) : (
                         <>
@@ -114,12 +116,7 @@ const Table: React.FC<TableProps> = ({
                             ) : (
                                 <>
                                     {data?.map((row, rowIndex) => (
-                                        <div
-                                            key={rowIndex}
-                                            className={styles.tableRow}
-                                            onClick={() => onRowClick && onRowClick(row.id)}
-                                            style={{ cursor: "pointer" }}
-                                        >
+                                        <div key={rowIndex} className={styles.tableRow}>
                                             {columns.map((column, columnIndex) => (
                                                 <div key={columnIndex} className={styles.row}>
                                                     {column.property === "presigned_url" ? (
@@ -137,6 +134,13 @@ const Table: React.FC<TableProps> = ({
                                                             className={styles.button}
                                                         >
                                                             <MdDelete size={isResponsive ? 18 : 24} />
+                                                        </Button>
+                                                    ) : column.property === "details" ? (
+                                                        <Button
+                                                            onClick={() => handleDetailsClick(row.id)}
+                                                            className={styles.button}
+                                                        >
+                                                            <MdArrowCircleRight size={isResponsive ? 18 : 24} />
                                                         </Button>
                                                     ) : (
                                                         <div className={styles.tableCell}>
