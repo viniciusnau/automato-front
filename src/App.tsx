@@ -107,10 +107,7 @@ function App() {
                 path="/automato/visualizacao/:id/"
                 element={<ProtectedRoute Component={Visualization} path="/automato/visualizacao/:id" />}
             />
-            <Route
-                path="/automato/callback/:id/"
-                element={<ProtectedRoute Component={Callback} path="/automato/callback/:id" />}
-            />
+            <Route path="/automato/callback/:id" element={<Callback />} />
           </Routes>
         </main>
         <A11y
