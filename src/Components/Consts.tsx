@@ -60,13 +60,13 @@ export const snackbarConsts = {
     color: "#ff6464",
   },
 
-  editError: {
-    title: "Erro ao editar transcrição!",
+  copyError: {
+    title: "Erro ao copiar transcrição!",
     description: "Tente novamente mais tarde.",
     color: "#ff6464",
   },
-  editSuccess: {
-    title: "Transcrição alterada com sucesso!",
+  copySuccess: {
+    title: "Transcrição copiada!",
     description: "",
     color: "#9fc54d",
   },
