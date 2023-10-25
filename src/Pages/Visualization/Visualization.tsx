@@ -1,11 +1,12 @@
+import React, { useEffect, useState } from "react";
 import styles from "./Visualization.module.css";
 import { BiSolidFile } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTranscript } from "../../Services/Slices/transcriptSlice";
 import Modal from "./Modal/Modal";
 import Snackbar from "../../Components/Snackbar/Snackbar";
+import Loading from "../../Components/Loading/Loading";
 
 const Visualization = () => {
   const dispatch = useDispatch();
@@ -160,25 +161,29 @@ const Visualization = () => {
   return (
       <>
         {error && <Snackbar type="transcriptError" />}
-        <div className={styles.container}>
-          <div className={styles.textContainer}>
-            <div className={styles.buttonContainer}>
-              <BiSolidFile
-                  size={28}
-                  onClick={handleCopyText}
-                  className={styles.copy}
-              />
+        {loading ? (
+            <Loading size="5rem" type="spin" />
+        ) : (
+            <div className={styles.container}>
+              <div className={styles.textContainer}>
+                <div className={styles.buttonContainer}>
+                  <BiSolidFile
+                      size={28}
+                      onClick={handleCopyText}
+                      className={styles.copy}
+                  />
+                </div>
+                <div className={styles.text}>{highlightedText()}</div>
+              </div>
+              {handleModal && (
+                  <Modal
+                      handleModal={handleModal}
+                      setHandleModal={setHandleModal}
+                      transcript={data?.transcript}
+                  />
+              )}
             </div>
-            <div className={styles.text}>{highlightedText()}</div>
-          </div>
-          {handleModal && (
-              <Modal
-                  handleModal={handleModal}
-                  setHandleModal={setHandleModal}
-                  transcript={data?.transcript}
-              />
-          )}
-        </div>
+        )}
         {showSnackbar && <Snackbar type="copySuccess" />}
       </>
   );

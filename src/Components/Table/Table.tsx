@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
-import {MdArrowCircleRight, MdDelete, MdDownload} from "react-icons/md";
+import {
+    MdArrowCircleRight,
+    MdDelete,
+    MdDownload
+} from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { fetchDeleteFile } from "../../Services/Slices/deleteFileSlice";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Column {
     title: string;
@@ -38,6 +42,8 @@ const Table: React.FC<TableProps> = ({
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isResponsive, setIsResponsive] = useState(false);
+    const [deletingRowIndex, setDeletingRowIndex] = useState(-1);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -58,6 +64,17 @@ const Table: React.FC<TableProps> = ({
 
     const handleDetailsClick = (id: string) => {
         navigate("/automato/visualizacao", { state: id });
+    };
+
+    const handleDeleteClick = async (id: string, rowIndex: number) => {
+        setDeletingRowIndex(rowIndex);
+        setIsDeleting(true);
+        try {
+            await dispatch<any>(fetchDeleteFile(id));
+        } finally {
+            setIsDeleting(false);
+            setDeletingRowIndex(-1);
+        }
     };
 
     const customItemRender = (current: number, type: string) => {
@@ -128,12 +145,14 @@ const Table: React.FC<TableProps> = ({
                                                         </Button>
                                                     ) : column.property === "delete" ? (
                                                         <Button
-                                                            onClick={() => {
-                                                                dispatch<any>(fetchDeleteFile(row.id));
-                                                            }}
+                                                            onClick={() => handleDeleteClick(row.id, rowIndex)}
                                                             className={styles.button}
                                                         >
-                                                            <MdDelete size={isResponsive ? 18 : 24} />
+                                                            {deletingRowIndex === rowIndex ? (
+                                                                <MdDelete size={isResponsive ? 18 : 24} className={styles.spin} />
+                                                            ) : (
+                                                                <MdDelete size={isResponsive ? 18 : 24} />
+                                                            )}
                                                         </Button>
                                                     ) : column.property === "details" ? (
                                                         <Button

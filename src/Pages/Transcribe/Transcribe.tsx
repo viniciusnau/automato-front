@@ -7,6 +7,7 @@ import { fetchTranscribe } from "../../Services/Slices/transcribeSlice";
 import { MdUpload } from "react-icons/md";
 import Button from "../../Components/Forms/Button";
 import { fetchUpload } from "../../Services/Slices/uploadSlice";
+import Loading from "../../Components/Loading/Loading";
 
 const Transcribe: React.FC = () => {
     const dispatch = useDispatch();
@@ -16,6 +17,8 @@ const Transcribe: React.FC = () => {
     const [isResponsive, setIsResponsive] = useState<boolean>(false);
     const [form, setForm] = useState<any>({ file: null });
     const [fileError, setFileError] = useState<string | null>(null);
+    const [isUploading, setIsUploading] = useState(false);
+    const [isLoadingPage, setIsLoadingPage] = useState(true);
 
     const formatDate = (dateString: string) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' } as Intl.DateTimeFormatOptions;
@@ -38,9 +41,16 @@ const Transcribe: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (form.file && validateFileFormat(form.file.name)) {
+            setIsUploading(true);
             const formData = new FormData();
             formData.append("audio_file", form.file);
-            dispatch<any>(fetchUpload(formData));
+            dispatch<any>(fetchUpload(formData))
+                .then(() => {
+                    setIsUploading(false);
+                })
+                .catch(() => {
+                    setIsUploading(false);
+                });
             setForm({ file: null });
             setFileError(null);
         } else {
@@ -64,7 +74,14 @@ const Transcribe: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        dispatch<any>(fetchTranscribe(page.toString()));
+        setIsLoadingPage(true);
+        dispatch<any>(fetchTranscribe(page.toString()))
+            .then(() => {
+                setIsLoadingPage(false);
+            })
+            .catch(() => {
+                setIsLoadingPage(false);
+            });
         setIsDispatched(true);
     }, [dispatch, page]);
 
@@ -74,14 +91,12 @@ const Transcribe: React.FC = () => {
         { title: "Data", property: "created_at" }
     ];
 
-    const data = getTranscriptions?.data?.results?.map((item: any) => {
-        return {
-            name: item.name,
-            created_at: formatDate(item.created_at),
-            code: item.code,
-            id: item.id
-        };
-    });
+    const data = getTranscriptions?.data?.results?.map((item: any) => ({
+        name: item.name,
+        created_at: formatDate(item.created_at),
+        code: item.code,
+        id: item.id
+    }));
 
     return (
         <div className={styles.container}>
@@ -109,17 +124,24 @@ const Transcribe: React.FC = () => {
             {fileError && (
                 <div className={styles.errorText}>{fileError}</div>
             )}
-            <Table
-                title="Transcrições em andamento"
-                columns={columns}
-                data={data}
-                setPage={setPage}
-                page={page}
-                total={getTranscriptions.data.count}
-                isEmpty={isDispatched && getTranscriptions?.data?.results?.length === 0}
-                loading={getTranscriptions.loading}
-                error={getTranscriptions.error}
-            />
+
+            {isUploading ? (
+                <Loading size="5rem" type="spin" />
+            ) : isLoadingPage ? (
+                <Loading size="5rem" type="spin" />
+            ) : (
+                <Table
+                    title="Transcrições em andamento"
+                    columns={columns}
+                    data={data}
+                    setPage={setPage}
+                    page={page}
+                    total={getTranscriptions.data.count}
+                    isEmpty={isDispatched && getTranscriptions?.data?.results?.length === 0}
+                    loading={getTranscriptions.loading}
+                    error={getTranscriptions.error}
+                />
+            )}
         </div>
     );
 };
