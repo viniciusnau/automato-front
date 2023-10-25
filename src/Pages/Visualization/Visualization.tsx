@@ -1,5 +1,8 @@
 import styles from "./Visualization.module.css";
-import { BiSolidFile, BiSolidEdit } from "react-icons/bi";
+import {
+  BiSolidFile,
+  // , BiSolidEdit
+} from "react-icons/bi";
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,23 +21,23 @@ const Visualization = () => {
   const [content, setContent] = useState<any>();
   const [separatedWords, setSeparatedWords] = useState<any>();
 
-  const handleMouseToggle = (wordData: any) => {
+  const handleMouseToggle = (index: any) => {
     setContent((prevData: any) => {
-      const updatedUncertainWords = prevData?.uncertain_words?.map(
-        (word: any) => {
-          if (word === wordData) {
+      const updatedTooltip = prevData?.uncertain_words?.map(
+        (word: any, localization: any) => {
+          if (localization === index) {
             return { ...word, showTooltip: !word.showTooltip };
           }
           return word;
         }
       );
-      return { ...prevData, uncertain_words: updatedUncertainWords };
+      return { ...prevData, uncertain_words: updatedTooltip };
     });
   };
 
-  const handleEditText = () => {
-    setHandleModal(!handleModal);
-  };
+  // const handleEditText = () => {
+  //   setHandleModal(!handleModal);
+  // };
 
   const handleCopyText = () => {
     navigator.clipboard.writeText(data?.transcript);
@@ -67,14 +70,14 @@ const Visualization = () => {
 
   const updateData = () => {
     if (data) {
-      const lowerCaseData = data?.uncertain_words?.map((content: any) => ({
+      const createProperty = data?.uncertain_words?.map((content: any) => ({
         ...content,
         showTooltip: false,
       }));
 
       setContent({
         ...data,
-        uncertain_words: lowerCaseData,
+        uncertain_words: createProperty,
       });
 
       setSeparatedWords(data?.transcript?.split(" "));
@@ -87,23 +90,29 @@ const Visualization = () => {
     content?.uncertain_words?.forEach((item: any) => {
       const itemWords = item.word.split(" ");
       itemWords.forEach((word: any) => {
-        uncertainWordsMap.set(word, item);
+        if (uncertainWordsMap.has(word)) {
+          uncertainWordsMap.get(word).push(item);
+        } else {
+          uncertainWordsMap.set(word, [item]);
+        }
       });
     });
 
     const highlightedElements = [];
+
     for (let index = 0; index < separatedWords?.length; index++) {
-      const handleRange = index <= 10 ? index : 10;
       const word = separatedWords[index];
       const matchUncertain = uncertainWordsMap.get(word);
       const previousWords = separatedWords
-        .slice(index - handleRange, index - 1)
+        .slice(Math.max(index - 10, 0), index)
         .join(" ");
 
-      const shouldHighlight =
-        matchUncertain?.previous_words === ""
-          ? true
-          : matchUncertain?.previous_words?.match(previousWords);
+      const shouldHighlight = matchUncertain?.some((item: any) => {
+        return (
+          item.previous_words.includes(previousWords) &&
+          item.word.includes(word)
+        );
+      });
 
       const element = (
         <React.Fragment key={index}>
@@ -111,22 +120,22 @@ const Visualization = () => {
             className={`${shouldHighlight ? styles.uncertain : ""}`}
             style={{
               backgroundColor: shouldHighlight
-                ? decimalToHexColor(matchUncertain.confidence)
+                ? decimalToHexColor(matchUncertain[0].confidence)
                 : "transparent",
             }}
             onMouseEnter={() => {
-              shouldHighlight && handleMouseToggle(matchUncertain);
+              shouldHighlight && handleMouseToggle(index);
             }}
             onMouseLeave={() => {
-              shouldHighlight && handleMouseToggle(matchUncertain);
+              shouldHighlight && handleMouseToggle(index);
             }}
           >
             <span className={styles.word}>{word}</span>
-            {shouldHighlight && matchUncertain.showTooltip && (
+            {shouldShowTooltip(word, content, index) && (
               <div className={styles.tpContainer}>
                 <span className={styles.tooltip}>
-                  Começa em: {formatTime(matchUncertain.start_time)}, Termina
-                  em: {formatTime(matchUncertain.end_time)}
+                  Começa em: {formatTime(matchUncertain[0].start_time)}, Termina
+                  em: {formatTime(matchUncertain[0].end_time)}
                 </span>
               </div>
             )}
@@ -138,6 +147,20 @@ const Visualization = () => {
       highlightedElements.push(element);
     }
     return highlightedElements;
+  };
+
+  const shouldShowTooltip = (word: any, content: any, index: any) => {
+    return content.uncertain_words.some((item: any) => {
+      const itemWords = item.word.split(" ");
+      const previousWords = separatedWords
+        .slice(Math.max(index - 10, 0), index)
+        .join(" ");
+      return (
+        itemWords.includes(word) &&
+        item.previous_words.includes(previousWords) &&
+        content?.uncertain_words[index]?.showTooltip
+      );
+    });
   };
 
   useEffect(() => {
