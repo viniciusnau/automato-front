@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Header.module.css";
-import image from "../../Assets/logo_diario_oficial_branco.png";
+import image from "../../Assets/image1.png";
 import { useNavigate } from "react-router-dom";
 import { HiBars3 } from "react-icons/hi2";
 import { isLoggedIn, logout } from "../../Auth/Auth";
