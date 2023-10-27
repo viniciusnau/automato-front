@@ -8,6 +8,7 @@ import { MdUpload } from "react-icons/md";
 import Button from "../../Components/Forms/Button";
 import { fetchUpload } from "../../Services/Slices/uploadSlice";
 import Loading from "../../Components/Loading/Loading";
+import Snackbar from "../../Components/Snackbar/Snackbar";
 
 const Transcribe: React.FC = () => {
     const dispatch = useDispatch();
@@ -19,6 +20,8 @@ const Transcribe: React.FC = () => {
     const [fileError, setFileError] = useState<string | null>(null);
     const [isUploading, setIsUploading] = useState(false);
     const [isLoadingPage, setIsLoadingPage] = useState(true);
+    const [showCopySuccessSnackbar, setShowCopySuccessSnackbar] = useState(false);
+    const [showErrorSnackbar, setShowErrorSnackbar] = useState(false);
 
     const formatDate = (dateString: string) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' } as Intl.DateTimeFormatOptions;
@@ -47,9 +50,11 @@ const Transcribe: React.FC = () => {
             dispatch<any>(fetchUpload(formData))
                 .then(() => {
                     setIsUploading(false);
+                    setShowCopySuccessSnackbar(true);
                 })
                 .catch(() => {
                     setIsUploading(false);
+                    setShowErrorSnackbar(true);
                 });
             setForm({ file: null });
             setFileError(null);
@@ -124,6 +129,9 @@ const Transcribe: React.FC = () => {
             {fileError && (
                 <div className={styles.errorText}>{fileError}</div>
             )}
+
+            {showCopySuccessSnackbar && <Snackbar type="transcribeSuccess" />}
+            {showErrorSnackbar && <Snackbar type="transcribeError" />}
 
             {isUploading ? (
                 <Loading size="5rem" type="spin" />

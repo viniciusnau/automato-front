@@ -22,36 +22,10 @@ export const snackbarConsts = {
     description: "Confira se o email está correto e tente novamente.",
     color: "#ff6464",
   },
-
   resetSuccess: {
     title: "Requisição feita com sucesso!",
     description: "Acesse o email para finalizar a troca de senha.",
     color: "#9fc54d",
-  },
-
-  postError: {
-    title: "Erro ao agendar edição!",
-    description: "Tente novamente mais tarde.",
-    color: "#ff6464",
-  },
-
-  scheduleError: {
-    title: "Erro ao buscar diários agendados!",
-    description: "Tente novamente mais tarde.",
-    color: "#ff6464",
-  },
-
-  fileInvalid: {
-    title: "Erro ao carregar arquivo!",
-    description: "O formato do arquivo deve ser em .docx.",
-    color: "#ff6464",
-  },
-
-  postInvalid: {
-    title: "Erro ao enviar agendamento!",
-    description:
-      "Todos os campos com * devem ser preenchidos, juntamente com o arquivo em formato .docx.",
-    color: "#ff6464",
   },
 
   transcriptError: {
@@ -67,6 +41,17 @@ export const snackbarConsts = {
   },
   copySuccess: {
     title: "Transcrição copiada!",
+    description: "",
+    color: "#9fc54d",
+  },
+
+  transcribeError: {
+    title: "Erro ao iniciar transcrição!",
+    description: "Tente novamente mais tarde.",
+    color: "#ff6464",
+  },
+  transcribeSuccess: {
+    title: "Transcrição iniciada!",
     description: "",
     color: "#9fc54d",
   },
