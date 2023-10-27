@@ -31,7 +31,7 @@ const Header = () => {
           src={image}
           className={styles.logo}
           alt="Logo diário oficial"
-          onClick={() => navigate("")}
+          onClick={() => navigate("/automato/transcricoes/")}
         />
         <div
           className={isResponsive ? styles.buttonContainer : styles.navigation}
