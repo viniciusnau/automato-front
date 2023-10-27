@@ -30,7 +30,7 @@ const Header = () => {
         <img
           src={image}
           className={styles.logo}
-          alt="Logo diário oficial"
+          alt="Logo"
           onClick={() => navigate("/automato/transcricoes/")}
         />
         <div
