@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import A11y from "./Components/A11y/A11y";
-import Footer from "./Components/Footer/Footer";
 import Header from "./Components/Header/Header";
 import Login from "./Pages/Login/Login";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
@@ -12,6 +11,7 @@ import Transcriptions from "./Pages/Transcriptions/Transcriptions";
 import Visualization from "./Pages/Visualization/Visualization";
 import Transcribe from "./Pages/Transcribe/Transcribe";
 import Callback from "./Pages/Callback/Callback";
+import NotFound from "./Pages/NotFound/NotFound";
 
 function App() {
   const cursorRef = useRef<HTMLDivElement | null>(null);
@@ -108,6 +108,7 @@ function App() {
                 element={<ProtectedRoute Component={Visualization} path="/automato/visualizacao/:id" />}
             />
             <Route path="/automato/callback/:apiToken" element={<Callback />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <A11y
@@ -121,7 +122,6 @@ function App() {
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
         />
-        <Footer />
       </BrowserRouter>
     </div>
   );
