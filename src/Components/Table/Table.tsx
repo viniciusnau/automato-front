@@ -3,9 +3,9 @@ import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
 import {
-    MdArrowCircleRight,
+    MdArrowForward,
     MdDelete,
-    MdDownload
+    MdDownload,
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { fetchDeleteFile } from "../../Services/Slices/deleteFileSlice";
@@ -159,7 +159,7 @@ const Table: React.FC<TableProps> = ({
                                                             onClick={() => handleDetailsClick(row.id)}
                                                             className={styles.button}
                                                         >
-                                                            <MdArrowCircleRight size={isResponsive ? 18 : 24} />
+                                                            <MdArrowForward size={isResponsive ? 18 : 24} />
                                                         </Button>
                                                     ) : (
                                                         <div className={styles.tableCell}>
