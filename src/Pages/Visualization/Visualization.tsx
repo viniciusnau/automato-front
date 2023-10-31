@@ -17,10 +17,25 @@ const Visualization = () => {
   const [separatedWords, setSeparatedWords] = useState<any>();
   const [showSnackbar, setShowSnackbar] = useState(false);
 
-  const handleCopyText = () => {
-    navigator.clipboard.writeText(data?.transcript);
-    setShowSnackbar(true);
+  const copyToClipboard = (text: string) => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    try {
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setShowSnackbar(true);
+    } catch (err) {
+      console.error('Unable to copy text: ', err);
+    }
   };
+
+  const handleCopyText = () => {
+    copyToClipboard(data?.transcript);
+  };
+
 
   function formatTime(milliseconds: number) {
     const hours = Math.floor(milliseconds / 3600);
