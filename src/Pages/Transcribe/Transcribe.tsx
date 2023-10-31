@@ -24,12 +24,8 @@ const Transcribe: React.FC = () => {
   const [showErrorSnackbar, setShowErrorSnackbar] = useState(false);
 
   const formatDate = (dateString: string) => {
-    const options = {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    } as Intl.DateTimeFormatOptions;
-    return new Date(dateString).toLocaleDateString("pt-BR", options);
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' } as Intl.DateTimeFormatOptions;
+    return new Date(dateString).toLocaleDateString('pt-BR', options);
   };
 
   const handleResize = () => {
@@ -48,15 +44,22 @@ const Transcribe: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (form.file && validateFileFormat(form.file.name)) {
+      setIsUploading(true);
       const formData = new FormData();
       formData.append("audio_file", form.file);
-      dispatch<any>(fetchUpload(formData));
+      dispatch<any>(fetchUpload(formData))
+          .then(() => {
+            setIsUploading(false);
+            setShowCopySuccessSnackbar(true);
+          })
+          .catch(() => {
+            setIsUploading(false);
+            setShowErrorSnackbar(true);
+          });
       setForm({ file: null });
       setFileError(null);
     } else {
-      setFileError(
-        "Formatos válidos são: MP3, MP4, WAV, FLAC, AMR, OGG e WebM"
-      );
+      setFileError("Formatos válidos são: MP3, MP4, WAV, FLAC, AMR, OGG e WebM");
     }
   };
 
@@ -76,61 +79,78 @@ const Transcribe: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    dispatch<any>(fetchTranscribe(page.toString()));
+    setIsLoadingPage(true);
+    dispatch<any>(fetchTranscribe(page.toString()))
+        .then(() => {
+          setIsLoadingPage(false);
+        })
+        .catch(() => {
+          setIsLoadingPage(false);
+        });
     setIsDispatched(true);
   }, [dispatch, page]);
 
   const columns = [
     { title: "Nome", property: "name" },
     { title: "Código", property: "code" },
-    { title: "Data", property: "created_at" },
+    { title: "Data", property: "created_at" }
   ];
 
-  const data = getTranscriptions?.data?.results?.map((item: any) => {
-    return {
-      name: item.name,
-      created_at: formatDate(item.created_at),
-      code: item.code,
-      id: item.id,
-    };
-  });
+  const data = getTranscriptions?.data?.results?.map((item: any) => ({
+    name: item.name,
+    created_at: formatDate(item.created_at),
+    code: item.code,
+    id: item.id
+  }));
 
   return (
-    <div className={styles.container}>
-      <div className={styles.postContainer}>
-        <label className={styles.fakeInput} htmlFor="file">
-          <MdUpload size={isResponsive ? 18 : 24} />
-        </label>
-        <Input
-          className={styles.file}
-          name="file"
-          type="file"
-          id="file"
-          onChange={handleFileChange}
-        />
-        {form.file && (
-          <div className={styles.fileText}>Arquivo: {form.file.name}</div>
+      <div className={styles.container}>
+        <div className={styles.postContainer}>
+          <label className={styles.fakeInput} htmlFor="file">
+            <MdUpload size={isResponsive ? 18 : 24} />
+          </label>
+          <Input
+              className={styles.file}
+              name="file"
+              type="file"
+              id="file"
+              onChange={handleFileChange}
+          />
+          {form.file && (
+              <div className={styles.fileText}>Arquivo: {form.file.name}</div>
+          )}
+          <Button
+              className={`${styles.button} ${styles.schedule}`}
+              onClick={handleSubmit}
+          >
+            Transcrever
+          </Button>
+        </div>
+        {fileError && (
+            <div className={styles.errorText}>{fileError}</div>
         )}
-        <Button
-          className={`${styles.button} ${styles.schedule}`}
-          onClick={handleSubmit}
-        >
-          Transcrever
-        </Button>
+
+        {showCopySuccessSnackbar && <Snackbar type="transcribeSuccess" />}
+        {showErrorSnackbar && <Snackbar type="transcribeError" />}
+
+        {isUploading ? (
+            <Loading size="5rem" type="spin" />
+        ) : isLoadingPage ? (
+            <Loading size="5rem" type="spin" />
+        ) : (
+            <Table
+                title="Transcrições em andamento"
+                columns={columns}
+                data={data}
+                setPage={setPage}
+                page={page}
+                total={getTranscriptions.data.count}
+                isEmpty={isDispatched && getTranscriptions?.data?.results?.length === 0}
+                loading={getTranscriptions.loading}
+                error={getTranscriptions.error}
+            />
+        )}
       </div>
-      {fileError && <div className={styles.errorText}>{fileError}</div>}
-      <Table
-        title="Transcrições em andamento"
-        columns={columns}
-        data={data}
-        setPage={setPage}
-        page={page}
-        total={getTranscriptions.data.count}
-        isEmpty={isDispatched && getTranscriptions?.data?.results?.length === 0}
-        loading={getTranscriptions.loading}
-        error={getTranscriptions.error}
-      />
-    </div>
   );
 };
 
