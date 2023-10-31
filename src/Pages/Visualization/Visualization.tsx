@@ -1,8 +1,5 @@
 import styles from "./Visualization.module.css";
-import {
-  BiSolidFile,
-  // , BiSolidEdit
-} from "react-icons/bi";
+import { BiSolidFile } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +7,6 @@ import { fetchTranscript } from "../../Services/Slices/transcriptSlice";
 import Loading from "../../Components/Loading/Loading";
 import Modal from "./Modal/Modal";
 import Snackbar from "../../Components/Snackbar/Snackbar";
-import { JSX } from "react/jsx-runtime";
 
 const Visualization = () => {
   const dispatch = useDispatch();
@@ -21,22 +17,6 @@ const Visualization = () => {
   const { state } = useLocation();
   const [content, setContent] = useState<any>();
   const [separatedWords, setSeparatedWords] = useState<any>();
-
-  const handleMouseToggle = (word: any) => {
-    setContent((prev: any) => {
-      const updated = prev?.uncertain_words?.map((content: any, index: any) => {
-        if (index === word) {
-          return { ...content, showTooltip: !content.showTooltip };
-        }
-        return content;
-      });
-      return { ...prev, uncertain_words: updated };
-    });
-  };
-
-  // const handleEditText = () => {
-  //   setHandleEditModal(!handleEditModal);
-  // };
 
   const handleCopyText = () => {
     navigator.clipboard.writeText(data?.transcript);
@@ -53,6 +33,17 @@ const Visualization = () => {
 
     return formattedTime;
   }
+
+  const handleMouseToggle = (content: any, value: boolean) => {
+    if (content) {
+      setContent((prev: any) => ({
+        ...prev,
+        uncertain_words: prev.uncertain_words.map((item: any) =>
+          item === content ? { ...item, showTooltip: value } : item
+        ),
+      }));
+    }
+  };
 
   function decimalToHexColor(confidence: number) {
     confidence = Math.min(100, Math.max(0, confidence)) * 100;
@@ -86,18 +77,14 @@ const Visualization = () => {
   const highlightedText = () => {
     const highlightedElements: JSX.Element[] = [];
     separatedWords?.map((word: string, index: number) => {
+      const handleRange = index <= 10 ? index : 10;
       const previousWords = separatedWords
-        .slice(Math.max(index - 10, 0), index)
+        .slice(index - handleRange, index)
         .join(" ");
 
-      // const shouldHighlight = content?.uncertain_words?.find((item: any) => {
-      //   return (
-      //     item.previous_words.includes(previousWords) && item.word === word
-      //   );
-      // });
-
-      const shouldHighlight = true;
-      console.log(shouldHighlight);
+      var shouldHighlight = content?.uncertain_words?.find((item: any) => {
+        return item.previous_words === previousWords && item.word === word;
+      });
 
       const element = (
         <React.Fragment key={index}>
@@ -105,24 +92,22 @@ const Visualization = () => {
             className={`${shouldHighlight && styles.uncertain}`}
             style={{
               backgroundColor: shouldHighlight
-                ? decimalToHexColor(content?.uncertain_words[index]?.confidence)
+                ? decimalToHexColor(shouldHighlight?.confidence)
                 : "transparent",
             }}
             onMouseEnter={() => {
-              shouldHighlight && handleMouseToggle(index);
+              handleMouseToggle(shouldHighlight, true);
             }}
             onMouseLeave={() => {
-              shouldHighlight && handleMouseToggle(index);
+              handleMouseToggle(shouldHighlight, false);
             }}
           >
             <span className={styles.word}>{word}</span>
-            {shouldHighlight && shouldShowTooltip(content, index) && (
+            {shouldHighlight?.showTooltip && (
               <div className={styles.tpContainer}>
                 <span className={styles.tooltip}>
-                  Começa em:{" "}
-                  {formatTime(content?.uncertain_words[index]?.start_time)},
-                  Termina em:{" "}
-                  {formatTime(content?.uncertain_words[index]?.end_time)}
+                  Começa em: {formatTime(shouldHighlight?.start_time)}, Termina
+                  em: {formatTime(shouldHighlight?.end_time)}
                 </span>
               </div>
             )}
@@ -134,14 +119,6 @@ const Visualization = () => {
       highlightedElements.push(element);
     });
     return highlightedElements;
-  };
-
-  const shouldShowTooltip = (content: any, index: any) => {
-    return content.uncertain_words
-      .sort((a: any, b: any) => a.start_time - b.start_time)
-      .some(() => {
-        return content?.uncertain_words[index]?.showTooltip;
-      });
   };
 
   useEffect(() => {
@@ -176,11 +153,6 @@ const Visualization = () => {
       <div className={styles.container}>
         <div className={styles.textContainer}>
           <div className={styles.buttonContainer}>
-            {/* <BiSolidEdit
-              size={28}
-              onClick={handleEditText}
-              className={styles.copy}
-            /> */}
             <BiSolidFile
               size={28}
               onClick={handleCopyText}
