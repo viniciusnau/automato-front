@@ -31,7 +31,7 @@ const Header = () => {
           src={image}
           className={styles.logo}
           alt="Logo"
-          onClick={() => navigate("/automato/transcricoes/")}
+          onClick={() => navigate("/automato/")}
         />
         <div
           className={isResponsive ? styles.buttonContainer : styles.navigation}
@@ -88,13 +88,13 @@ const Header = () => {
                         <li
                           onClick={() => {
                             setIsDropdownOpen(!isDropdownOpen);
-                            navigate("automato/transcricoes/");
+                            navigate("automato/");
                           }}
                         >
                           <span
                             className={`${styles.route} ${styles.modalItem}`}
                           >
-                            Minhas Transcrições
+                            Transcrições
                           </span>
                         </li>
                       </>
@@ -131,9 +131,9 @@ const Header = () => {
                   </span>
                   <span
                     className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/automato/transcricoes/")}
+                    onClick={() => navigate("/automato/")}
                   >
-                    Minhas Transcrições
+                    Transcrições
                   </span>
                   <span
                     className={`${styles.route} ${styles.logout}`}

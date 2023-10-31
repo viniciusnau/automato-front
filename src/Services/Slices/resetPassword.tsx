@@ -57,7 +57,7 @@ export const fetchResetPassword =
     dispatch(getResetPassword());
     try {
       const response = await services.resetPassword(form);
-      dispatch(getResetPasswordSuccess(response));
+      dispatch(getResetPasswordSuccess(response.data));
     } catch (err) {
       console.log("err: ", err);
       dispatch(getResetPasswordFailure());

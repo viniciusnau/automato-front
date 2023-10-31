@@ -142,26 +142,36 @@ const Visualization = () => {
     }
   }, [showSnackbar]);
 
+  if (loading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          height: "50vw",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Loading size="5rem" type="spin" />
+      </div>
+    );
+
   return (
     <>
       {error && <Snackbar type="transcriptError" />}
-      {loading ? (
-        <Loading size="5rem" type="spin" />
-      ) : (
-        <div className={styles.container}>
-          <div className={styles.textContainer}>
-            <div className={styles.buttonContainer}>
-              <BiSolidFile
-                size={28}
-                onClick={handleCopyText}
-                className={styles.copy}
-              />
-            </div>
-            <div className={styles.text}>{highlightedText()}</div>
-          </div>
-        </div>
-      )}
       {showSnackbar && <Snackbar type="copySuccess" />}
+      <div className={styles.container}>
+        <div className={styles.textContainer}>
+          <div className={styles.buttonContainer}>
+            <BiSolidFile
+              size={28}
+              onClick={handleCopyText}
+              className={styles.copy}
+            />
+          </div>
+          <div className={styles.text}>{highlightedText()}</div>
+        </div>
+      </div>
     </>
   );
 };

@@ -50,9 +50,20 @@
 }
 
 .tpContainer {
-  position: relative;
   display: flex;
   justify-content: center;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .tooltip {
@@ -70,14 +81,6 @@
   animation-fill-mode: both;
   line-height: 1.25rem;
   z-index: 2;
-}
-
-.fadeIn {
-  animation-name: fadeIn;
-}
-
-.fadeOut {
-  animation-name: fadeOut;
 }
 
 @media (max-width: 750px) {

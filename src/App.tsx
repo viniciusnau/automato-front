@@ -6,7 +6,6 @@ import Header from "./Components/Header/Header";
 import Login from "./Pages/Login/Login";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import { ProtectedRoute } from "./Auth/ProtectedRoute";
-import Home from "./Pages/Home/Home";
 import Transcriptions from "./Pages/Transcriptions/Transcriptions";
 import Visualization from "./Pages/Visualization/Visualization";
 import Transcribe from "./Pages/Transcribe/Transcribe";
@@ -82,17 +81,23 @@ function App() {
           <Routes>
             <Route
               path="/automato/"
-              element={<ProtectedRoute Component={Home} path="/automato/" />}
+              element={
+                <ProtectedRoute Component={Transcriptions} path="/automato/" />
+              }
             />
             <Route path="/automato/login/" element={<Login />} />
-            <Route path="/automato/alterar-senha/" element={<ResetPassword />} />
             <Route
-                path="/automato/transcricoes/"
-                element={<ProtectedRoute Component={Transcriptions} path="/automato/transcricoes/" />}
+              path="/automato/alterar-senha/"
+              element={<ResetPassword />}
             />
             <Route
-                path="/automato/transcrever/"
-                element={<ProtectedRoute Component={Transcribe} path="/automato/transcrever/" />}
+              path="/automato/transcrever/"
+              element={
+                <ProtectedRoute
+                  Component={Transcribe}
+                  path="/automato/transcrever/"
+                />
+              }
             />
             <Route
               path="/automato/visualizacao/"
@@ -104,8 +109,13 @@ function App() {
               }
             />
             <Route
-                path="/automato/visualizacao/:id/"
-                element={<ProtectedRoute Component={Visualization} path="/automato/visualizacao/:id" />}
+              path="/automato/visualizacao/:id/"
+              element={
+                <ProtectedRoute
+                  Component={Visualization}
+                  path="/automato/visualizacao/:id"
+                />
+              }
             />
             <Route path="/automato/callback/:apiToken" element={<Callback />} />
             <Route path="*" element={<NotFound />} />

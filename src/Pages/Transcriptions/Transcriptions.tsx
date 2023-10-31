@@ -7,8 +7,8 @@ import { fetchTranscriptions } from "../../Services/Slices/transcriptionsSlice";
 
 const Transcriptions: React.FC = () => {
   const dispatch = useDispatch();
-  const getTranscriptions = useSelector(
-      (state: any) => state.transcriptionsSlice
+  const { data, loading, error } = useSelector(
+    (state: any) => state.transcriptionsSlice
   );
   const [page, setPage] = useState<number>(1);
   const [isDispatched, setIsDispatched] = useState<boolean>(false);
@@ -35,7 +35,7 @@ const Transcriptions: React.FC = () => {
     { title: "Excluir", property: "delete" },
   ];
 
-  const data = getTranscriptions?.data?.results?.map((item: any) => {
+  const update = data?.results?.map((item: any) => {
     return {
       name: item.name,
       created_at: formatDate(item.created_at),
@@ -57,24 +57,32 @@ const Transcriptions: React.FC = () => {
     dispatch<any>(fetchTranscriptions(page.toString()));
     setIsDispatched(true);
   }, [dispatch, page]);
-
-  return (
-      <div className={styles.container}>
-        {getTranscriptions.loading ? (
-            <Loading size="5rem" type="spin" />
-        ) : (
-            <Table
-                title="Transcrições"
-                columns={columns}
-                data={data}
-                setPage={setPage}
-                page={page}
-                total={getTranscriptions.data.count}
-                isEmpty={isDispatched && getTranscriptions?.data?.results?.length === 0}
-                error={getTranscriptions.error}
-            />
-        )}
+  if (loading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          height: "50vw",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Loading size="5rem" type="spin" />
       </div>
+    );
+  return (
+    <div className={styles.container}>
+      <Table
+        title="Minhas transcrições"
+        columns={columns}
+        data={update}
+        setPage={setPage}
+        page={page}
+        total={data.count}
+        isEmpty={isDispatched && data?.results?.length === 0}
+        error={error}
+      />
+    </div>
   );
 };
 
