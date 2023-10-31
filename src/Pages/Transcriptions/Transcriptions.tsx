@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./Transcriptions.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../../Components/Table/Table";
+import Loading from "../../Components/Loading/Loading";
 import { fetchTranscriptions } from "../../Services/Slices/transcriptionsSlice";
-import { useNavigate } from "react-router-dom";
 
 const Transcriptions: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const getTranscriptions = useSelector(
-    (state: any) => state.transcriptionsSlice
+      (state: any) => state.transcriptionsSlice
   );
   const [page, setPage] = useState<number>(1);
   const [isDispatched, setIsDispatched] = useState<boolean>(false);
@@ -32,12 +31,9 @@ const Transcriptions: React.FC = () => {
     { title: "Nome", property: "name" },
     { title: "Código", property: "code" },
     { title: "Data", property: "created_at" },
+    { title: "Detalhes", property: "details" },
     { title: "Excluir", property: "delete" },
   ];
-
-  const handleRowClick = (id: number) => {
-    navigate("/automato/visualizacao", { state: id });
-  };
 
   const data = getTranscriptions?.data?.results?.map((item: any) => {
     return {
@@ -63,20 +59,22 @@ const Transcriptions: React.FC = () => {
   }, [dispatch, page]);
 
   return (
-    <div className={styles.container}>
-      <Table
-        title="Transcrições"
-        columns={columns}
-        data={data}
-        setPage={setPage}
-        page={page}
-        total={getTranscriptions.data.count}
-        isEmpty={isDispatched && getTranscriptions?.data?.results?.length === 0}
-        loading={getTranscriptions.loading}
-        error={getTranscriptions.error}
-        onRowClick={handleRowClick}
-      />
-    </div>
+      <div className={styles.container}>
+        {getTranscriptions.loading ? (
+            <Loading size="5rem" type="spin" />
+        ) : (
+            <Table
+                title="Transcrições"
+                columns={columns}
+                data={data}
+                setPage={setPage}
+                page={page}
+                total={getTranscriptions.data.count}
+                isEmpty={isDispatched && getTranscriptions?.data?.results?.length === 0}
+                error={getTranscriptions.error}
+            />
+        )}
+      </div>
   );
 };
 

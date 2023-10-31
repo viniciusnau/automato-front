@@ -1,25 +1,25 @@
+import React, { useEffect, useState } from "react";
 import styles from "./Visualization.module.css";
 import { BiSolidFile } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTranscript } from "../../Services/Slices/transcriptSlice";
-import Loading from "../../Components/Loading/Loading";
-import Modal from "./Modal/Modal";
 import Snackbar from "../../Components/Snackbar/Snackbar";
+import Loading from "../../Components/Loading/Loading";
 
 const Visualization = () => {
   const dispatch = useDispatch();
-  const [handleEditModal, setHandleEditModal] = useState<boolean>(false);
   const { data, error, loading } = useSelector(
     (state: any) => state.transcriptSlice
   );
   const { state } = useLocation();
   const [content, setContent] = useState<any>();
   const [separatedWords, setSeparatedWords] = useState<any>();
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   const handleCopyText = () => {
     navigator.clipboard.writeText(data?.transcript);
+    setShowSnackbar(true);
   };
 
   function formatTime(milliseconds: number) {
@@ -27,11 +27,10 @@ const Visualization = () => {
     const minutes = Math.floor((milliseconds % 3600) / 60);
     const remainingSeconds = Math.round(milliseconds % 60);
 
-    const formattedTime = `${String(hours).padStart(2, "0")}:${String(
-      minutes
-    ).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
-
-    return formattedTime;
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+      2,
+      "0"
+    )}:${String(remainingSeconds).padStart(2, "0")}`;
   }
 
   const handleMouseToggle = (content: any, value: boolean) => {
@@ -133,42 +132,36 @@ const Visualization = () => {
     }
   }, [data]);
 
-  if (loading)
-    return (
-      <div
-        style={{
-          display: "flex",
-          height: "50vw",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Loading size="5rem" type="spin" />
-      </div>
-    );
+  useEffect(() => {
+    if (showSnackbar) {
+      const timer = setTimeout(() => {
+        setShowSnackbar(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showSnackbar]);
 
   return (
     <>
       {error && <Snackbar type="transcriptError" />}
-      <div className={styles.container}>
-        <div className={styles.textContainer}>
-          <div className={styles.buttonContainer}>
-            <BiSolidFile
-              size={28}
-              onClick={handleCopyText}
-              className={styles.copy}
-            />
+      {loading ? (
+        <Loading size="5rem" type="spin" />
+      ) : (
+        <div className={styles.container}>
+          <div className={styles.textContainer}>
+            <div className={styles.buttonContainer}>
+              <BiSolidFile
+                size={28}
+                onClick={handleCopyText}
+                className={styles.copy}
+              />
+            </div>
+            <div className={styles.text}>{highlightedText()}</div>
           </div>
-          <div className={styles.text}>{highlightedText()}</div>
         </div>
-        {handleEditModal && (
-          <Modal
-            handleModal={handleEditModal}
-            setHandleModal={setHandleEditModal}
-            transcript={content?.transcript}
-          />
-        )}
-      </div>
+      )}
+      {showSnackbar && <Snackbar type="copySuccess" />}
     </>
   );
 };

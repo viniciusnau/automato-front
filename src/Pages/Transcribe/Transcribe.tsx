@@ -7,6 +7,8 @@ import { fetchTranscribe } from "../../Services/Slices/transcribeSlice";
 import { MdUpload } from "react-icons/md";
 import Button from "../../Components/Forms/Button";
 import { fetchUpload } from "../../Services/Slices/uploadSlice";
+import Loading from "../../Components/Loading/Loading";
+import Snackbar from "../../Components/Snackbar/Snackbar";
 
 const Transcribe: React.FC = () => {
   const dispatch = useDispatch();
@@ -16,6 +18,10 @@ const Transcribe: React.FC = () => {
   const [isResponsive, setIsResponsive] = useState<boolean>(false);
   const [form, setForm] = useState<any>({ file: null });
   const [fileError, setFileError] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isLoadingPage, setIsLoadingPage] = useState(true);
+  const [showCopySuccessSnackbar, setShowCopySuccessSnackbar] = useState(false);
+  const [showErrorSnackbar, setShowErrorSnackbar] = useState(false);
 
   const formatDate = (dateString: string) => {
     const options = {

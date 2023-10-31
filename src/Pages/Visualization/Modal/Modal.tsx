@@ -1,15 +1,8 @@
-import React, {
-  // useEffect,
-  useState,
-} from "react";
+import React, {useState} from "react";
 import styles from "./Modal.module.css";
-// import Input from "../../../Components/Forms/Input";
 import Button from "../../../Components/Forms/Button";
 import Loading from "../../../Components/Loading/Loading";
-import {
-  // useDispatch,
-  useSelector,
-} from "react-redux";
+import {useSelector} from "react-redux";
 import Snackbar from "../../../Components/Snackbar/Snackbar";
 
 interface iModal {
@@ -19,7 +12,6 @@ interface iModal {
 }
 
 const Modal = ({ setHandleModal, handleModal, transcript }: iModal) => {
-  //   const dispatch = useDispatch();
   const [content, setContent] = useState(transcript);
   const { data, error, loading } = useSelector((state: any) => state.meSlice);
 
@@ -27,9 +19,7 @@ const Modal = ({ setHandleModal, handleModal, transcript }: iModal) => {
     setContent(e.target.value);
   };
 
-  const handleSubmit = () => {
-    // dispatch<any>(fetchMe(content));
-  };
+  const handleSubmit = () => {};
 
   if (loading)
     return (
@@ -47,8 +37,8 @@ const Modal = ({ setHandleModal, handleModal, transcript }: iModal) => {
 
   return (
     <div className={styles.container}>
-      {error && <Snackbar type="editError" />}
-      {data.results && <Snackbar type="editSuccess" />}
+      {error && <Snackbar type="copyError" />}
+      {data.results && <Snackbar type="copySuccess" />}
       <div className={styles.modal}>
         <textarea
           name="content"
