@@ -40,20 +40,6 @@ const Login = () => {
     }
   }, [data.results, navigate]);
 
-  // if (loading)
-  //   return (
-  //     <div
-  //       style={{
-  //         display: "flex",
-  //         height: "50vw",
-  //         alignItems: "center",
-  //         justifyContent: "center",
-  //       }}
-  //     >
-  //       <Loading size="5rem" type="spin" />
-  //     </div>
-  //   );
-
   return (
     <div className={styles.container}>
       {error && <Snackbar type="loginError" />}
@@ -94,10 +80,10 @@ const Login = () => {
             <img
               width="30rem"
               style={{ marginRight: ".5rem", padding: ".25rem" }}
-              alt="Logar com conta do Google"
+              alt="Login com conta do Google"
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
             />
-            <p className={styles.login}>Login com google</p>
+            <p className={styles.login}>Continuar com google</p>
           </Button>
         </form>
         <a href="/automato/alterar-senha" className={styles.forgotPassword}>
@@ -115,7 +101,7 @@ const Login = () => {
                 <Loading size="2rem" type="spin" />
               </div>
             ) : (
-              "Logar"
+              "Login"
             )}
           </Button>
         </div>
