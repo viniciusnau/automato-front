@@ -176,7 +176,7 @@ const Table: React.FC<TableProps> = ({
           current={page}
           onChange={handlePageChange}
           total={total}
-          pageSize={20}
+          pageSize={10}
           className={styles.customPagination}
           itemRender={customItemRender}
         />
