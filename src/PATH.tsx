@@ -1,5 +1,5 @@
 const baseurl = {
-  apiUrl: "http://webserver.sc.def.br:8001/api",
+  apiUrl: "http://18.231.22.48:8001/api",
 };
 export const PATH = {
   base: baseurl.apiUrl,

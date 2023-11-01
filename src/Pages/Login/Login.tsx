@@ -72,7 +72,7 @@ const Login = () => {
           />
         </div>
         <form
-          action="http://webserver.sc.def.br:8001/api/google-redirect/"
+          action="http://18.231.22.48:8001/api/google-redirect/"
           method="get"
           className={styles.form}
         >
