@@ -40,19 +40,19 @@ const Login = () => {
     }
   }, [data.results, navigate]);
 
-  if (loading)
-    return (
-      <div
-        style={{
-          display: "flex",
-          height: "50vw",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Loading size="5rem" type="spin" />
-      </div>
-    );
+  // if (loading)
+  //   return (
+  //     <div
+  //       style={{
+  //         display: "flex",
+  //         height: "50vw",
+  //         alignItems: "center",
+  //         justifyContent: "center",
+  //       }}
+  //     >
+  //       <Loading size="5rem" type="spin" />
+  //     </div>
+  //   );
 
   return (
     <div className={styles.container}>
@@ -85,24 +85,38 @@ const Login = () => {
             value={form.password}
           />
         </div>
-        <img
-          width="20px"
-          style={{ marginTop: "7px", marginRight: "8px" }}
-          alt="Google sign-in"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-        />
         <form
           action="http://webserver.sc.def.br:8001/api/google-redirect/"
           method="get"
+          className={styles.form}
         >
-          <input type="submit" value="Login com Google" />
+          <Button className={styles.google}>
+            <img
+              width="30rem"
+              style={{ marginRight: ".5rem", padding: ".25rem" }}
+              alt="Logar com conta do Google"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+            />
+            <p className={styles.login}>Login com google</p>
+          </Button>
         </form>
         <a href="/automato/alterar-senha" className={styles.forgotPassword}>
           Esqueceu a senha?
         </a>
         <div className={styles.formButton}>
           <Button className={styles.button} onClick={handleSubmit}>
-            Login
+            {loading ? (
+              <div
+                style={{
+                  position: "relative",
+                  top: "-3rem",
+                }}
+              >
+                <Loading size="2rem" type="spin" />
+              </div>
+            ) : (
+              "Logar"
+            )}
           </Button>
         </div>
       </div>
