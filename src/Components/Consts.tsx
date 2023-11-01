@@ -51,7 +51,7 @@ export const snackbarConsts = {
     color: "#ff6464",
   },
   transcribeSuccess: {
-    title: "Transcrição iniciada!",
+    title: "Transcrição agendada com sucesso!",
     description: "",
     color: "#9fc54d",
   },

@@ -9,6 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [isResponsive, setIsResponsive] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [toggleNav, setToggleNav] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -73,42 +74,37 @@ const Header = () => {
                             Redefinir Senha
                           </span>
                         </li>
-                        <li
-                          onClick={() => {
-                            setIsDropdownOpen(!isDropdownOpen);
-                            navigate("automato/transcrever/");
-                          }}
-                        >
-                          <span
-                            className={`${styles.route} ${styles.modalItem}`}
+                        {toggleNav ? (
+                          <li
+                            onClick={() => {
+                              setIsDropdownOpen(!isDropdownOpen);
+                              setToggleNav(!toggleNav);
+                              navigate("automato/transcrever/");
+                            }}
                           >
-                            Transcrever
-                          </span>
-                        </li>
-                        <li
-                          onClick={() => {
-                            setIsDropdownOpen(!isDropdownOpen);
-                            navigate("automato/");
-                          }}
-                        >
-                          <span
-                            className={`${styles.route} ${styles.modalItem}`}
+                            <span
+                              className={`${styles.route} ${styles.modalItem}`}
+                            >
+                              Transcrever
+                            </span>
+                          </li>
+                        ) : (
+                          <li
+                            onClick={() => {
+                              setIsDropdownOpen(!isDropdownOpen);
+                              setToggleNav(!toggleNav);
+                              navigate("automato/");
+                            }}
                           >
-                            Transcrições
-                          </span>
-                        </li>
+                            <span
+                              className={`${styles.route} ${styles.modalItem}`}
+                            >
+                              Transcrições
+                            </span>
+                          </li>
+                        )}
                       </>
                     )}
-                    <li>
-                      <span className={styles.linkText}>
-                        <a
-                          href="https://defensoria.sc.def.br/home/"
-                          className={`${styles.route} ${styles.modalItem}`}
-                        >
-                          Defensoria pública
-                        </a>
-                      </span>
-                    </li>
                   </ul>
                 </div>
               )}
@@ -129,28 +125,29 @@ const Header = () => {
                   >
                     Redefinir Senha
                   </span>
-                  <span
-                    className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/automato/")}
-                  >
-                    Transcrições
-                  </span>
-                  <span
-                    className={`${styles.route} ${styles.logout}`}
-                    onClick={() => navigate("/automato/transcrever/")}
-                  >
-                    Transcrever
-                  </span>
+                  {toggleNav ? (
+                    <span
+                      className={`${styles.route} ${styles.logout}`}
+                      onClick={() => {
+                        setToggleNav(!toggleNav);
+                        navigate("/automato/transcrever/");
+                      }}
+                    >
+                      Transcrever
+                    </span>
+                  ) : (
+                    <span
+                      className={`${styles.route} ${styles.logout}`}
+                      onClick={() => {
+                        setToggleNav(!toggleNav);
+                        navigate("/automato/");
+                      }}
+                    >
+                      Transcrições
+                    </span>
+                  )}
                 </>
               )}
-              <div>
-                <a
-                  className={styles.route}
-                  href="https://defensoria.sc.def.br/home/"
-                >
-                  <span className={styles.linkText}>Defensoria pública</span>
-                </a>
-              </div>
             </div>
           )}
         </div>

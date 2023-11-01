@@ -10,6 +10,7 @@ const Transcriptions: React.FC = () => {
   const { data, loading, error } = useSelector(
     (state: any) => state.transcriptionsSlice
   );
+  const deleteFile = useSelector((state: any) => state.deleteFile);
   const [page, setPage] = useState<number>(1);
   const [isDispatched, setIsDispatched] = useState<boolean>(false);
   const [isResponsive, setIsResponsive] = useState<boolean>(false);
@@ -56,20 +57,8 @@ const Transcriptions: React.FC = () => {
   useEffect(() => {
     dispatch<any>(fetchTranscriptions(page.toString()));
     setIsDispatched(true);
-  }, [dispatch, page]);
-  if (loading)
-    return (
-      <div
-        style={{
-          display: "flex",
-          height: "50vw",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Loading size="5rem" type="spin" />
-      </div>
-    );
+  }, [dispatch, page, deleteFile?.data.response]);
+
   return (
     <div className={styles.container}>
       <Table
@@ -81,6 +70,7 @@ const Transcriptions: React.FC = () => {
         total={data.count}
         isEmpty={isDispatched && data?.results?.length === 0}
         error={error}
+        loading={loading}
       />
     </div>
   );

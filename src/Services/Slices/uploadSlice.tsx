@@ -35,14 +35,16 @@ const uploadSlice = createSlice({
   },
 });
 
-export const { getUpload, getUploadSuccess, getUploadFailure } = uploadSlice.actions;
+export const { getUpload, getUploadSuccess, getUploadFailure } =
+  uploadSlice.actions;
 
 export const fetchUpload = (formData: FormData) => async (dispatch: any) => {
   dispatch(getUpload());
   try {
     await services.upload(formData);
-    dispatch(getUploadSuccess({ response: "Transcrição agendada com sucesso" }));
-    window.location.reload();
+    dispatch(
+      getUploadSuccess({ response: "Transcrição agendada com sucesso" })
+    );
   } catch (err) {
     console.log("err: ", err);
     dispatch(getUploadFailure());
