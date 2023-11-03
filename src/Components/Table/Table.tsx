@@ -119,7 +119,7 @@ const Table: React.FC<TableProps> = ({
               {isEmpty || error ? (
                 <div className={styles.empty}>
                   {isEmpty
-                    ? "Não foi encontrado nenhum conteúdo"
+                    ? "Não foi encontrado nenhum conteúdo!"
                     : "Não foi possível carregar as informações!"}
                 </div>
               ) : (

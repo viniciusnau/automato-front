@@ -7,7 +7,6 @@ import { fetchTranscribe } from "../../Services/Slices/transcribeSlice";
 import { MdUpload } from "react-icons/md";
 import Button from "../../Components/Forms/Button";
 import { fetchUpload } from "../../Services/Slices/uploadSlice";
-import Loading from "../../Components/Loading/Loading";
 import Snackbar from "../../Components/Snackbar/Snackbar";
 
 const Transcribe: React.FC = () => {
@@ -16,7 +15,6 @@ const Transcribe: React.FC = () => {
     (state: any) => state.transcribeSlice
   );
   const uploadFile = useSelector((state: any) => state.uploadSlice);
-  console.log("uploadFile: ", uploadFile);
   const [page, setPage] = useState<number>(1);
   const [isDispatched, setIsDispatched] = useState<boolean>(false);
   const [isResponsive, setIsResponsive] = useState<boolean>(false);

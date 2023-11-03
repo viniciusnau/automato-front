@@ -9,7 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [isResponsive, setIsResponsive] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [toggleNav, setToggleNav] = useState(false);
+  const [toggleNav, setToggleNav] = useState<boolean>(true);
 
   useEffect(() => {
     const handleResize = () => {
