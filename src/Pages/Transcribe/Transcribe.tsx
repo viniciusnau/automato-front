@@ -54,21 +54,21 @@ const Transcribe: React.FC = () => {
       file: file,
     }));
     setFileError(null);
+    e.target.value = "";
   };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (form.file && validateFileFormat(form.file.name)) {
       const formData = new FormData();
       formData.append("audio_file", form.file);
       dispatch<any>(fetchUpload(formData));
-      setForm({ file: null });
       setFileError(null);
     } else {
       setFileError(
         "Formatos válidos são: MP3, MP4, WAV, FLAC, AMR, OGG e WebM"
       );
     }
+    setForm({ file: null });
   };
 
   const validateFileFormat = (fileName: string) => {

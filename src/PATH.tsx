@@ -1,5 +1,3 @@
-import { environment } from "./Environments/env.environment";
-
 export const PATH = {
-  base: environment,
+  base: "http://18.231.22.48:8001/api",
 };

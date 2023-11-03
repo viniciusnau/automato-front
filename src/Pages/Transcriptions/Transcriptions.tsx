@@ -10,7 +10,7 @@ const Transcriptions: React.FC = () => {
   const { data, loading, error } = useSelector(
     (state: any) => state.transcriptionsSlice
   );
-  const deleteFile = useSelector((state: any) => state.deleteFile);
+  const deleteFile = useSelector((state: any) => state.deleteFileSlice);
   const [page, setPage] = useState<number>(1);
   const [isDispatched, setIsDispatched] = useState<boolean>(false);
   const [isResponsive, setIsResponsive] = useState<boolean>(false);

@@ -3,7 +3,7 @@ import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
 import { MdArrowForward, MdDelete, MdDownload } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchDeleteFile } from "../../Services/Slices/deleteFileSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
@@ -38,21 +38,11 @@ const Table: React.FC<TableProps> = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const deleteFile = useSelector((state: any) => state.deleteFileSlice);
+  const [loadingStates, setLoadingStates] = useState<{
+    [key: string]: boolean;
+  }>({});
   const [isResponsive, setIsResponsive] = useState(false);
-  const [deletingRowIndex, setDeletingRowIndex] = useState(-1);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsResponsive(window.innerWidth <= 750);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const handlePageChange = (page: number) => {
     setPage(page);
@@ -62,8 +52,16 @@ const Table: React.FC<TableProps> = ({
     navigate("/automato/visualizacao", { state: id });
   };
 
+  // const handleDeleteClick = async (id: string) => {
+  //   dispatch<any>(fetchDeleteFile(id));
+  // };
   const handleDeleteClick = async (id: string) => {
-    dispatch<any>(fetchDeleteFile(id));
+    // Set loading state to true for the specific item
+    setLoadingStates({ ...loadingStates, [id]: true });
+    dispatch<any>(fetchDeleteFile(id)).then(() => {
+      // After the delete operation is complete, set loading state back to false
+      setLoadingStates({ ...loadingStates, [id]: false });
+    });
   };
 
   const customItemRender = (current: number, type: string) => {
@@ -95,6 +93,19 @@ const Table: React.FC<TableProps> = ({
 
     return null;
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsResponsive(window.innerWidth <= 750);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div className={styles.content}>
@@ -140,14 +151,15 @@ const Table: React.FC<TableProps> = ({
                               onClick={() => handleDeleteClick(row.id)}
                               className={styles.button}
                             >
-                              {deletingRowIndex === rowIndex ? (
-                                <MdDelete
-                                  size={isResponsive ? 18 : 24}
-                                  className={styles.spin}
-                                />
-                              ) : (
-                                <MdDelete size={isResponsive ? 18 : 24} />
-                              )}
+                              <MdDelete
+                                size={isResponsive ? 18 : 24}
+                                // className={
+                                //   deleteFile?.loading ? styles.spin : ""
+                                // }
+                                className={`${styles.button} ${
+                                  loadingStates[row.id] ? styles.spin : ""
+                                }`}
+                              />
                             </Button>
                           ) : column.property === "details" ? (
                             <Button
