@@ -72,7 +72,7 @@ const Login = () => {
           />
         </div>
         <form
-          action="http://automato.defensoria.sc.def.br:8001/api/google-redirect/"
+          action="https://automato.defensoria.sc.def.br:8001/api/google-redirect/"
           method="get"
           className={styles.form}
         >
