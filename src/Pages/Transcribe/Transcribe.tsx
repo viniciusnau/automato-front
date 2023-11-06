@@ -11,6 +11,7 @@ import Snackbar from "../../Components/Snackbar/Snackbar";
 
 const Transcribe: React.FC = () => {
   const dispatch = useDispatch();
+  const [snackbar, setSnackbar] = useState<boolean>(false);
   const { data, error, loading } = useSelector(
     (state: any) => state.transcribeSlice
   );
@@ -68,6 +69,7 @@ const Transcribe: React.FC = () => {
       formData.append("audio_file", form.file);
       dispatch<any>(fetchUpload(formData));
       setFileError(null);
+      setSnackbar(true);
     } else {
       setFileError("Formatos válidos são: MP3, MP4, WAV, FLAC, AMR, OGG");
     }
@@ -98,10 +100,16 @@ const Transcribe: React.FC = () => {
     update();
   }, [data]);
 
+  useEffect(() => {
+    setSnackbar(false);
+  }, []);
+
   return (
     <div className={styles.container}>
-      {uploadFile.data.response && <Snackbar type="transcribeSuccess" />}
-      {uploadFile.error && <Snackbar type="transcribeError" />}
+      {snackbar && uploadFile.data.response && (
+        <Snackbar type="transcribeSuccess" />
+      )}
+      {snackbar && uploadFile.error && <Snackbar type="transcribeError" />}
       <div className={styles.postContainer}>
         <label className={styles.fakeInput} htmlFor="file">
           <MdUpload size={isResponsive ? 18 : 24} />

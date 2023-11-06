@@ -86,7 +86,7 @@ const Login = () => {
             <p className={styles.login}>Continuar com google</p>
           </Button>
         </form>
-        <a href="/automato/alterar-senha" className={styles.forgotPassword}>
+        <a href="/automato/alterar-senha/" className={styles.forgotPassword}>
           Esqueceu a senha?
         </a>
         <div className={styles.formButton}>

@@ -25,7 +25,7 @@ const resetPasswordSlice = createSlice({
     getResetPasswordSuccess: (state, actions) => {
       state.loading = false;
       state.error = false;
-      state.data = actions.payload;
+      state.data = actions.payload.data;
     },
     getResetPasswordFailure: (state) => {
       state.loading = false;
@@ -57,7 +57,7 @@ export const fetchResetPassword =
     dispatch(getResetPassword());
     try {
       const response = await services.resetPassword(form);
-      dispatch(getResetPasswordSuccess(response.data));
+      dispatch(getResetPasswordSuccess(response));
     } catch (err) {
       console.log("err: ", err);
       dispatch(getResetPasswordFailure());

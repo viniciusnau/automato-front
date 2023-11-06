@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../Components/Forms/Input";
 import styles from "./ResetPassword.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import React from "react";
 const ResetPassword = () => {
   const dispatch = useDispatch();
 
+  const [snackbar, setSnackbar] = useState<boolean>(false);
   const [form, setForm] = useState<any>({
     email: "",
   });
@@ -28,12 +29,17 @@ const ResetPassword = () => {
 
   const handleSubmit = () => {
     dispatch<any>(fetchResetPassword(form));
+    setSnackbar(true);
   };
+
+  useEffect(() => {
+    setSnackbar(false);
+  }, []);
 
   return (
     <div className={styles.container}>
-      {error && <Snackbar type="resetError" />}
-      {data && data.message && <Snackbar type="resetSuccess" />}
+      {snackbar && error && <Snackbar type="resetError" />}
+      {snackbar && data?.message && <Snackbar type="resetSuccess" />}
       <div
         className={styles.form}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
