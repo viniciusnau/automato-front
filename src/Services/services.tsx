@@ -8,7 +8,9 @@ const services = {
 
     const header = {
       headers: {
-        Authorization: `${authorizationMethod} ${apiToken || sessionStorage.getItem("credentials")}`,
+        Authorization: `${authorizationMethod} ${
+          apiToken || sessionStorage.getItem("credentials")
+        }`,
       },
     };
     return axios
@@ -29,20 +31,22 @@ const services = {
 
     const header = {
       headers: {
-        Authorization: `${authorizationMethod} ${apiToken || sessionStorage.getItem("credentials")}`,
+        Authorization: `${authorizationMethod} ${
+          apiToken || sessionStorage.getItem("credentials")
+        }`,
       },
     };
     return axios
-        .get(
-            `${PATH.base}/transcriptions/${
-                page ? `?page=${page}` : ""
-            }&is_done=false`,
-            header
-        )
-        .then((data: any) => {
-          return data;
-        })
-        .catch((err: any) => console.log(err));
+      .get(
+        `${PATH.base}/transcriptions/${
+          page ? `?page=${page}` : ""
+        }&is_done=false`,
+        header
+      )
+      .then((data: any) => {
+        return data;
+      })
+      .catch((err: any) => console.log(err));
   },
   upload: async (body: FormData) => {
     const apiToken = sessionStorage.getItem("apiToken");
@@ -50,15 +54,17 @@ const services = {
 
     const header = {
       headers: {
-        Authorization: `${authorizationMethod} ${apiToken || sessionStorage.getItem("credentials")}`,
+        Authorization: `${authorizationMethod} ${
+          apiToken || sessionStorage.getItem("credentials")
+        }`,
       },
     };
     return axios
-        .post(PATH.base + "/transcribe/", body, header)
-        .then((response: any) => {
-          return response;
-        })
-        .catch((err: any) => console.log(err));
+      .post(PATH.base + "/transcribe/", body, header)
+      .then((response: any) => {
+        return response;
+      })
+      .catch((err: any) => console.log(err));
   },
   login: async (credentials: { username: string; password: string }) => {
     const headers = {
@@ -86,15 +92,17 @@ const services = {
 
     const header = {
       headers: {
-        Authorization: `${authorizationMethod} ${apiToken || sessionStorage.getItem("credentials")}`,
+        Authorization: `${authorizationMethod} ${
+          apiToken || sessionStorage.getItem("credentials")
+        }`,
       },
     };
     return axios
-        .get(`${PATH.base}/delete/?audio_id=${file}`, header)
-        .then((data: any) => {
-          return data;
-        })
-        .catch((err: any) => console.log(err));
+      .get(`${PATH.base}/delete/?audio_id=${file}`, header)
+      .then((data: any) => {
+        return data;
+      })
+      .catch((err: any) => console.log(err));
   },
   resetPassword: async (body: any) => {
     return axios
@@ -110,7 +118,9 @@ const services = {
 
     const header = {
       headers: {
-        Authorization: `${authorizationMethod} ${apiToken || sessionStorage.getItem("credentials")}`,
+        Authorization: `${authorizationMethod} ${
+          apiToken || sessionStorage.getItem("credentials")
+        }`,
       },
     };
     return axios

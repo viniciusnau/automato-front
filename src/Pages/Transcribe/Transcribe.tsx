@@ -20,6 +20,7 @@ const Transcribe: React.FC = () => {
   const [isResponsive, setIsResponsive] = useState<boolean>(false);
   const [form, setForm] = useState<any>({ file: null });
   const [fileError, setFileError] = useState<string | null>(null);
+  const [updated, setUpdated] = useState<any>([]);
 
   const columns = [
     { title: "Nome", property: "name" },
@@ -36,12 +37,16 @@ const Transcribe: React.FC = () => {
     return new Date(dateString).toLocaleDateString("pt-BR", options);
   };
 
-  const update = data?.results?.map((item: any) => ({
-    name: item.name,
-    created_at: formatDate(item.created_at),
-    code: item.code,
-    id: item.id,
-  }));
+  const update = () => {
+    setUpdated(
+      data?.results?.map((item: any) => ({
+        name: item.name,
+        created_at: formatDate(item.created_at),
+        code: item.code,
+        id: item.id,
+      }))
+    );
+  };
 
   const handleResize = () => {
     setIsResponsive(window.innerWidth <= 750);
@@ -64,15 +69,13 @@ const Transcribe: React.FC = () => {
       dispatch<any>(fetchUpload(formData));
       setFileError(null);
     } else {
-      setFileError(
-        "Formatos válidos são: MP3, MP4, WAV, FLAC, AMR, OGG e WebM"
-      );
+      setFileError("Formatos válidos são: MP3, MP4, WAV, FLAC, AMR, OGG");
     }
     setForm({ file: null });
   };
 
   const validateFileFormat = (fileName: string) => {
-    const acceptedFormats = ["mp3", "mp4", "wav", "flac", "amr", "ogg", "webm"];
+    const acceptedFormats = ["mp3", "mp4", "wav", "flac", "amr", "ogg"];
     const fileExtension = fileName.split(".").pop()?.toLowerCase();
     return fileExtension && acceptedFormats.includes(fileExtension);
   };
@@ -90,6 +93,10 @@ const Transcribe: React.FC = () => {
     dispatch<any>(fetchTranscribe(page.toString()));
     setIsDispatched(true);
   }, [dispatch, page, uploadFile.data?.response]);
+
+  useEffect(() => {
+    update();
+  }, [data]);
 
   return (
     <div className={styles.container}>
@@ -121,7 +128,7 @@ const Transcribe: React.FC = () => {
       <Table
         title="Transcrições em andamento"
         columns={columns}
-        data={update}
+        data={updated}
         setPage={setPage}
         page={page}
         total={data.count}

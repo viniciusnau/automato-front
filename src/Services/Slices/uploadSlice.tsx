@@ -17,17 +17,17 @@ const uploadSlice = createSlice({
   name: "upload",
   initialState,
   reducers: {
-    getUpload: (state) => {
+    postUpload: (state) => {
       state.loading = true;
       state.error = false;
       state.data = [];
     },
-    getUploadSuccess: (state, action: PayloadAction<any>) => {
+    postUploadSuccess: (state, action: PayloadAction<any>) => {
       state.loading = false;
       state.error = false;
       state.data = action.payload;
     },
-    getUploadFailure: (state) => {
+    postUploadFailure: (state) => {
       state.loading = false;
       state.error = true;
       state.data = [];
@@ -35,20 +35,34 @@ const uploadSlice = createSlice({
   },
 });
 
-export const { getUpload, getUploadSuccess, getUploadFailure } =
+export const { postUpload, postUploadSuccess, postUploadFailure } =
   uploadSlice.actions;
 
-export const fetchUpload = (formData: FormData) => async (dispatch: any) => {
-  dispatch(getUpload());
-  try {
-    await services.upload(formData);
-    dispatch(
-      getUploadSuccess({ response: "Transcrição agendada com sucesso" })
-    );
-  } catch (err) {
-    console.log("err: ", err);
-    dispatch(getUploadFailure());
-  }
-};
+export const fetchUpload =
+  (formData: FormData) =>
+  async (
+    dispatch: (arg0: {
+      payload: any;
+      type:
+        | "upload/postUpload"
+        | "upload/postUploadSuccess"
+        | "upload/postUploadFailure";
+    }) => void
+  ) => {
+    dispatch(postUpload());
+    try {
+      const response = await services.upload(formData);
+      if (response?.status < 300) {
+        dispatch(
+          postUploadSuccess({ response: "Transcrição agendada com sucesso" })
+        );
+      } else {
+        throw new Error(response);
+      }
+    } catch (err) {
+      console.log("err: ", err);
+      dispatch(postUploadFailure());
+    }
+  };
 
 export default uploadSlice.reducer;

@@ -3,7 +3,7 @@ import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
 import { MdArrowForward, MdDelete, MdDownload } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchDeleteFile } from "../../Services/Slices/deleteFileSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
@@ -38,7 +38,6 @@ const Table: React.FC<TableProps> = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const deleteFile = useSelector((state: any) => state.deleteFileSlice);
   const [loadingStates, setLoadingStates] = useState<{
     [key: string]: boolean;
   }>({});
@@ -52,14 +51,9 @@ const Table: React.FC<TableProps> = ({
     navigate("/automato/visualizacao", { state: id });
   };
 
-  // const handleDeleteClick = async (id: string) => {
-  //   dispatch<any>(fetchDeleteFile(id));
-  // };
   const handleDeleteClick = async (id: string) => {
-    // Set loading state to true for the specific item
     setLoadingStates({ ...loadingStates, [id]: true });
     dispatch<any>(fetchDeleteFile(id)).then(() => {
-      // After the delete operation is complete, set loading state back to false
       setLoadingStates({ ...loadingStates, [id]: false });
     });
   };
@@ -144,7 +138,7 @@ const Table: React.FC<TableProps> = ({
                               onClick={() => null}
                               className={styles.button}
                             >
-                              <MdDownload size={isResponsive ? 18 : 24} />
+                              <MdDownload size={isResponsive ? 12 : 24} />
                             </Button>
                           ) : column.property === "delete" ? (
                             <Button
@@ -152,10 +146,7 @@ const Table: React.FC<TableProps> = ({
                               className={styles.button}
                             >
                               <MdDelete
-                                size={isResponsive ? 18 : 24}
-                                // className={
-                                //   deleteFile?.loading ? styles.spin : ""
-                                // }
+                                size={isResponsive ? 12 : 24}
                                 className={`${styles.button} ${
                                   loadingStates[row.id] ? styles.spin : ""
                                 }`}

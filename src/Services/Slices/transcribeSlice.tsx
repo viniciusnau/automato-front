@@ -25,7 +25,7 @@ const transcribeSlice = createSlice({
     getTranscribeSuccess: (state, actions) => {
       state.loading = false;
       state.error = false;
-      state.data = actions.payload;
+      state.data = actions.payload.data;
     },
     getTranscribeFailure: (state) => {
       state.loading = false;
@@ -35,11 +35,8 @@ const transcribeSlice = createSlice({
   },
 });
 
-export const {
-  getTranscribe,
-  getTranscribeSuccess,
-  getTranscribeFailure,
-} = transcribeSlice.actions;
+export const { getTranscribe, getTranscribeSuccess, getTranscribeFailure } =
+  transcribeSlice.actions;
 
 export default transcribeSlice.reducer;
 
@@ -57,7 +54,7 @@ export const fetchTranscribe =
     dispatch(getTranscribe());
     try {
       const response = await services.getTranscribe(page);
-      dispatch(getTranscribeSuccess(response.data));
+      dispatch(getTranscribeSuccess(response));
     } catch (err) {
       console.log("err: ", err);
       dispatch(getTranscribeFailure());

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./Transcriptions.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "../../Components/Table/Table";
-import Loading from "../../Components/Loading/Loading";
 import { fetchTranscriptions } from "../../Services/Slices/transcriptionsSlice";
 
 const Transcriptions: React.FC = () => {
@@ -13,7 +12,6 @@ const Transcriptions: React.FC = () => {
   const deleteFile = useSelector((state: any) => state.deleteFileSlice);
   const [page, setPage] = useState<number>(1);
   const [isDispatched, setIsDispatched] = useState<boolean>(false);
-  const [isResponsive, setIsResponsive] = useState<boolean>(false);
 
   const formatDate = (dateString: string) => {
     const options = {
@@ -22,10 +20,6 @@ const Transcriptions: React.FC = () => {
       year: "numeric",
     } as Intl.DateTimeFormatOptions;
     return new Date(dateString).toLocaleDateString("pt-BR", options);
-  };
-
-  const handleResize = () => {
-    setIsResponsive(window.innerWidth <= 750);
   };
 
   const columns = [
@@ -44,15 +38,6 @@ const Transcriptions: React.FC = () => {
       id: item.id,
     };
   });
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   useEffect(() => {
     dispatch<any>(fetchTranscriptions(page.toString()));
