@@ -74,35 +74,32 @@ const Header = () => {
                             Redefinir Senha
                           </span>
                         </li>
-                        {toggleNav ? (
-                          <li
-                            onClick={() => {
-                              setIsDropdownOpen(!isDropdownOpen);
-                              setToggleNav(!toggleNav);
-                              navigate("automato/transcrever/");
-                            }}
+                        <li
+                          onClick={() => {
+                            setIsDropdownOpen(!isDropdownOpen);
+                            setToggleNav(!toggleNav);
+                            navigate("automato/transcrever/");
+                          }}
+                        >
+                          <span
+                            className={`${styles.route} ${styles.modalItem}`}
                           >
-                            <span
-                              className={`${styles.route} ${styles.modalItem}`}
-                            >
-                              Transcrever
-                            </span>
-                          </li>
-                        ) : (
-                          <li
-                            onClick={() => {
-                              setIsDropdownOpen(!isDropdownOpen);
-                              setToggleNav(!toggleNav);
-                              navigate("automato/");
-                            }}
+                            Transcrever
+                          </span>
+                        </li>
+                        <li
+                          onClick={() => {
+                            setIsDropdownOpen(!isDropdownOpen);
+                            setToggleNav(!toggleNav);
+                            navigate("automato/");
+                          }}
+                        >
+                          <span
+                            className={`${styles.route} ${styles.modalItem}`}
                           >
-                            <span
-                              className={`${styles.route} ${styles.modalItem}`}
-                            >
-                              Transcrições
-                            </span>
-                          </li>
-                        )}
+                            Transcrições
+                          </span>
+                        </li>
                       </>
                     )}
                   </ul>
@@ -125,27 +122,24 @@ const Header = () => {
                   >
                     Redefinir Senha
                   </span>
-                  {toggleNav ? (
-                    <span
-                      className={`${styles.route} ${styles.logout}`}
-                      onClick={() => {
-                        setToggleNav(!toggleNav);
-                        navigate("/automato/transcrever/");
-                      }}
-                    >
-                      Transcrever
-                    </span>
-                  ) : (
-                    <span
-                      className={`${styles.route} ${styles.logout}`}
-                      onClick={() => {
-                        setToggleNav(!toggleNav);
-                        navigate("/automato/");
-                      }}
-                    >
-                      Transcrições
-                    </span>
-                  )}
+                  <span
+                    className={`${styles.route} ${styles.logout}`}
+                    onClick={() => {
+                      setToggleNav(!toggleNav);
+                      navigate("/automato/transcrever/");
+                    }}
+                  >
+                    Transcrever
+                  </span>
+                  <span
+                    className={`${styles.route} ${styles.logout}`}
+                    onClick={() => {
+                      setToggleNav(!toggleNav);
+                      navigate("/automato/");
+                    }}
+                  >
+                    Transcrições
+                  </span>
                 </>
               )}
             </div>
