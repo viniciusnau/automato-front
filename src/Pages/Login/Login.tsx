@@ -9,10 +9,12 @@ import { useNavigate } from "react-router-dom";
 import { isLoggedIn } from "../../Auth/Auth";
 import { handleKeyPress } from "../../Components/Helper";
 import Snackbar from "../../Components/Snackbar/Snackbar";
+import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -31,6 +33,10 @@ const Login = () => {
 
   const handleSubmit = () => {
     dispatch<any>(fetchMe(form));
+  };
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   useEffect(() => {
@@ -63,13 +69,22 @@ const Login = () => {
           <label className={styles.label} htmlFor="password">
             Senha:
           </label>
-          <Input
-            className={styles.input}
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={form.password}
-          />
+          <div className={styles.password}>
+            <Input
+              className={styles.input}
+              type={showPassword ? "text" : "password"}
+              name="password"
+              onChange={handleChange}
+              value={form.password}
+            />
+            <div className={styles.passwordIcon}>
+              {showPassword ? (
+                <HiOutlineEye size={24} onClick={handleShowPassword} />
+              ) : (
+                <HiOutlineEyeSlash size={24} onClick={handleShowPassword} />
+              )}
+            </div>
+          </div>
         </div>
         <form
           action="https://automato.defensoria.sc.def.br/api/google-redirect/"
