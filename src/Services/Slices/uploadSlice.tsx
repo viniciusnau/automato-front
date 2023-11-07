@@ -4,7 +4,7 @@ import services from "../services";
 interface UploadState {
   data: any[];
   loading: boolean;
-  error: boolean;
+  error: boolean | any[];
 }
 
 const initialState: UploadState = {
@@ -27,9 +27,9 @@ const uploadSlice = createSlice({
       state.error = false;
       state.data = action.payload;
     },
-    postUploadFailure: (state) => {
+    postUploadFailure: (state, action: PayloadAction<any>) => {
       state.loading = false;
-      state.error = true;
+      state.error = action?.payload ? action.payload : "";
       state.data = [];
     },
   },
@@ -56,12 +56,18 @@ export const fetchUpload =
         dispatch(
           postUploadSuccess({ response: "Transcrição agendada com sucesso" })
         );
+      } else if (response?.status === 429) {
+        dispatch(
+          postUploadFailure({
+            status: 429,
+          })
+        );
       } else {
         throw new Error(response);
       }
     } catch (err) {
       console.log("err: ", err);
-      dispatch(postUploadFailure());
+      dispatch(postUploadFailure({ status: 429 }));
     }
   };
 
