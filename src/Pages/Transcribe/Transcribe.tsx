@@ -20,7 +20,7 @@ const Transcribe: React.FC = () => {
   const [isDispatched, setIsDispatched] = useState<boolean>(false);
   const [isResponsive, setIsResponsive] = useState<boolean>(false);
   const [form, setForm] = useState<any>({ file: null });
-  const [fileError, setFileError] = useState<string | null>(null);
+  const [isInvalidfile, setIsInvalidfile] = useState<boolean>(false);
   const [updated, setUpdated] = useState<any>([]);
 
   const columns = [
@@ -59,7 +59,8 @@ const Transcribe: React.FC = () => {
       ...prev,
       file: file,
     }));
-    setFileError(null);
+    setIsInvalidfile(false);
+    setSnackbar(true);
     e.target.value = "";
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,10 +69,10 @@ const Transcribe: React.FC = () => {
       const formData = new FormData();
       formData.append("audio_file", form.file);
       dispatch<any>(fetchUpload(formData));
-      setFileError(null);
+      setIsInvalidfile(false);
       setSnackbar(true);
     } else {
-      setFileError("Formatos válidos são: MP3, MP4, WAV, FLAC, AMR, OGG");
+      setIsInvalidfile(true);
     }
     setForm({ file: null });
   };
@@ -79,7 +80,9 @@ const Transcribe: React.FC = () => {
   const validateFileFormat = (fileName: string) => {
     const acceptedFormats = ["mp3", "mp4", "wav", "flac", "amr", "ogg"];
     const fileExtension = fileName.split(".").pop()?.toLowerCase();
-    return fileExtension && acceptedFormats.includes(fileExtension);
+    const isValid = fileExtension && acceptedFormats.includes(fileExtension);
+    setIsInvalidfile(false);
+    return isValid;
   };
 
   useEffect(() => {
@@ -109,7 +112,13 @@ const Transcribe: React.FC = () => {
       {snackbar && uploadFile.data.response && (
         <Snackbar type="transcribeSuccess" />
       )}
-      {snackbar && uploadFile.error && <Snackbar type="transcribeError" />}
+      {snackbar && uploadFile.error.status !== 429 && (
+        <Snackbar type="transcribeError" />
+      )}
+      {snackbar && uploadFile.error.status === 429 && (
+        <Snackbar type="transcribeExceededError" />
+      )}
+      {snackbar && isInvalidfile && <Snackbar type="invalidFileError" />}
       <div className={styles.postContainer}>
         <label className={styles.fakeInput} htmlFor="file">
           <MdUpload size={isResponsive ? 18 : 24} />
@@ -131,7 +140,6 @@ const Transcribe: React.FC = () => {
           Transcrever
         </Button>
       </div>
-      {fileError && <div className={styles.errorText}>{fileError}</div>}
 
       <Table
         title="Transcrições em andamento"

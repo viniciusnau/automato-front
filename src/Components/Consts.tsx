@@ -46,6 +46,11 @@ export const snackbarConsts = {
   },
 
   transcribeError: {
+    title: "Limites de agendamentos diário excedido!",
+    description: "Tente novamente outro dia.",
+    color: "#ff6464",
+  },
+  transcribeExceededError: {
     title: "Erro ao iniciar transcrição!",
     description: "Tente novamente mais tarde.",
     color: "#ff6464",
@@ -54,5 +59,11 @@ export const snackbarConsts = {
     title: "Transcrição agendada com sucesso!",
     description: "",
     color: "#9fc54d",
+  },
+  invalidFileError: {
+    title: "Erro ao selecionar o arquivo!",
+    description:
+      "Formatos de arquivo suportados: MP3, MP4, WAV, FLAC, AMR, OGG.",
+    color: "#ff6464",
   },
 };
