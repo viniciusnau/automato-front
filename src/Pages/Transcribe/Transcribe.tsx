@@ -55,14 +55,16 @@ const Transcribe: React.FC = () => {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
-    setForm((prev: any) => ({
-      ...prev,
-      file: file,
-    }));
-    setIsInvalidfile(false);
     setSnackbar(true);
+    if (file && validateFileFormat(file.name)) {
+      setForm((prev: any) => ({
+        ...prev,
+        file: file,
+      }));
+    }
     e.target.value = "";
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (form.file && validateFileFormat(form.file.name)) {
@@ -71,8 +73,6 @@ const Transcribe: React.FC = () => {
       dispatch<any>(fetchUpload(formData));
       setIsInvalidfile(false);
       setSnackbar(true);
-    } else {
-      setIsInvalidfile(true);
     }
     setForm({ file: null });
   };
@@ -81,7 +81,7 @@ const Transcribe: React.FC = () => {
     const acceptedFormats = ["mp3", "mp4", "wav", "flac", "amr", "ogg"];
     const fileExtension = fileName.split(".").pop()?.toLowerCase();
     const isValid = fileExtension && acceptedFormats.includes(fileExtension);
-    setIsInvalidfile(false);
+    isValid ? setIsInvalidfile(false) : setIsInvalidfile(true);
     return isValid;
   };
 
@@ -112,10 +112,12 @@ const Transcribe: React.FC = () => {
       {snackbar && uploadFile.data.response && (
         <Snackbar type="transcribeSuccess" />
       )}
-      {snackbar && uploadFile.error.status !== 429 && (
-        <Snackbar type="transcribeError" />
-      )}
-      {snackbar && uploadFile.error.status === 429 && (
+      {snackbar &&
+        uploadFile?.error?.status &&
+        uploadFile?.error?.status !== 429 && (
+          <Snackbar type="transcribeError" />
+        )}
+      {snackbar && uploadFile?.error?.status === 429 && (
         <Snackbar type="transcribeExceededError" />
       )}
       {snackbar && isInvalidfile && <Snackbar type="invalidFileError" />}

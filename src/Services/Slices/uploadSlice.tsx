@@ -28,8 +28,8 @@ const uploadSlice = createSlice({
       state.data = action.payload;
     },
     postUploadFailure: (state, action: PayloadAction<any>) => {
-      state.loading = action?.payload ? action.payload : "";
-      state.error = true;
+      state.loading = false;
+      state.error = action?.payload ? action.payload : "";
       state.data = [];
     },
   },

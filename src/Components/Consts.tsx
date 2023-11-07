@@ -46,13 +46,13 @@ export const snackbarConsts = {
   },
 
   transcribeError: {
-    title: "Limites de agendamentos diário excedido!",
-    description: "Tente novamente outro dia.",
+    title: "Erro ao iniciar transcrição!",
+    description: "Tente novamente mais tarde.",
     color: "#ff6464",
   },
   transcribeExceededError: {
-    title: "Erro ao iniciar transcrição!",
-    description: "Tente novamente mais tarde.",
+    title: "Limites de agendamentos diário excedido!",
+    description: "Tente novamente outro dia.",
     color: "#ff6464",
   },
   transcribeSuccess: {
