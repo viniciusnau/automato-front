@@ -23,7 +23,6 @@
 .button {
   background-color: var(--first-button-color);
   color: var(--first-text-color);
-  border: none;
   border-radius: 4px;
   cursor: var(--cursor-pointer);
   display: flex;

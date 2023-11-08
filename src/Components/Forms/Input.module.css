@@ -1,4 +1,7 @@
 .container {
+  background-color: var(--second-button-color);
+  border: none;
+  border-radius: 0.5rem;
   box-shadow: 0px 10px 10px -10px var(--shadow-color);
   cursor: var(--cursor-pointer);
 }

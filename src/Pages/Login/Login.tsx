@@ -14,7 +14,7 @@ import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(true);
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -72,7 +72,7 @@ const Login = () => {
           <div className={styles.password}>
             <Input
               className={styles.input}
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? "" : "password"}
               name="password"
               onChange={handleChange}
               value={form.password}

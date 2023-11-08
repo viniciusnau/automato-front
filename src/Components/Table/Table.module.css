@@ -115,7 +115,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
   border-radius: 5rem;
   background-color: var(--first-button-color);
   box-shadow: 0 10px 10px -10px var(--shadow-color);
@@ -253,6 +252,10 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

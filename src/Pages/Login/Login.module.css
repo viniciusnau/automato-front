@@ -30,13 +30,11 @@
 }
 
 .input {
-  background-color: var(--second-button-color);
   display: flex;
-  border: none;
   height: 3rem;
-  border-radius: 0.5rem;
   padding: 0 0 0 1rem;
   font-size: var(--font-size);
+  width: 100%;
 }
 
 .input:hover,
@@ -53,6 +51,10 @@
   display: flex;
   align-items: center;
   width: 100%;
+}
+
+.passwordInput {
+  width: 100%; /* Set a consistent width for password input fields */
 }
 
 .passwordIcon {
@@ -91,8 +93,6 @@
 .button {
   height: 2.5rem;
   width: 7.5rem;
-  border: none;
-  border-radius: 0.5rem;
   background-color: var(--first-button-color);
   box-shadow: 0 10px 10px -10px var(--shadow-color);
   font-size: var(--font-size);
@@ -113,7 +113,8 @@
   .label {
     font-size: 0.8rem;
   }
-  .input {
+  .input,
+  .password {
     width: 15rem;
   }
 }
@@ -125,7 +126,8 @@
   .label {
     font-size: 1rem;
   }
-  .input {
+  .input,
+  .password {
     width: 17.5rem;
   }
 }

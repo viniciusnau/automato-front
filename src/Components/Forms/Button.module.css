@@ -2,5 +2,6 @@
   box-shadow: 0 10px 10px -10px var(--shadow-color);
   cursor: var(--cursor-pointer);
   border: none;
+  border-radius: 0.5rem;
   padding: 0.5rem;
 }
