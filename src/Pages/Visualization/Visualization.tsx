@@ -1,41 +1,49 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Visualization.module.css";
-import { BiSolidFile } from "react-icons/bi";
+import { BiSolidEdit, BiSolidFile } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTranscript } from "../../Services/Slices/transcriptSlice";
 import Snackbar from "../../Components/Snackbar/Snackbar";
 import Loading from "../../Components/Loading/Loading";
+import Modal from "./Modal/Modal";
 
 const Visualization = () => {
   const dispatch = useDispatch();
   const { data, error, loading } = useSelector(
     (state: any) => state.transcriptSlice
   );
+  const sketchSlice = useSelector((state: any) => state.sketchSlice);
   const { state } = useLocation();
   const [content, setContent] = useState<any>();
   const [separatedWords, setSeparatedWords] = useState<any>();
-  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
+  const [handleModal, setHandleModal] = useState<boolean>(false);
+  const [sketch, setSketch] = useState<string>("");
+  const [backup, setBackup] = useState<string>("");
 
   const copyToClipboard = (text: string) => {
-    const textArea = document.createElement('textarea');
+    const textArea = document.createElement("textarea");
     textArea.value = text;
     document.body.appendChild(textArea);
     textArea.select();
 
     try {
-      document.execCommand('copy');
+      document.execCommand("copy");
       document.body.removeChild(textArea);
       setShowSnackbar(true);
     } catch (err) {
-      console.error('Unable to copy text: ', err);
+      console.error("Unable to copy text: ", err);
     }
+  };
+
+  const handleEditText = () => {
+    setHandleModal(!handleModal);
   };
 
   const handleCopyText = () => {
     copyToClipboard(data?.transcript);
   };
-
 
   function formatTime(milliseconds: number) {
     const hours = Math.floor(milliseconds / 3600);
@@ -85,6 +93,10 @@ const Visualization = () => {
       });
 
       setSeparatedWords(data?.transcript?.split(" "));
+      setSketch(
+        data?.edited_transcript ? data?.edited_transcript : data.transcript
+      );
+      setBackup(data.transcript);
     }
   };
 
@@ -175,9 +187,16 @@ const Visualization = () => {
     <>
       {error && <Snackbar type="transcriptError" />}
       {showSnackbar && <Snackbar type="copySuccess" />}
+      {sketchSlice.data?.response && <Snackbar type="sketchSuccess" />}
+      {sketchSlice.error && <Snackbar type="sketchError" />}
       <div className={styles.container}>
         <div className={styles.textContainer}>
           <div className={styles.buttonContainer}>
+            <BiSolidEdit
+              size={28}
+              onClick={handleEditText}
+              className={styles.copy}
+            />
             <BiSolidFile
               size={28}
               onClick={handleCopyText}
@@ -185,6 +204,16 @@ const Visualization = () => {
             />
           </div>
           <div className={styles.text}>{highlightedText()}</div>
+          {handleModal && (
+            <Modal
+              handleModal={handleModal}
+              setHandleModal={setHandleModal}
+              setSketch={setSketch}
+              sketch={sketch}
+              backup={backup}
+              id={state}
+            />
+          )}
         </div>
       </div>
     </>

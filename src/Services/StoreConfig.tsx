@@ -6,6 +6,7 @@ import transcriptSlice from "./Slices/transcriptSlice";
 import transcribeSlice from "./Slices/transcribeSlice";
 import uploadSlice from "./Slices/uploadSlice";
 import deleteFileSlice from "./Slices/deleteFileSlice";
+import sketchSlice from "./Slices/sketchSlice";
 
 const reducer = combineReducers({
   transcriptionsSlice,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   transcriptSlice,
   uploadSlice,
   deleteFileSlice,
+  sketchSlice,
 });
 
 export const store = configureStore({ reducer });

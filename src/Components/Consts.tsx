@@ -66,4 +66,14 @@ export const snackbarConsts = {
       "Formatos de arquivo suportados: MP3, MP4, WAV, FLAC, AMR, OGG.",
     color: "#ff6464",
   },
+  sketchError: {
+    title: "Erro ao salvar o rascunho!",
+    description: "Tente novamente mais tarde.",
+    color: "#ff6464",
+  },
+  sketchSuccess: {
+    title: "Rascunho salvo com sucesso!",
+    description: "",
+    color: "#9fc54d",
+  },
 };
