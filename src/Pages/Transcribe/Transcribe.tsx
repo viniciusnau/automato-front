@@ -16,6 +16,13 @@ const Transcribe: React.FC = () => {
     (state: any) => state.transcribeSlice
   );
   const uploadFile = useSelector((state: any) => state.uploadSlice);
+  const [isColorInverted, setIsColorInverted] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  const colorInvertedState = useSelector(
+    (state: any) => state.a11ySlice.colorInverted
+  );
   const [page, setPage] = useState<number>(1);
   const [isDispatched, setIsDispatched] = useState<boolean>(false);
   const [isResponsive, setIsResponsive] = useState<boolean>(false);
@@ -107,6 +114,10 @@ const Transcribe: React.FC = () => {
     setSnackbar(false);
   }, []);
 
+  useEffect(() => {
+    setIsColorInverted(colorInvertedState);
+  }, [colorInvertedState]);
+
   return (
     <div className={styles.container}>
       {snackbar && uploadFile.data.response && (
@@ -133,7 +144,12 @@ const Transcribe: React.FC = () => {
           onChange={handleFileChange}
         />
         {form.file && (
-          <div className={styles.fileText}>Arquivo: {form.file.name}</div>
+          <div
+            className={styles.fileText}
+            style={{ color: isColorInverted ? "#fafafa" : "initial" }}
+          >
+            Arquivo: {form.file.name}
+          </div>
         )}
         <Button
           className={`${styles.button} ${styles.schedule}`}

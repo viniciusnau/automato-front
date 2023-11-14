@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Modal.module.css";
 import Button from "../../../Components/Forms/Button";
 import Loading from "../../../Components/Loading/Loading";
@@ -27,6 +27,12 @@ const Modal = ({
   const { data, error, loading } = useSelector(
     (state: any) => state.sketchSlice
   );
+  const [isColorInverted, setIsColorInverted] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const colorInvertedState = useSelector(
+    (state: any) => state.a11ySlice.colorInverted
+  );
 
   const handleReset = () => {
     setSketch(backup);
@@ -44,6 +50,10 @@ const Modal = ({
     dispatch<any>(fetchSketch(body));
     setHandleModal(false);
   };
+
+  useEffect(() => {
+    setIsColorInverted(colorInvertedState);
+  }, [colorInvertedState]);
 
   if (loading)
     return (
@@ -73,7 +83,7 @@ const Modal = ({
 
         <div className={styles.controls}>
           <Button onClick={handleReset} className={styles.button}>
-            Resetar
+            Redefinir
           </Button>
           <Button
             onClick={() => {

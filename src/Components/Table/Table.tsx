@@ -3,7 +3,7 @@ import styles from "./Table.module.css";
 import Pagination from "rc-pagination";
 import Button from "../Forms/Button";
 import { MdArrowForward, MdDelete, MdDownload } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchDeleteFile } from "../../Services/Slices/deleteFileSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
@@ -41,7 +41,13 @@ const Table: React.FC<TableProps> = ({
   const [loadingStates, setLoadingStates] = useState<{
     [key: string]: boolean;
   }>({});
-  const [isResponsive, setIsResponsive] = useState(false);
+  const [isResponsive, setIsResponsive] = useState<boolean>(false);
+  const [isColorInverted, setIsColorInverted] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const colorInvertedState = useSelector(
+    (state: any) => state.a11ySlice.colorInverted
+  );
 
   const handlePageChange = (page: number) => {
     setPage(page);
@@ -62,7 +68,12 @@ const Table: React.FC<TableProps> = ({
     if (type === "page") {
       return (
         current === page && (
-          <span className={styles.currentPage}>
+          <span
+            className={styles.currentPage}
+            style={{
+              color: isColorInverted ? "white" : "initial",
+            }}
+          >
             {data?.length > 0 ? page : "0"}
           </span>
         )
@@ -101,10 +112,23 @@ const Table: React.FC<TableProps> = ({
     };
   }, []);
 
+  useEffect(() => {
+    setIsColorInverted(colorInvertedState);
+  }, [colorInvertedState]);
+
   return (
     <div className={styles.content}>
       <div className={styles.header}>
-        {title && <div className={styles.headerTable}>{title}</div>}
+        {title && (
+          <div
+            className={styles.headerTable}
+            style={{
+              color: isColorInverted ? "#fafafa" : "initial",
+            }}
+          >
+            {title}
+          </div>
+        )}
       </div>
       <div className={styles.container}>
         <div className={styles.tableHeader}>
@@ -122,7 +146,10 @@ const Table: React.FC<TableProps> = ({
           ) : (
             <>
               {isEmpty || error ? (
-                <div className={styles.empty}>
+                <div
+                  className={styles.empty}
+                  style={{ color: isColorInverted ? "#fafafa" : "initial" }}
+                >
                   {isEmpty
                     ? "Não foi encontrado nenhum conteúdo!"
                     : "Não foi possível carregar as informações!"}
@@ -160,7 +187,12 @@ const Table: React.FC<TableProps> = ({
                               <MdArrowForward size={isResponsive ? 18 : 24} />
                             </Button>
                           ) : (
-                            <div className={styles.tableCell}>
+                            <div
+                              className={styles.tableCell}
+                              style={{
+                                color: isColorInverted ? "#fafafa" : "initial",
+                              }}
+                            >
                               {row[column.property]}
                             </div>
                           )}

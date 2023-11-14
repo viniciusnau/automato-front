@@ -7,18 +7,31 @@ import { fetchTranscript } from "../../Services/Slices/transcriptSlice";
 import Snackbar from "../../Components/Snackbar/Snackbar";
 import Loading from "../../Components/Loading/Loading";
 import Modal from "./Modal/Modal";
+import "../../colors.css";
 
-const Visualization = () => {
+interface iVisualization {
+  colorInverted: boolean;
+}
+
+const Visualization: React.FC<iVisualization> = ({ colorInverted }) => {
   const dispatch = useDispatch();
   const { data, error, loading } = useSelector(
     (state: any) => state.transcriptSlice
   );
+
+  const colorInvertedState = useSelector(
+    (state: any) => state.a11ySlice.colorInverted
+  );
+
   const sketchSlice = useSelector((state: any) => state.sketchSlice);
   const { state } = useLocation();
   const [content, setContent] = useState<any>();
   const [separatedWords, setSeparatedWords] = useState<any>();
   const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
   const [handleModal, setHandleModal] = useState<boolean>(false);
+  const [isColorInverted, setIsColorInverted] = useState<{
+    [key: string]: boolean;
+  }>({});
   const [sketch, setSketch] = useState<string>("");
   const [backup, setBackup] = useState<string>("");
 
@@ -128,7 +141,12 @@ const Visualization = () => {
               handleMouseToggle(shouldHighlight, false);
             }}
           >
-            <span className={styles.word}>{word}</span>
+            <span
+              className={styles.word}
+              style={{ color: isColorInverted ? "#fafafa" : "initial" }}
+            >
+              {word}
+            </span>
             {shouldHighlight?.showTooltip && (
               <div className={styles.tpContainer}>
                 <span className={styles.tooltip}>
@@ -158,6 +176,10 @@ const Visualization = () => {
       updateData();
     }
   }, [data]);
+
+  useEffect(() => {
+    setIsColorInverted(colorInvertedState);
+  }, [colorInvertedState]);
 
   useEffect(() => {
     if (showSnackbar) {
@@ -196,11 +218,13 @@ const Visualization = () => {
               size={28}
               onClick={handleEditText}
               className={styles.copy}
+              style={{ color: isColorInverted ? "#fafafa" : "default" }}
             />
             <BiSolidFile
               size={28}
               onClick={handleCopyText}
               className={styles.copy}
+              style={{ color: isColorInverted ? "#fafafa" : "default" }}
             />
           </div>
           <div className={styles.text}>{highlightedText()}</div>

@@ -19,6 +19,12 @@ const ResetPassword = () => {
   const { data, error, loading } = useSelector(
     (state: any) => state.resetPassword
   );
+  const [isColorInverted, setIsColorInverted] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const colorInvertedState = useSelector(
+    (state: any) => state.a11ySlice.colorInverted
+  );
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
     setForm((prev: any) => ({
@@ -36,6 +42,10 @@ const ResetPassword = () => {
     setSnackbar(false);
   }, []);
 
+  useEffect(() => {
+    setIsColorInverted(colorInvertedState);
+  }, [colorInvertedState]);
+
   return (
     <div className={styles.container}>
       {snackbar && error && <Snackbar type="resetError" />}
@@ -44,11 +54,16 @@ const ResetPassword = () => {
         className={styles.form}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
       >
-        <h2 className={styles.title}>Redefinir Senha</h2>
+        <h2
+          className={styles.title}
+          style={{ color: isColorInverted ? "#fafafa" : "initial" }}
+        >
+          Redefinir Senha
+        </h2>
         <Input
           type="email"
           className={styles.input}
-          placeholder="Seu endereço de e-mail"
+          label="Email"
           name="email"
           value={form.email}
           onChange={handleChange}
@@ -73,7 +88,7 @@ const ResetPassword = () => {
               <Loading size="2rem" type="spin" />
             </div>
           ) : (
-            "Enviar E-mail"
+            "Enviar"
           )}
         </Button>
       </div>

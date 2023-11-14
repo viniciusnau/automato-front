@@ -14,12 +14,18 @@ import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState<boolean>(true);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
+  const [isColorInverted, setIsColorInverted] = useState<{
+    [key: string]: boolean;
+  }>({});
   const { data, error, loading } = useSelector((state: any) => state.meSlice);
+  const colorInvertedState = useSelector(
+    (state: any) => state.a11ySlice.colorInverted
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
@@ -46,6 +52,10 @@ const Login = () => {
     }
   }, [data.results, navigate]);
 
+  useEffect(() => {
+    setIsColorInverted(colorInvertedState);
+  }, [colorInvertedState]);
+
   return (
     <div className={styles.container}>
       {error && <Snackbar type="loginError" />}
@@ -53,26 +63,27 @@ const Login = () => {
         className={styles.loginForm}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
       >
-        <h2 className={styles.title}>Bem vindo(a)</h2>
+        <h2
+          className={styles.title}
+          style={{ color: isColorInverted ? "#fafafa" : "initial" }}
+        >
+          Bem vindo(a)
+        </h2>
         <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="username">
-            Usuário:
-          </label>
           <Input
             className={styles.input}
+            label="Usuário"
             name="username"
             onChange={handleChange}
             value={form.username}
           />
         </div>
         <div className={styles.formGroup}>
-          <label className={styles.label} htmlFor="password">
-            Senha:
-          </label>
           <div className={styles.password}>
             <Input
               className={styles.input}
               type={showPassword ? "" : "password"}
+              label="Senha"
               name="password"
               onChange={handleChange}
               value={form.password}

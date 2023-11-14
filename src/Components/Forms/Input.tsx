@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Input.module.css";
+import { useSelector } from "react-redux";
 
 interface iInput {
   className?: any;
@@ -22,6 +23,7 @@ interface iInput {
   checked?: boolean;
   onKeyUp?: any;
   defaultValue?: any;
+  label?: string;
 }
 
 const Input: React.FC<iInput> = ({
@@ -29,16 +31,41 @@ const Input: React.FC<iInput> = ({
   onClick,
   checked,
   max,
+  name,
+  label,
   ...props
 }) => {
+  const [isColorInverted, setIsColorInverted] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const colorInvertedState = useSelector(
+    (state: any) => state.a11ySlice.colorInverted
+  );
+
+  useEffect(() => {
+    setIsColorInverted(colorInvertedState);
+  }, [colorInvertedState]);
+
   return (
-    <input
-      className={`${styles.container} ${className}`}
-      onClick={onClick}
-      checked={checked}
-      maxLength={max}
-      {...props}
-    ></input>
+    <div className={styles.container}>
+      {label && (
+        <label
+          className={styles.label}
+          htmlFor={name}
+          style={{ color: isColorInverted ? "#fafafa" : "initial" }}
+        >
+          {label + ":"}
+        </label>
+      )}
+      <input
+        className={`${styles.content} ${className}`}
+        onClick={onClick}
+        checked={checked}
+        maxLength={max}
+        name={name}
+        {...props}
+      ></input>
+    </div>
   );
 };
 

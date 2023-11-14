@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import A11y from "./Components/A11y/A11y";
@@ -20,6 +20,7 @@ function App() {
   const [customCursor, setCustomCursor] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isOpenModal, setIsOpenModal] = useState<Boolean>(true);
+  const [isResponsive, setIsResponsive] = useState<string>("");
   const handleMouseMove = (e: any) => {
     const { clientX, clientY } = e;
     setMousePosition({ x: clientX, y: clientY });
@@ -46,6 +47,25 @@ function App() {
     setIsOpenModal(true);
   };
 
+  const appStyles = {
+    background: colorInverted
+      ? `linear-gradient(${isResponsive}, rgba(0, 0, 0, 0.1516981792717087) 0%, rgba(0, 0, 0, 1) 17.5%, rgba(0, 0, 0, 0.14609593837535018) 100%)`
+      : `linear-gradient(${isResponsive}, rgba(204, 34, 41, 0.1516981792717087) 0%, rgba(255, 255, 255, 1) 17.5%, rgba(159, 197, 77, 0.14609593837535018) 100%)`,
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsResponsive(window.innerWidth < 1800 ? "270deg" : "0deg");
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div
       className={`App ${colorInverted ? "invert-colors" : ""} ${
@@ -60,6 +80,7 @@ function App() {
           "--cursor-not-allowed": `${customCursor ? "none" : "not-allowed"}`,
           "--cursor-default": `${customCursor ? "none" : "default"}`,
           "--cursor-text": `${customCursor ? "none" : "text"}`,
+          ...appStyles,
         } as any
       }
       onMouseEnter={customCursor ? handleMouseEnter : undefined}

@@ -11,6 +11,7 @@ interface iButton {
   alt?: string;
   title?: string;
   disabled?: any;
+  style?: any;
 }
 
 const Button: React.FC<iButton> = ({

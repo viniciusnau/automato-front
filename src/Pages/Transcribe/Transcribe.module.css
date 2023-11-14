@@ -50,6 +50,10 @@
 }
 
 .fileText {
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-right: 15px;
   margin-top: 15px;
   text-align: center;

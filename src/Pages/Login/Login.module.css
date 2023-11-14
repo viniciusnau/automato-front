@@ -8,9 +8,13 @@
 }
 
 .loginForm {
-  width: 300px;
-  padding: 20px;
-  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  padding: 1.25rem;
+  border-radius: 0.25rem;
 }
 
 .title {
@@ -21,12 +25,6 @@
 
 .formGroup {
   margin-bottom: 1.25rem;
-}
-
-.label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
 }
 
 .input {
@@ -54,11 +52,12 @@
 }
 
 .passwordInput {
-  width: 100%; /* Set a consistent width for password input fields */
+  width: 100%;
 }
 
 .passwordIcon {
   margin-left: -2.5rem;
+  margin-top: 1.5rem;
 }
 
 .form {
