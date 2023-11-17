@@ -35,27 +35,19 @@ const Visualization: React.FC<iVisualization> = ({ colorInverted }) => {
   const [sketch, setSketch] = useState<string>("");
   const [backup, setBackup] = useState<string>("");
 
-  const copyToClipboard = (text: string) => {
+  const handleCopyText = () => {
     const textArea = document.createElement("textarea");
-    textArea.value = text;
+    textArea.value = data?.transcript;
     document.body.appendChild(textArea);
     textArea.select();
 
-    try {
-      document.execCommand("copy");
-      document.body.removeChild(textArea);
-      setShowSnackbar(true);
-    } catch (err) {
-      console.error("Unable to copy text: ", err);
-    }
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+    setShowSnackbar(true);
   };
 
   const handleEditText = () => {
     setHandleModal(!handleModal);
-  };
-
-  const handleCopyText = () => {
-    copyToClipboard(data?.transcript);
   };
 
   function formatTime(milliseconds: number) {
@@ -218,13 +210,13 @@ const Visualization: React.FC<iVisualization> = ({ colorInverted }) => {
               size={28}
               onClick={handleEditText}
               className={styles.copy}
-              style={{ color: isColorInverted ? "#fafafa" : "default" }}
+              style={{ color: isColorInverted ? "#fafafa" : "initial" }}
             />
             <BiSolidFile
               size={28}
               onClick={handleCopyText}
               className={styles.copy}
-              style={{ color: isColorInverted ? "#fafafa" : "default" }}
+              style={{ color: isColorInverted ? "#fafafa" : "initial" }}
             />
           </div>
           <div className={styles.text}>{highlightedText()}</div>

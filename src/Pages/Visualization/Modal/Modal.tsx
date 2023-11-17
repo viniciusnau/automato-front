@@ -5,6 +5,7 @@ import Loading from "../../../Components/Loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import Snackbar from "../../../Components/Snackbar/Snackbar";
 import { fetchSketch } from "../../../Services/Slices/sketchSlice";
+import { BiSolidFile } from "react-icons/bi";
 
 interface iModal {
   setHandleModal: any;
@@ -33,6 +34,7 @@ const Modal = ({
   const colorInvertedState = useSelector(
     (state: any) => state.a11ySlice.colorInverted
   );
+  const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
 
   const handleReset = () => {
     setSketch(backup);
@@ -42,12 +44,24 @@ const Modal = ({
     setSketch(e.target.value);
   };
 
+  const handleCopyText = () => {
+    const textArea = document.createElement("textarea");
+    textArea.value = sketch;
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+    setShowSnackbar(true);
+  };
+
   const handleSubmit = () => {
     const body = {
       transcription: sketch,
       audio_id: id,
     };
     dispatch<any>(fetchSketch(body));
+    setShowSnackbar(true);
     setHandleModal(false);
   };
 
@@ -68,12 +82,22 @@ const Modal = ({
         <Loading size="5rem" type="spin" />
       </div>
     );
-
+  console.log("isColorInverted: ", isColorInverted);
   return (
     <div className={styles.container}>
-      {error && <Snackbar type="sketchError" />}
-      {data.results?.response && <Snackbar type="sketchSuccess" />} {/*  */}
+      {showSnackbar && <Snackbar type="copySuccess" />}
+      {showSnackbar && error && <Snackbar type="sketchError" />}
+      {showSnackbar && data.results?.response && (
+        <Snackbar type="sketchSuccess" />
+      )}
       <div className={styles.modal}>
+        <div className={styles.dashboard}>
+          <BiSolidFile
+            size={28}
+            onClick={handleCopyText}
+            className={styles.copy}
+          />
+        </div>
         <textarea
           name="content"
           onChange={handleChange}
