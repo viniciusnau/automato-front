@@ -5,3 +5,10 @@
   flex-direction: column;
   margin: 3rem 0 0 0;
 }
+
+.loading {
+  display: flex;
+  height: 50vw;
+  align-items: center;
+  justify-content: center;
+}

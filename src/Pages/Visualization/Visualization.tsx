@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Visualization.module.css";
+import global from "../../Components/Loading/Loading.module.css";
 import { BiSolidEdit, BiSolidFile } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -173,26 +174,9 @@ const Visualization: React.FC<iVisualization> = ({ colorInverted }) => {
     setIsColorInverted(colorInvertedState);
   }, [colorInvertedState]);
 
-  useEffect(() => {
-    if (showSnackbar) {
-      const timer = setTimeout(() => {
-        setShowSnackbar(false);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [showSnackbar]);
-
   if (loading)
     return (
-      <div
-        style={{
-          display: "flex",
-          height: "50vw",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className={global.loading}>
         <Loading size="5rem" type="spin" />
       </div>
     );
@@ -200,7 +184,9 @@ const Visualization: React.FC<iVisualization> = ({ colorInverted }) => {
   return (
     <>
       {error && <Snackbar type="transcriptError" />}
-      {showSnackbar && <Snackbar type="copySuccess" />}
+      {showSnackbar && (
+        <Snackbar setShowSnackbar={setShowSnackbar} type="copySuccess" />
+      )}
       {sketchSlice.data?.response && <Snackbar type="sketchSuccess" />}
       {sketchSlice.error && <Snackbar type="sketchError" />}
       <div className={styles.container}>

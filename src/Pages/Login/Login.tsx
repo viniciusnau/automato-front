@@ -14,6 +14,7 @@ import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [form, setForm] = useState({
     username: "",
@@ -39,6 +40,7 @@ const Login = () => {
 
   const handleSubmit = () => {
     dispatch<any>(fetchMe(form));
+    setShowSnackbar(true);
   };
 
   const handleShowPassword = () => {
@@ -58,7 +60,9 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
-      {error && <Snackbar type="loginError" />}
+      {showSnackbar && error && (
+        <Snackbar setShowSnackbar={setShowSnackbar} type="loginError" />
+      )}
       <div
         className={styles.loginForm}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
@@ -124,7 +128,7 @@ const Login = () => {
                   top: "-3rem",
                 }}
               >
-                <Loading size="2rem" type="spin" />
+                <Loading size="1.5rem" type="spin" />
               </div>
             ) : (
               "Login"

@@ -12,7 +12,7 @@ import React from "react";
 const ResetPassword = () => {
   const dispatch = useDispatch();
 
-  const [snackbar, setSnackbar] = useState<boolean>(false);
+  const [showsnackbar, setShowSnackbar] = useState<boolean>(false);
   const [form, setForm] = useState<any>({
     email: "",
   });
@@ -35,11 +35,11 @@ const ResetPassword = () => {
 
   const handleSubmit = () => {
     dispatch<any>(fetchResetPassword(form));
-    setSnackbar(true);
+    setShowSnackbar(true);
   };
 
   useEffect(() => {
-    setSnackbar(false);
+    setShowSnackbar(false);
   }, []);
 
   useEffect(() => {
@@ -48,8 +48,12 @@ const ResetPassword = () => {
 
   return (
     <div className={styles.container}>
-      {snackbar && error && <Snackbar type="resetError" />}
-      {snackbar && data?.message && <Snackbar type="resetSuccess" />}
+      {showsnackbar && error && (
+        <Snackbar setShowSnackbar={setShowSnackbar} type="resetError" />
+      )}
+      {showsnackbar && data?.message && (
+        <Snackbar setShowSnackbar={setShowSnackbar} type="resetSuccess" />
+      )}
       <div
         className={styles.form}
         onKeyUp={(e) => handleKeyPress(e, handleSubmit, "Enter")}
@@ -82,10 +86,10 @@ const ResetPassword = () => {
             <div
               style={{
                 position: "relative",
-                top: "-3rem",
+                top: "-2.5rem",
               }}
             >
-              <Loading size="2rem" type="spin" />
+              <Loading size="1.5rem" type="spin" />
             </div>
           ) : (
             "Enviar"

@@ -11,7 +11,7 @@ import Snackbar from "../../Components/Snackbar/Snackbar";
 
 const Transcribe: React.FC = () => {
   const dispatch = useDispatch();
-  const [snackbar, setSnackbar] = useState<boolean>(false);
+  const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
   const { data, error, loading } = useSelector(
     (state: any) => state.transcribeSlice
   );
@@ -62,7 +62,7 @@ const Transcribe: React.FC = () => {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
-    setSnackbar(true);
+    setShowSnackbar(true);
     if (file && validateFileFormat(file.name)) {
       setForm((prev: any) => ({
         ...prev,
@@ -79,7 +79,7 @@ const Transcribe: React.FC = () => {
       formData.append("audio_file", form.file);
       dispatch<any>(fetchUpload(formData));
       setIsInvalidfile(false);
-      setSnackbar(true);
+      setShowSnackbar(true);
     }
     setForm({ file: null });
   };
@@ -111,7 +111,7 @@ const Transcribe: React.FC = () => {
   }, [data]);
 
   useEffect(() => {
-    setSnackbar(false);
+    setShowSnackbar(false);
   }, []);
 
   useEffect(() => {
@@ -120,18 +120,23 @@ const Transcribe: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {snackbar && uploadFile.data.response && (
-        <Snackbar type="transcribeSuccess" />
+      {showSnackbar && uploadFile.data.response && (
+        <Snackbar setShowSnackbar={setShowSnackbar} type="transcribeSuccess" />
       )}
-      {snackbar &&
+      {showSnackbar &&
         uploadFile?.error?.status &&
         uploadFile?.error?.status !== 429 && (
-          <Snackbar type="transcribeError" />
+          <Snackbar setShowSnackbar={setShowSnackbar} type="transcribeError" />
         )}
-      {snackbar && uploadFile?.error?.status === 429 && (
-        <Snackbar type="transcribeExceededError" />
+      {showSnackbar && uploadFile?.error?.status === 429 && (
+        <Snackbar
+          setShowSnackbar={setShowSnackbar}
+          type="transcribeExceededError"
+        />
       )}
-      {snackbar && isInvalidfile && <Snackbar type="invalidFileError" />}
+      {showSnackbar && isInvalidfile && (
+        <Snackbar setShowSnackbar={setShowSnackbar} type="invalidFileError" />
+      )}
       <div className={styles.postContainer}>
         <label className={styles.fakeInput} htmlFor="file">
           <MdUpload size={isResponsive ? 18 : 24} />

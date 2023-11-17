@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Modal.module.css";
+import global from "../../../Components/Loading/Loading.module.css";
 import Button from "../../../Components/Forms/Button";
 import Loading from "../../../Components/Loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,24 +72,21 @@ const Modal = ({
 
   if (loading)
     return (
-      <div
-        style={{
-          display: "flex",
-          height: "50vw",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className={global.loading}>
         <Loading size="5rem" type="spin" />
       </div>
     );
   console.log("isColorInverted: ", isColorInverted);
   return (
     <div className={styles.container}>
-      {showSnackbar && <Snackbar type="copySuccess" />}
-      {showSnackbar && error && <Snackbar type="sketchError" />}
+      {showSnackbar && (
+        <Snackbar setShowSnackbar={setShowSnackbar} type="copySuccess" />
+      )}
+      {showSnackbar && error && (
+        <Snackbar setShowSnackbar={setShowSnackbar} type="sketchError" />
+      )}
       {showSnackbar && data.results?.response && (
-        <Snackbar type="sketchSuccess" />
+        <Snackbar setShowSnackbar={setShowSnackbar} type="sketchSuccess" />
       )}
       <div className={styles.modal}>
         <div className={styles.dashboard}>

@@ -5,24 +5,24 @@ import { snackbarConsts } from "../Consts";
 
 interface iSnackbar {
   type: keyof typeof snackbarConsts;
-  setSnackbarType?: any;
+  setShowSnackbar?: any;
 }
 
-const Snackbar: React.FC<iSnackbar> = ({ type, setSnackbarType }) => {
+const Snackbar: React.FC<iSnackbar> = ({ type, setShowSnackbar }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     if (isVisible) {
       const timeoutId = setTimeout(() => {
         setIsVisible(false);
-        if (setSnackbarType) setSnackbarType(null);
+        if (setShowSnackbar) setShowSnackbar(null);
       }, 3000);
 
       return () => {
         clearTimeout(timeoutId);
       };
     }
-  }, [isVisible, setSnackbarType]);
+  }, [isVisible, setShowSnackbar]);
 
   return (
     <div className={styles.snackbarContainer}>
