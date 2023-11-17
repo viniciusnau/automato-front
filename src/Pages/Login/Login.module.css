@@ -20,7 +20,6 @@
 .title {
   text-align: center;
   margin-bottom: 1.25rem;
-  font-size: var(--font-size);
 }
 
 .formGroup {
@@ -30,13 +29,13 @@
 .input {
   display: flex;
   height: 3rem;
-  padding: 0 0 0 1rem;
+  padding: 0 0 0 0.5rem;
   font-size: var(--font-size);
   width: 100%;
 }
 
-.input:hover,
 .google:hover,
+.input:hover,
 .date:hover {
   background-color: var(--second-button-color-hover);
 }
@@ -72,7 +71,7 @@
 }
 
 .login {
-  font-size: var(--font-size)-0.5rem;
+  font-size: calc(var(--font-size) - 0.25rem);
 }
 
 .forgotPassword {
@@ -80,7 +79,7 @@
   text-align: center;
   margin-bottom: 1.25rem;
   margin-top: 1rem;
-  color: #007bff;
+  color: var(--link-color);
   text-decoration: none;
 }
 .formButton {
@@ -107,7 +106,7 @@
 
 @media (max-width: 750px) {
   .title {
-    font-size: 1.2rem;
+    font-size: var(--font-size) - 5rem;
   }
   .label {
     font-size: 0.8rem;
@@ -120,7 +119,7 @@
 
 @media (min-width: 751px) {
   .title {
-    font-size: 1.5rem;
+    font-size: var(--font-size) + 1rem;
   }
   .label {
     font-size: 1rem;
