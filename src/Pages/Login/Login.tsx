@@ -102,6 +102,9 @@ const Login = () => {
               )}
             </div>
           </div>
+          <a href="/automato/alterar-senha/" className={styles.forgotPassword}>
+            Esqueceu a senha?
+          </a>
         </div>
         <div className={styles.lineContainer}>
           <hr className={styles.line} />
@@ -124,9 +127,6 @@ const Login = () => {
             <p className={styles.login}>Continuar com google</p>
           </Button>
         </form>
-        <a href="/automato/alterar-senha/" className={styles.forgotPassword}>
-          Esqueceu a senha?
-        </a>
         <div className={styles.formButton}>
           <Button className={styles.button} onClick={handleSubmit}>
             {loading ? (
