@@ -47,7 +47,6 @@
 .password {
   display: flex;
   align-items: center;
-  width: 100%;
 }
 
 .passwordInput {
@@ -102,6 +101,27 @@
 
 .button:disabled {
   background-color: var(--first-button-color-disabled);
+}
+
+.lineContainer {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.line {
+  flex-grow: 1;
+  height: 0.15rem;
+  width: 6.5rem;
+  background-color: var(--second-button-color-focus);
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.text {
+  margin: 0 1rem;
+  color: var(--first-text-color-disabled);
+  font-size: 1rem;
 }
 
 @media (max-width: 750px) {
