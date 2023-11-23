@@ -8,7 +8,6 @@ import { MdUpload } from "react-icons/md";
 import Button from "../../Components/Forms/Button";
 import { fetchUpload } from "../../Services/Slices/uploadSlice";
 import Snackbar from "../../Components/Snackbar/Snackbar";
-import WaveSurfer from "wavesurfer.js";
 
 const Transcribe: React.FC = () => {
   const dispatch = useDispatch();
@@ -30,7 +29,6 @@ const Transcribe: React.FC = () => {
   const [form, setForm] = useState<any>({ file: null });
   const [isInvalidfile, setIsInvalidfile] = useState<boolean>(false);
   const [updated, setUpdated] = useState<any>([]);
-  let wavesurfer: any;
 
   const columns = [
     { title: "Nome", property: "name" },
@@ -71,11 +69,7 @@ const Transcribe: React.FC = () => {
         file: file,
       }));
     }
-    console.log("file: ", file);
-    if (file) {
-      wavesurfer?.current?.load(file.name);
-      console.log("wavesurfer: ", wavesurfer);
-    }
+
     e.target.value = "";
   };
 
@@ -98,18 +92,6 @@ const Transcribe: React.FC = () => {
     isValid ? setIsInvalidfile(false) : setIsInvalidfile(true);
     return isValid;
   };
-
-  useEffect(() => {
-    wavesurfer = WaveSurfer.create({
-      container: "#waveform",
-      waveColor: "violet",
-      progressColor: "purple",
-    });
-
-    return () => {
-      wavesurfer?.current?.destroy();
-    };
-  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -167,7 +149,6 @@ const Transcribe: React.FC = () => {
           id="file"
           onChange={handleFileChange}
         />
-        <div id="waveform"></div>
 
         {form.file && (
           <div
