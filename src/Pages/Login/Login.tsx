@@ -103,6 +103,9 @@ const Login = () => {
               )}
             </div>
           </div>
+          <a href="/automato/alterar-senha/" className={styles.forgotPassword}>
+            Esqueceu a senha?
+          </a>
         </div>
         <div className={styles.lineContainer}>
           <hr className={styles.line} />
@@ -121,13 +124,11 @@ const Login = () => {
               style={{ marginRight: ".5rem", padding: ".25rem" }}
               alt="Ícone do Google"
               src={icon}
+              className={styles.icon}
             />
             <p className={styles.login}>Continuar com google</p>
           </Button>
         </form>
-        <a href="/automato/alterar-senha/" className={styles.forgotPassword}>
-          Esqueceu a senha?
-        </a>
         <div className={styles.formButton}>
           <Button className={styles.button} onClick={handleSubmit}>
             {loading ? (
@@ -140,7 +141,7 @@ const Login = () => {
                 <Loading size="1.5rem" type="spin" />
               </div>
             ) : (
-              "Login"
+              "Entrar"
             )}
           </Button>
         </div>

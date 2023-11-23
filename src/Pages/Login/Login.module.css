@@ -22,10 +22,6 @@
   margin-bottom: 1.25rem;
 }
 
-.formGroup {
-  margin-bottom: 1.25rem;
-}
-
 .input {
   display: flex;
   height: 3rem;
@@ -47,6 +43,7 @@
 .password {
   display: flex;
   align-items: center;
+  margin: 0.75rem 0 0;
 }
 
 .passwordInput {
@@ -66,7 +63,8 @@
 .google {
   display: flex;
   align-items: center;
-  border-radius: 0.5rem;
+  justify-content: center;
+  border-radius: 5rem;
 }
 
 .login {
@@ -76,7 +74,6 @@
 .forgotPassword {
   display: block;
   text-align: center;
-  margin-bottom: 1.25rem;
   margin-top: 1rem;
   color: var(--link-color);
   text-decoration: none;
@@ -93,6 +90,7 @@
   background-color: var(--first-button-color);
   box-shadow: 0 10px 10px -10px var(--shadow-color);
   font-size: var(--font-size);
+  margin: 1.5rem 0 0 0;
 }
 
 .button:hover {
