@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# Autômato
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bem-vindo ao Autômato! Este é um aplicativo web desenvolvido em React com TypeScript para permitir a transcrição das audiências feitas pelos defensores públicos, relacionadas ao estado de Santa Catarina. A aplicação permite que o agendamento das transcrições, ao ser finalizado, poderá acessar o resultado, juntamente com uma pagina de rascunho para efetuar alterações.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+- Visualização de transcrições: Navegue pelas transcriçoes do usuário.
+- Agendamento de transcrição: Apenas administradores podem criar novas postagens de notícias com o código da notícia, arquivo, tipo de notícia e data de publicação.
+- Busca: Pesquise notícias específicas com base em palavras-chave, data ou tipo de notícia.
+- Interação: Os usuários podem, agendar e buscar as transcrições na tabela, além de copia-las.
 
-### `npm start`
+## Pré-requisitos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Certifique-se de ter o Node.js instalado em sua máquina.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Instalação
 
-### `npm test`
+1. Clone este repositório: `git clone https://https://github.com/viniciusnau/automato-front`
+2. Navegue até o diretório do projeto: `cd automato-front`
+3. Instale as dependências: `npm install`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Uso
 
-### `npm run build`
+1. Inicie o servidor de desenvolvimento: `npm start`
+2. Abra o seu navegador e acesse: `http://localhost:3000`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Contribuição
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Contribuições são bem-vindas! No entanto, apenas administradores têm permissão para fazer postagens neste projeto. Se você deseja reportar problemas ou sugestões, sinta-se à vontade para entrar em contato.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+Agradecemos por escolher o Autômato como projeto para transcrição de audio! Esperamos que esta aplicação seja útil e atenda às suas expectativas. Apreciamos o seu apoio e contribuição.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Páginas Técnicas:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Página de Login
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![Captura de Tela](./src/Assets/login-screenshot.png)
+Legenda da imagem: Página de login exibindo os campos necessários para acessar a página restrita
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+A página de login é construída com React e TypeScript, e permite que os usuários acessem o sistema por meio de autenticação. As credenciais são enviadas via requisição POST para um endpoint no backend, onde são verificadas.
 
-## Learn More
+### Página de Redefinição de Senha
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Captura de Tela](./src/Assets/reset-password-screenshot.png)
+Legenda da imagem: Página de reset de senha, exibindo o campo de email para alterar/trocar a senha
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+A página de redefinição de senha permite que os usuários recuperem suas senhas por meio do envio de um e-mail de redefinição. O processo envolve a geração de um token exclusivo, que é associado ao usuário e usado para validar a redefinição.
+
+### Página Inicial (Lista de Transcrições)
+
+![Captura de Tela](./src/Assets/home-screenshot.png)
+Legenda da imagem: Página inicial exibindo as transcrições do usuário.
+
+A página inicial é renderizada com componentes React e exibe os diários mais recentes. As transcrições são obtidas por meio de requisições GET ao servidor e são exibidas na tabela com o arquivo a ser acessado, no qual permite visualizar as palavras que possuem determinada porcentagem de 'incerteza' do servidor, a possibilidade de criar um rascunho, baseado na transcrição e, copiar a transcrição.
+Todos os campos existentes para fazer a requisição GET são opcionais.
+
+### Página de Transcrever (juntamente com a Lista de transcrições Agendadas)
+
+![Captura de Tela](./src/Assets/transcribe-screenshot.png)
+Legenda da imagem: Página de transcrever exibindo o campo de agendamento e a tabela com as transcrições agendados.
+
+A página de transcrever possui campos a serem preenchidos para efetuar o agendamento de uma nova transcrição e, há a exibição dos agendamentos futuros. Semelhante à página inicial, utiliza componentes React para mostrar as transcrições agendadas em cartões com detalhes, incluindo nome, código e data de agendamento.
+O campo existente para fazer a requisição POST é obrigatório.

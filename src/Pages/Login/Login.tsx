@@ -10,6 +10,7 @@ import { isLoggedIn } from "../../Auth/Auth";
 import { handleKeyPress } from "../../Components/Helper";
 import Snackbar from "../../Components/Snackbar/Snackbar";
 import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
+import icon from "../../Assets/google-icon.png";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -118,8 +119,8 @@ const Login = () => {
             <img
               width="30rem"
               style={{ marginRight: ".5rem", padding: ".25rem" }}
-              alt="Login com conta do Google"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+              alt="Ícone do Google"
+              src={icon}
             />
             <p className={styles.login}>Continuar com google</p>
           </Button>
