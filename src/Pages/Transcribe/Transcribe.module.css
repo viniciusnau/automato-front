@@ -14,6 +14,12 @@
   margin: 1.5rem 0 0;
 }
 
+.media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .postContainer {
   display: flex;
   justify-content: center;
@@ -54,8 +60,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 15px;
-  margin-top: 15px;
   text-align: center;
 }
 
@@ -140,6 +144,40 @@ input[class*="DatePicker__input"] {
 .input:disabled,
 .time:disabled {
   background-color: var(--second-button-color-disabled);
+}
+
+.resizableContainer {
+  display: flex;
+  background-color: purple;
+  padding: 0.25rem 0.5rem;
+}
+
+.leftContent,
+.rightContent {
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 0.75rem 0;
+  background-color: red;
+}
+
+.resizableBar {
+  position: relative;
+  cursor: ew-resize;
+  width: 0.75rem;
+  height: 100%;
+  background-color: #ddd;
+}
+
+.resizer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 100%;
+  cursor: ew-resize;
+  background-color: #333;
+  border-radius: 0.25rem;
 }
 
 @media (min-width: 70px) {

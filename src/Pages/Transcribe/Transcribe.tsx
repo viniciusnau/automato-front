@@ -29,6 +29,7 @@ const Transcribe: React.FC = () => {
   const [form, setForm] = useState<any>({ file: null });
   const [isInvalidfile, setIsInvalidfile] = useState<boolean>(false);
   const [updated, setUpdated] = useState<any>([]);
+  const [barWidth, setBarWidth] = useState(200); // Initial width
 
   const columns = [
     { title: "Nome", property: "name" },
@@ -93,6 +94,22 @@ const Transcribe: React.FC = () => {
     return isValid;
   };
 
+  const handleMouseDown = (e: any) => {
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+  };
+
+  const handleMouseMove = (e: any) => {
+    const newWidth = e.clientX;
+
+    setBarWidth(newWidth);
+  };
+
+  const handleMouseUp = () => {
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
+  };
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     handleResize();
@@ -150,20 +167,40 @@ const Transcribe: React.FC = () => {
           onChange={handleFileChange}
         />
 
-        {form.file && (
-          <div
-            className={styles.fileText}
-            style={{ color: isColorInverted ? "#fafafa" : "initial" }}
-          >
-            Arquivo: {form.file.name}
-          </div>
-        )}
         <Button
           className={`${styles.button} ${styles.schedule}`}
           onClick={handleSubmit}
         >
           Transcrever
         </Button>
+      </div>
+      <div>
+        <div
+          className={styles.fileText}
+          style={{ color: isColorInverted ? "#fafafa" : "initial" }}
+        >
+          {form.file && <>Arquivo: {form.file.name}</>}
+        </div>
+        <div>MEDIA PLAYER</div>
+        <div className={styles.resizableContainer}>
+          <div
+            className={styles.leftContent}
+            style={{ width: barWidth }}
+            onClick={() => {
+              console.log("left");
+            }}
+          ></div>
+          <div
+            className={styles.resizableBar}
+            onMouseDown={handleMouseDown}
+          ></div>
+          <div
+            className={styles.rightContent}
+            onClick={() => {
+              console.log("right");
+            }}
+          ></div>
+        </div>
       </div>
 
       <Table
