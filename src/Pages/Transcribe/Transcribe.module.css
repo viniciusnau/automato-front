@@ -150,6 +150,10 @@ input[class*="DatePicker__input"] {
   width: 30vw;
 }
 
+.containera {
+  width: 30vw;
+}
+
 @media (min-width: 70px) {
   .postContainer,
   .lastColumn {
