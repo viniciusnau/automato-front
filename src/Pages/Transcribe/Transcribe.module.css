@@ -180,6 +180,10 @@ input[class*="DatePicker__input"] {
   border-radius: 0.25rem;
 }
 
+.containera {
+  width: 30vw;
+}
+
 @media (min-width: 70px) {
   .postContainer,
   .lastColumn {
