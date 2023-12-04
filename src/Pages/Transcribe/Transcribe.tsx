@@ -8,10 +8,12 @@ import { MdUpload } from "react-icons/md";
 import Button from "../../Components/Forms/Button";
 import { fetchUpload } from "../../Services/Slices/uploadSlice";
 import Snackbar from "../../Components/Snackbar/Snackbar";
+import { Slider } from "@mui/material";
 
 const Transcribe: React.FC = () => {
   const dispatch = useDispatch();
   const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
+  const [sliderValues, setSliderValues] = useState<number[]>([0, 100]);
   const { data, error, loading } = useSelector(
     (state: any) => state.transcribeSlice
   );
@@ -29,7 +31,6 @@ const Transcribe: React.FC = () => {
   const [form, setForm] = useState<any>({ file: null });
   const [isInvalidfile, setIsInvalidfile] = useState<boolean>(false);
   const [updated, setUpdated] = useState<any>([]);
-  const [barWidth, setBarWidth] = useState(200); // Initial width
 
   const columns = [
     { title: "Nome", property: "name" },
@@ -55,6 +56,10 @@ const Transcribe: React.FC = () => {
         id: item.id,
       }))
     );
+  };
+
+  const handleSliderChange = (event: Event, newValues: number | number[]) => {
+    setSliderValues(newValues as number[]);
   };
 
   const handleResize = () => {
@@ -92,22 +97,6 @@ const Transcribe: React.FC = () => {
     const isValid = fileExtension && acceptedFormats.includes(fileExtension);
     isValid ? setIsInvalidfile(false) : setIsInvalidfile(true);
     return isValid;
-  };
-
-  const handleMouseDown = (e: any) => {
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-  };
-
-  const handleMouseMove = (e: any) => {
-    const newWidth = e.clientX;
-
-    setBarWidth(newWidth);
-  };
-
-  const handleMouseUp = () => {
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseup", handleMouseUp);
   };
 
   useEffect(() => {
@@ -171,7 +160,7 @@ const Transcribe: React.FC = () => {
           className={`${styles.button} ${styles.schedule}`}
           onClick={handleSubmit}
         >
-          Transcrever
+          Agendar
         </Button>
       </div>
       <div>
@@ -182,24 +171,16 @@ const Transcribe: React.FC = () => {
           {form.file && <>Arquivo: {form.file.name}</>}
         </div>
         <div>MEDIA PLAYER</div>
-        <div className={styles.resizableContainer}>
-          <div
-            className={styles.leftContent}
-            style={{ width: barWidth }}
-            onClick={() => {
-              console.log("left");
-            }}
-          ></div>
-          <div
-            className={styles.resizableBar}
-            onMouseDown={handleMouseDown}
-          ></div>
-          <div
-            className={styles.rightContent}
-            onClick={() => {
-              console.log("right");
-            }}
-          ></div>
+        <div className={styles.slider}>
+          <Slider
+            value={sliderValues}
+            onChange={handleSliderChange}
+            aria-labelledby="range-slider"
+            valueLabelDisplay="auto"
+            valueLabelFormat={(value, index) => `${value}%`}
+            min={0}
+            max={100}
+          />
         </div>
       </div>
 
