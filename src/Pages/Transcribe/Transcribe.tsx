@@ -194,25 +194,6 @@ const Transcribe: React.FC = () => {
                 {form.file && uploadFile && (
                 <Player audioFile={form.file}  />
                 )}
-                <div className={styles.resizableContainer}>
-                    <div
-                        className={styles.leftContent}
-                        style={{ width: barWidth }}
-                        onClick={() => {
-                            console.log('left');
-                        }}
-                    ></div>
-                    <div
-                        className={styles.resizableBar}
-                        onMouseDown={handleMouseDown}
-                    ></div>
-                    <div
-                        className={styles.rightContent}
-                        onClick={() => {
-                            console.log('right');
-                        }}
-                    ></div>
-                </div>
             </div>
 
             <Table

@@ -11,7 +11,7 @@ const Player: React.FC<IPlayer> = ({audioFile}) => {
     return (
         <div> 
         {audioFile && (
-            <AudioPlayer className={styles.container} src={URL.createObjectURL(audioFile)} header={audioFile.name}  
+            <AudioPlayer className={styles.container} src={URL.createObjectURL(audioFile)} header={audioFile.name}  layout="stacked-reverse"
             />
         )}
         </div>
