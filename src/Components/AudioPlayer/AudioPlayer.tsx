@@ -52,6 +52,7 @@ const Player: React.FC<IPlayer> = ({ audioFile }) => {
         className={styles.container}
         src={URL.createObjectURL(audioFile)}
         header={removeFileFormat(audioFile.name)}
+        layout="stacked-reverse"
       />
     </div>
   );
