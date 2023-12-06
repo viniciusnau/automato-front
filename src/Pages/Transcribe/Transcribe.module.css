@@ -146,11 +146,7 @@ input[class*="DatePicker__input"] {
   background-color: var(--second-button-color-disabled);
 }
 
-.slider {
-  width: 30vw;
-}
-
-.containera {
+.audioContainer {
   width: 30vw;
 }
 

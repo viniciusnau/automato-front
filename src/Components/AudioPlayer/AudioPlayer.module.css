@@ -1,7 +1,7 @@
 .container {
-    text-align: center;
+  text-align: center;
 }
 
-div:first-child > div > div > div:first-child > button:first-child > svg{
-    display: none;
+div:first-child > div > div > div:first-child > button:first-child > svg {
+  display: none;
 }
