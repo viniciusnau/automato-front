@@ -41,3 +41,5 @@ export function handleKeyPress(
     handleSubmit();
   }
 }
+
+export const acceptedFormats = ["mp3", "mp4", "wav", "flac", "amr", "ogg"];
