@@ -43,15 +43,15 @@ interface IPlayer {
 
 const Player: React.FC<IPlayer> = ({ audioFile }) => {
   const removeFileFormat = (fileName: string) => {
-    return fileName.split(".")[0];
+    return fileName?.split(".")[0];
   };
 
   return (
     <div>
       <AudioPlayer
         className={styles.container}
-        src={URL.createObjectURL(audioFile)}
-        header={removeFileFormat(audioFile.name)}
+        src={audioFile && URL.createObjectURL(audioFile)}
+        header={removeFileFormat(audioFile?.name)}
         layout="stacked-reverse"
       />
     </div>

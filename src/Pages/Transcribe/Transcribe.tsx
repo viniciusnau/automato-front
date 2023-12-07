@@ -137,48 +137,49 @@ const Transcribe: React.FC = () => {
       {showSnackbar && isInvalidfile && (
         <Snackbar setShowSnackbar={setShowSnackbar} type="invalidFileError" />
       )}
-      <div className={styles.postContainer}>
-        <label className={styles.fakeInput} htmlFor="file">
-          <MdUpload size={isResponsive ? 18 : 24} />
-        </label>
-        <Input
-          className={styles.file}
-          name="file"
-          type="file"
-          id="file"
-          onChange={handleFileChange}
-        />
-
-        <Button
-          className={`${styles.button} ${styles.schedule}`}
-          onClick={handleSubmit}
-        >
-          Transcrever
-        </Button>
-      </div>
       <div className={styles.containera}>
         <div
           className={styles.fileText}
           style={{ color: isColorInverted ? "#fafafa" : "initial" }}
         ></div>
 
-        {form.file && uploadFile && (
-          <div className={styles.audioContainer}>
-            <Player audioFile={form.file} />
-
-            <div style={{ width: "25vw" }}>
-              <Slider
-                value={sliderValues}
-                onChange={handleSliderChange}
-                aria-labelledby="range-slider"
-                valueLabelDisplay="auto"
-                valueLabelFormat={(value) => `${value}%`}
-                min={0}
-                max={100}
-              />
+        <div className={styles.audioContainer}>
+          <div className={styles.postContainer}>
+            <div className={styles.align}>
+              <div className={styles.test}>
+                <label className={styles.fakeInput} htmlFor="file">
+                  <MdUpload size={isResponsive ? 18 : 24} />
+                </label>
+                <Input
+                  className={styles.file}
+                  name="file"
+                  type="file"
+                  id="file"
+                  onChange={handleFileChange}
+                />
+              </div>
             </div>
           </div>
-        )}
+          <Player audioFile={form.file} />
+
+          <div className={styles.slider}>
+            <Slider
+              value={sliderValues}
+              onChange={handleSliderChange}
+              aria-labelledby="range-slider"
+              valueLabelDisplay="auto"
+              valueLabelFormat={(value) => `${value}%`}
+              min={0}
+              max={100}
+            />
+          </div>
+          <Button
+            className={`${styles.button} ${styles.schedule}`}
+            onClick={handleSubmit}
+          >
+            Transcrever
+          </Button>
+        </div>
       </div>
 
       <Table

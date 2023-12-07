@@ -1,5 +1,6 @@
 .container {
   text-align: center;
+  height: 10rem;
 }
 
 div:first-child > div > div > div:first-child > button:first-child > svg {
