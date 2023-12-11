@@ -41,7 +41,7 @@
   width: 100%;
 }
 
-.test {
+.fakeContainer {
   position: absolute;
   margin: 0 0 0 0.5rem;
 }
@@ -58,11 +58,21 @@
   display: none;
 }
 
-.slider {
+.bar {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* width: 35vw; */
+}
+
+.slider {
+  color: #787878 !important;
+}
+
+.schedule {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .fileText {
@@ -125,13 +135,11 @@ input[class*="DatePicker__input"] {
   font-size: var(--font-size);
 }
 
-.button:hover,
-.fakeInput:hover {
+.button:hover {
   background-color: var(--first-button-color-hover);
 }
 
-.button:disabled,
-.fakeInput:disabled {
+.button:disabled {
   background-color: var(--first-button-color-disabled);
 }
 
@@ -157,6 +165,10 @@ input[class*="DatePicker__input"] {
 }
 
 .audioContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 23rem;
   width: 40vw;
 }
 
