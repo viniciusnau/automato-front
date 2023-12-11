@@ -146,9 +146,12 @@ const Transcribe: React.FC = () => {
         <div className={styles.audioContainer}>
           <div className={styles.postContainer}>
             <div className={styles.align}>
-              <div className={styles.test}>
+              <div
+                className={styles.fakeContainer}
+                style={form.file && { marginTop: "1.5rem" }}
+              >
                 <label className={styles.fakeInput} htmlFor="file">
-                  <MdUpload size={isResponsive ? 18 : 24} />
+                  <MdUpload size={isResponsive ? 18 : 24} color="#787878" />
                 </label>
                 <Input
                   className={styles.file}
@@ -162,7 +165,7 @@ const Transcribe: React.FC = () => {
           </div>
           <Player audioFile={form.file} />
 
-          <div className={styles.slider}>
+          <div className={styles.bar}>
             <Slider
               value={sliderValues}
               onChange={handleSliderChange}
@@ -171,14 +174,17 @@ const Transcribe: React.FC = () => {
               valueLabelFormat={(value) => `${value}%`}
               min={0}
               max={100}
+              className={styles.slider}
             />
           </div>
-          <Button
-            className={`${styles.button} ${styles.schedule}`}
-            onClick={handleSubmit}
-          >
-            Transcrever
-          </Button>
+          <div className={styles.schedule}>
+            <Button
+              className={`${styles.button} ${styles.schedule}`}
+              onClick={handleSubmit}
+            >
+              Enviar
+            </Button>
+          </div>
         </div>
       </div>
 
