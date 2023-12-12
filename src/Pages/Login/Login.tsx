@@ -17,6 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -42,6 +43,7 @@ const Login = () => {
   const handleSubmit = () => {
     dispatch<any>(fetchMe(form));
     setShowSnackbar(true);
+    setIsSubmitted(true);
   };
 
   const handleShowPassword = () => {
@@ -49,15 +51,19 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (data.results) {
+    if (data.results && isSubmitted) {
       isLoggedIn(true);
       navigate("/automato/");
     }
-  }, [data.results, navigate]);
+  }, [data.results, isSubmitted, navigate]);
 
   useEffect(() => {
     setIsColorInverted(colorInvertedState);
   }, [colorInvertedState]);
+
+  useEffect(() => {
+    setIsSubmitted(false);
+  }, []);
 
   return (
     <div className={styles.container}>
