@@ -6,16 +6,14 @@ import Input from "../../Components/Forms/Input";
 import { fetchTranscribe } from "../../Services/Slices/transcribeSlice";
 import { fetchUpload } from "../../Services/Slices/uploadSlice";
 import Snackbar from "../../Components/Snackbar/Snackbar";
-import { Slider } from "@mui/material";
 import Button from "../../Components/Forms/Button";
 import { MdUpload } from "react-icons/md";
-import Player from "../../Components/AudioPlayer/AudioPlayer";
+import PlayerCutAudio from "../../Components/CutAudio/CutAudio";
 import { acceptedFormats } from "../../Components/Helper";
 
 const Transcribe: React.FC = () => {
   const dispatch = useDispatch();
   const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
-  const [sliderValues, setSliderValues] = useState<number[]>([0, 100]);
   const { data, error, loading } = useSelector(
     (state: any) => state.transcribeSlice
   );
@@ -30,10 +28,6 @@ const Transcribe: React.FC = () => {
   const [form, setForm] = useState<any>({ file: null });
   const [isInvalidfile, setIsInvalidfile] = useState<boolean>(false);
   const [updated, setUpdated] = useState<any>([]);
-
-  const handleSliderChange = (event: Event, newValues: number | number[]) => {
-    setSliderValues(newValues as number[]);
-  };
 
   const handleResize = () => {
     setIsResponsive(window.innerWidth <= 750);
@@ -71,7 +65,8 @@ const Transcribe: React.FC = () => {
     e.preventDefault();
     if (form.file && validateFileFormat(form.file.name)) {
       const formData = new FormData();
-      formData.append("audio_file", form.file);
+      formData.append("audio_file", form.file); 
+      // pass the start and end time, convert the size before
       dispatch<any>(fetchUpload(formData));
       setIsInvalidfile(false);
       setShowSnackbar(true);
@@ -150,9 +145,15 @@ const Transcribe: React.FC = () => {
                 className={styles.fakeContainer}
                 style={form.file && { marginTop: "1.5rem" }}
               >
-                <label className={styles.fakeInput} htmlFor="file">
-                  <MdUpload size={isResponsive ? 18 : 24} color="#787878" />
-                </label>
+                {  }
+                < Button className={`${styles.buttonUpload} ${styles.schedule}`}
+                 onClick={() => {
+                  document.getElementById('file')?.click();
+                 }} 
+                >
+                <MdUpload size={isResponsive ? 18 : 24} color="#1e293b" />
+                </Button>
+
                 <Input
                   className={styles.file}
                   name="file"
@@ -163,26 +164,13 @@ const Transcribe: React.FC = () => {
               </div>
             </div>
           </div>
-          <Player audioFile={form.file} />
-
-          <div className={styles.bar}>
-            <Slider
-              value={sliderValues}
-              onChange={handleSliderChange}
-              aria-labelledby="range-slider"
-              valueLabelDisplay="auto"
-              valueLabelFormat={(value) => `${value}%`}
-              min={0}
-              max={100}
-              className={styles.slider}
-            />
-          </div>
+            <PlayerCutAudio audioFile={form.file}  />
           <div className={styles.schedule}>
             <Button
               className={`${styles.button} ${styles.schedule}`}
               onClick={handleSubmit}
             >
-              Enviar
+              Transcrever
             </Button>
           </div>
         </div>

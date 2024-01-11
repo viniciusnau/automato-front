@@ -43,7 +43,8 @@
 
 .fakeContainer {
   position: absolute;
-  margin: 0 0 0 0.5rem;
+  margin: 1rem 1rem;
+  padding: 0.7rem 0;
 }
 
 .fakeInput {
@@ -125,6 +126,18 @@ input[class*="DatePicker__input"] {
   font-size: var(--font-size);
   font-weight: 400;
   color: var(--first-text-color);
+}
+
+.buttonUpload {
+  min-height: 2.5rem;
+  width: 4rem;
+  margin: 0 0.5rem;
+  background-color: var(--first-button-color);
+  font-size: var(--font-size);  
+}
+
+.buttonUpload:hover {
+  background-color: var(--first-button-color-hover);
 }
 
 .button {
