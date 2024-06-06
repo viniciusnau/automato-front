@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import styles from './CutAudio.module.css';
-import AudioPlayer from 'react-h5-audio-player';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Slider } from '@mui/material';
-import 'react-h5-audio-player/lib/styles.css';
 import { acceptedFormats } from '../Helper';
+import AudioPlayer from 'react-h5-audio-player';
+import styles from './CutAudio.module.css';
+import 'react-h5-audio-player/lib/styles.css';
+import {
+    setAudioDuration,
+    setSliderValues,
+} from '../../Services/Slices/cutAudioSlice';
 
 interface IPlayer {
     audioFile: any;
@@ -11,9 +16,13 @@ interface IPlayer {
 
 const PlayerCutAudio: React.FC<IPlayer> = ({ audioFile }) => {
     const audioPlayerRef = React.createRef<AudioPlayer>();
-    const [startTime, setStartTime] = useState<number>(0);
-    const [endTime, setEndTime] = useState<number | null>(null);
-    const [sliderValues, setSliderValues] = useState<number[] | any>([0, 0]);
+    const dispatch = useDispatch();
+    const durationPlayer = useSelector(
+        (state: any) => state.cutAudioSlice.duration
+    );
+    const sliderValues = useSelector(
+        (state: any) => state.cutAudioSlice.sliderValues
+    );
 
     const removeFileFormat = (fileName: any) => {
         let format = fileName;
@@ -24,57 +33,55 @@ const PlayerCutAudio: React.FC<IPlayer> = ({ audioFile }) => {
         return format;
     };
 
-    const handleseeking = () => {
-        console.log('onseekig');
-        if (audioPlayerRef.current?.audio.current?.currentTime) {
-            setStartTime(audioPlayerRef.current.audio.current.currentTime);
-            setEndTime(audioPlayerRef.current.audio.current.duration);
-            const currentTime =
-                audioPlayerRef.current.audio.current.currentTime;
-            setSliderValues([currentTime - startTime, endTime]);
-        }
-    };
-
     const handleSliderChange = (event: Event, newValues: number | number[]) => {
-        setSliderValues(newValues as number[]);
+        dispatch(setSliderValues(newValues as number[]));
     };
 
-    // const handleListen = () => {
-    //     // when current time by audio not slider initial
-    //     if (audioPlayerRef.current && audioPlayerRef.current.audio.current) {
-    //         const currentTime =
-    //             audioPlayerRef.current.audio.current.currentTime;
+    const formatTime = (seconds: number): string => {
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = Math.floor(seconds % 60);
 
-    //         if (endTime === null) {
-    //             setSliderValues([currentTime - startTime, currentTime]);
-    //             setEndTime(audioPlayerRef.current.audio.current.duration);
-    //         } else {
-    //             setSliderValues([currentTime - startTime, endTime]);
-    //         }
-    //     }
-    // };
-
-    // function formatTime(seconds) {
-    //     const minutes = Math.floor(seconds / 60);
-    //     const remainingSeconds = seconds % 60;
-
-    //     // Use padStart to ensure that minutes and seconds are always two digits
-    //     const formattedTime = `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
-
-    //     return formattedTime;
-    //   }
-
-    // var startTimeformated = formatTime(startTime)
-    // var endTimeformated = formatTime(endTime)
-    const setAudioDuration = (seconds: any) => {
-        if (audioPlayerRef.current?.audio.current) {
-            audioPlayerRef.current.audio.current.currentTime = seconds;
+        if (hrs > 0) {
+            return `${hrs.toString().padStart(2, '0')}:${mins
+                .toString()
+                .padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        } else {
+            return `${mins.toString().padStart(2, '0')}:${secs
+                .toString()
+                .padStart(2, '0')}`;
         }
     };
 
-    console.log(audioPlayerRef.current?.audio.current?.currentTime); // false
-    console.log(`sliderValues: ${sliderValues}`);
-    console.log(`startTime: ${startTime}, endTime: ${endTime}`);
+    useEffect(() => {
+        if (audioPlayerRef?.current?.audio.current && durationPlayer === 0) {
+            const handleLoadedMetadata = () => {
+                const audioDuration =
+                    audioPlayerRef.current!.audio.current!.duration;
+                if (!isNaN(audioDuration)) {
+                    dispatch(setAudioDuration(audioDuration));
+                    dispatch(setSliderValues([0, audioDuration]));
+                }
+            };
+
+            const audioElement = audioPlayerRef.current.audio.current;
+            audioElement.addEventListener(
+                'loadedmetadata',
+                handleLoadedMetadata
+            );
+
+            return () => {
+                audioElement.removeEventListener(
+                    'loadedmetadata',
+                    handleLoadedMetadata
+                );
+            };
+        }
+    }, [audioPlayerRef, dispatch, durationPlayer]);
+
+    useEffect(() => {
+        dispatch(setAudioDuration(0));
+    }, [audioFile, dispatch]);
 
     return (
         <div>
@@ -85,20 +92,6 @@ const PlayerCutAudio: React.FC<IPlayer> = ({ audioFile }) => {
                 header={removeFileFormat(audioFile?.name)}
                 layout="stacked-reverse"
                 autoPlayAfterSrcChange={true}
-                // onLoadedMetaData={handleLoadedMetaData} //here problem
-                onSeeking={handleseeking}
-                // defaultCurrentTime={
-                //     audioPlayerRef.current?.audio.current?.currentTime
-                // }
-                // defaultDuration={
-                //     audioPlayerRef.current?.audio.current?.duration
-                // }
-                // onListen={(e) => {
-                //     // Access the current playback time
-                //     const currentTime = e.target?.currentTime;
-                //     console.log('Current Time:', currentTime);
-                //   }}
-                // onPlay={}
             />
             {audioFile && (
                 <div className={styles.bar}>
@@ -107,10 +100,11 @@ const PlayerCutAudio: React.FC<IPlayer> = ({ audioFile }) => {
                         value={sliderValues}
                         onChange={handleSliderChange}
                         aria-labelledby="range-slider"
+                        color="success"
                         valueLabelDisplay="auto"
-                        valueLabelFormat={(value) => `${value.toFixed(2)}s`}
+                        valueLabelFormat={(value) => formatTime(value)}
                         min={0}
-                        max={endTime ?? 0}
+                        max={durationPlayer}
                     />
                 </div>
             )}
