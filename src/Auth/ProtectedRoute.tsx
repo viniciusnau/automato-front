@@ -1,5 +1,5 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { isLoggedIn } from "./Auth";
 
 export const ProtectedRoute: React.FC<{
@@ -7,11 +7,16 @@ export const ProtectedRoute: React.FC<{
   path: any;
   colorInverted?: boolean;
 }> = ({ Component, ...rest }) => {
-  return isLoggedIn() ? (
-    <Component {...rest} />
-  ) : (
-    <Navigate to="/automato/login/" />
-  );
+  const isLogged = isLoggedIn();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLogged) {
+      navigate("/automato/login/");
+    }
+  }, [isLogged, navigate]);
+
+  return isLogged ? <Component {...rest} /> : null;
 };
 
 export default ProtectedRoute;
