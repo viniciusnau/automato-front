@@ -1,0 +1,12 @@
+.container {
+  text-align: center;
+  height: 10rem;
+}
+
+.slider {
+  padding: 0 1rem;
+}
+
+div:first-child > div > div > div:first-child > button:first-child > svg {
+  display: none;
+}
