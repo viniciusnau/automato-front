@@ -69,8 +69,9 @@ const Transcribe: React.FC = () => {
         if (form.file && validateFileFormat(form.file.name)) {
             const formData = new FormData();
             formData.append('audio_file', form.file);
-            formData.append('start_time', sliderValues[0].toString());
-            formData.append('end_time', sliderValues[1].toString());
+            formData.append('start_time', parseInt(sliderValues[0]).toString());
+            formData.append('end_time', parseInt(sliderValues[1]).toString());
+            
             dispatch<any>(fetchUpload(formData));
             setIsInvalidfile(false);
             setShowSnackbar(true);
