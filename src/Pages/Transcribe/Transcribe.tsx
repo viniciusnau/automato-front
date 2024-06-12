@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Table from '../../Components/Table/Table';
 import Input from '../../Components/Forms/Input';
 import { fetchTranscribe } from '../../Services/Slices/transcribeSlice';
-import { fetchUpload, postUploadSuccess} from '../../Services/Slices/uploadSlice';
+import {
+    fetchUpload,
+    postUploadSuccess,
+} from '../../Services/Slices/uploadSlice';
 import Snackbar from '../../Components/Snackbar/Snackbar';
 import Button from '../../Components/Forms/Button';
 import { MdUpload } from 'react-icons/md';
@@ -82,10 +85,10 @@ const Transcribe: React.FC = () => {
         const isValid =
             fileExtension && acceptedFormats.includes(fileExtension);
         if (isValid) {
-            setIsInvalidfile(false) 
+            setIsInvalidfile(false);
         } else {
-            setIsInvalidfile(true)
-            setShowSnackbar(true)
+            setIsInvalidfile(true);
+            setShowSnackbar(true);
         }
         return isValid;
     };
@@ -126,24 +129,25 @@ const Transcribe: React.FC = () => {
         ) {
             setShowSnackbar(true);
             dispatch(postUploadSuccess(null));
-        } else if (!loading && error) {
-            setShowSnackbar(true);
         }
     }, [loading, error, uploadFile.data?.response, dispatch]);
 
     useEffect(() => {
-        console.log(error);
-        if (!loading && error) {
+        if (!uploadFile?.loading && uploadFile?.error) {
             setShowSnackbar(true);
         }
-    }, [loading, error]);
+    }, [uploadFile?.loading, uploadFile?.error]);
 
     return (
         <div className={styles.container}>
             {showSnackbar && (
                 <Snackbar
                     setShowSnackbar={setShowSnackbar}
-                    type={error ? 'transcribeError' : 'transcribeSuccess'}
+                    type={
+                        uploadFile?.error
+                            ? 'transcribeError'
+                            : 'transcribeSuccess'
+                    }
                 />
             )}
             {showSnackbar && uploadFile?.error?.status === 429 && (
@@ -152,7 +156,12 @@ const Transcribe: React.FC = () => {
                     type="transcribeExceededError"
                 />
             )}
-            {showSnackbar && isInvalidfile && <Snackbar setShowSnackbar={setShowSnackbar} type="invalidFileError" />}
+            {showSnackbar && isInvalidfile && (
+                <Snackbar
+                    setShowSnackbar={setShowSnackbar}
+                    type="invalidFileError"
+                />
+            )}
             <div className={styles.containera}>
                 <div
                     className={styles.fileText}

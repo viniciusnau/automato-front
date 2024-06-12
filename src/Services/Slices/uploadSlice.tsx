@@ -4,7 +4,7 @@ import services from "../services";
 interface UploadState {
   data: any[];
   loading: boolean;
-  error: boolean | any[];
+  error: any;
 }
 
 const initialState: UploadState = {
@@ -29,7 +29,7 @@ const uploadSlice = createSlice({
     },
     postUploadFailure: (state, action: PayloadAction<any>) => {
       state.loading = false;
-      state.error = action?.payload ? action.payload : "";
+      state.error = action.payload;
       state.data = [];
     },
   },
@@ -65,9 +65,13 @@ export const fetchUpload =
       } else {
         throw new Error(response);
       }
-    } catch (err) {
-      console.log("err: ", err);
-      dispatch(postUploadFailure({ status: 429 }));
+    } catch (error: any) {
+      console.log("err: ", error);
+      if (error?.response?.data?.error === "Daily upload limit exceeded") {
+        dispatch(postUploadFailure({ status: 429 })); 
+      } else {
+        dispatch(postUploadFailure(error));
+      }
     }
   };
 
