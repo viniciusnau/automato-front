@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Table from '../../Components/Table/Table';
 import Input from '../../Components/Forms/Input';
 import { fetchTranscribe } from '../../Services/Slices/transcribeSlice';
-import { fetchUpload } from '../../Services/Slices/uploadSlice';
+import {
+    fetchUpload,
+    postUploadSuccess,
+} from '../../Services/Slices/uploadSlice';
 import Snackbar from '../../Components/Snackbar/Snackbar';
 import Button from '../../Components/Forms/Button';
 import { MdUpload } from 'react-icons/md';
@@ -53,7 +56,6 @@ const Transcribe: React.FC = () => {
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
-        setShowSnackbar(true);
         if (file && validateFileFormat(file.name)) {
             setForm((prev: any) => ({
                 ...prev,
@@ -71,10 +73,9 @@ const Transcribe: React.FC = () => {
             formData.append('audio_file', form.file);
             formData.append('start_time', parseInt(sliderValues[0]).toString());
             formData.append('end_time', parseInt(sliderValues[1]).toString());
-            
+
             dispatch<any>(fetchUpload(formData));
             setIsInvalidfile(false);
-            setShowSnackbar(true);
         }
         setForm({ file: null });
     };
@@ -83,7 +84,12 @@ const Transcribe: React.FC = () => {
         const fileExtension = fileName.split('.').pop()?.toLowerCase();
         const isValid =
             fileExtension && acceptedFormats.includes(fileExtension);
-        isValid ? setIsInvalidfile(false) : setIsInvalidfile(true);
+        if (isValid) {
+            setIsInvalidfile(false);
+        } else {
+            setIsInvalidfile(true);
+            setShowSnackbar(true);
+        }
         return isValid;
     };
 
@@ -116,25 +122,34 @@ const Transcribe: React.FC = () => {
     }, [data]);
 
     useEffect(() => {
-        setShowSnackbar(false);
-    }, []);
+        if (
+            !loading &&
+            !error &&
+            uploadFile.data?.response === 'Transcrição agendada com sucesso'
+        ) {
+            setShowSnackbar(true);
+            dispatch(postUploadSuccess(null));
+        }
+    }, [loading, error, uploadFile.data?.response, dispatch]);
+
+    useEffect(() => {
+        if (!uploadFile?.loading && uploadFile?.error) {
+            setShowSnackbar(true);
+        }
+    }, [uploadFile?.loading, uploadFile?.error]);
 
     return (
         <div className={styles.container}>
-            {showSnackbar && uploadFile.data.response && (
+            {showSnackbar && (
                 <Snackbar
                     setShowSnackbar={setShowSnackbar}
-                    type="transcribeSuccess"
+                    type={
+                        uploadFile?.error
+                            ? 'transcribeError'
+                            : 'transcribeSuccess'
+                    }
                 />
             )}
-            {showSnackbar &&
-                uploadFile?.error?.status &&
-                uploadFile?.error?.status !== 429 && (
-                    <Snackbar
-                        setShowSnackbar={setShowSnackbar}
-                        type="transcribeError"
-                    />
-                )}
             {showSnackbar && uploadFile?.error?.status === 429 && (
                 <Snackbar
                     setShowSnackbar={setShowSnackbar}
@@ -160,7 +175,6 @@ const Transcribe: React.FC = () => {
                                 className={styles.fakeContainer}
                                 style={form.file && { marginTop: '1.5rem' }}
                             >
-                                {}
                                 <Button
                                     className={`${styles.buttonUpload} ${styles.schedule}`}
                                     onClick={() => {
