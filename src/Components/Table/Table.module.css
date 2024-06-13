@@ -1,4 +1,4 @@
-@import "../../colors.css";
+/* Table.module.css */
 
 .content {
   margin: 0;
@@ -44,6 +44,10 @@
   justify-content: center;
 }
 
+.firstColumn {
+  flex: 2;
+}
+
 .tableBody {
   display: flex;
   flex-direction: column;
@@ -65,16 +69,14 @@
 }
 
 .row {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.row {
-  width: 100%;
+  flex: 1;
   display: flex;
   justify-content: center;
   padding: 0.25rem 0;
+}
+
+.firstCell {
+  flex: 2;
 }
 
 .tableCell {
@@ -159,7 +161,7 @@
   }
 
   .headerTable {
-    font-size: var(--font-size)-0.15rem;
+    font-size: calc(var(--font-size) - 0.15rem);
   }
 
   .columnTitle,
@@ -167,7 +169,7 @@
   .backButton,
   .currentPage,
   .empty {
-    font-size: var(--font-size)-0.3rem;
+    font-size: calc(var(--font-size) - 0.3rem);
   }
 
   .button,
@@ -191,7 +193,7 @@
 
   .headerTable,
   .currentPage {
-    font-size: var(--font-size) + 0.2rem;
+    font-size: calc(var(--font-size) + 0.2rem);
   }
 
   .columnTitle,
@@ -216,11 +218,11 @@
 @media (min-width: 1024px) {
   .content {
     width: 80vw;
-    max-width: 800px;
+    max-width: 850px;
   }
 
   .headerTable {
-    font-size: var(--font-size) + 0.25rem;
+    font-size: calc(var(--font-size) + 0.25rem);
   }
 
   .columnTitle,

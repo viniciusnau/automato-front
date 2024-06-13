@@ -133,7 +133,7 @@ const Table: React.FC<TableProps> = ({
       <div className={styles.container}>
         <div className={styles.tableHeader}>
           {columns.map((column, index) => (
-            <div key={index} className={styles.columnHeader}>
+            <div key={index} className={`${styles.columnHeader} ${index === 0 ? styles.firstColumn : ''}`}>
               <div className={styles.columnTitle}>{column.title}</div>
             </div>
           ))}
@@ -159,7 +159,7 @@ const Table: React.FC<TableProps> = ({
                   {data?.map((row, rowIndex) => (
                     <div key={rowIndex} className={styles.tableRow}>
                       {columns.map((column, columnIndex) => (
-                        <div key={columnIndex} className={styles.row}>
+                        <div key={columnIndex} className={`${styles.row} ${columnIndex === 0 ? styles.firstCell : ''}`}>
                           {column.property === "presigned_url" ? (
                             <Button
                               onClick={() => null}
