@@ -169,45 +169,37 @@ const Transcribe: React.FC = () => {
                 ></div>
 
                 <div className={styles.audioContainer}>
+                    <PlayerCutAudio audioFile={form.file} />
                     <div className={styles.postContainer}>
                         <div className={styles.align}>
-                            <div
-                                className={styles.fakeContainer}
-                                style={form.file && { marginTop: '1.5rem' }}
+                            <div className={styles.fakeContainer}>
+                            <Button
+                                className={`${styles.buttonUpload} ${styles.schedule}`}
+                                onClick={() => {
+                                document.getElementById('file')?.click();
+                                }}
                             >
-                                <Button
-                                    className={`${styles.buttonUpload} ${styles.schedule}`}
-                                    onClick={() => {
-                                        document
-                                            .getElementById('file')
-                                            ?.click();
-                                    }}
-                                >
-                                    <MdUpload
-                                        size={isResponsive ? 18 : 24}
-                                        color="#1e293b"
-                                    />
-                                </Button>
-
-                                <Input
-                                    className={styles.file}
-                                    name="file"
-                                    type="file"
-                                    id="file"
-                                    onChange={handleFileChange}
-                                />
+                                <MdUpload size={isResponsive ? 18 : 24} color="#1e293b" />
+                            </Button>
+                            <Input
+                                className={styles.file}
+                                name="file"
+                                type="file"
+                                id="file"
+                                onChange={handleFileChange}
+                            />
+                            </div>
+                            <div className={styles.schedule}>
+                            <Button
+                                className={`${styles.button} ${styles.schedule}`}
+                                onClick={handleSubmit}
+                            >
+                                Transcrever
+                            </Button>
                             </div>
                         </div>
-                    </div>
-                    <PlayerCutAudio audioFile={form.file} />
-                    <div className={styles.schedule}>
-                        <Button
-                            className={`${styles.button} ${styles.schedule}`}
-                            onClick={handleSubmit}
-                        >
-                            Transcrever
-                        </Button>
-                    </div>
+                </div>
+
                 </div>
             </div>
 

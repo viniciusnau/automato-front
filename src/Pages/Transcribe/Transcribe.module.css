@@ -39,12 +39,19 @@
 
 .align {
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0 1rem;
 }
 
-.fakeContainer {
-  position: absolute;
-  margin: 1rem 1rem;
-  padding: 0.7rem 0;
+.buttonUpload {
+  min-height: 2.5rem;
+  width: 4rem;
+  background-color: var(--first-button-color);
+  font-size: var(--font-size);
+  margin-right: auto; 
 }
 
 .fakeInput {
@@ -70,7 +77,6 @@
 }
 
 .schedule {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,6 +88,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  position: fixed;
 }
 
 .calendarContainer {
@@ -128,14 +135,6 @@ input[class*="DatePicker__input"] {
   color: var(--first-text-color);
 }
 
-.buttonUpload {
-  min-height: 2.5rem;
-  width: 4rem;
-  margin: 0 0.5rem;
-  background-color: var(--first-button-color);
-  font-size: var(--font-size);  
-}
-
 .buttonUpload:hover {
   background-color: var(--first-button-color-hover);
 }
@@ -143,9 +142,9 @@ input[class*="DatePicker__input"] {
 .button {
   min-height: 2.5rem;
   width: 7.5rem;
-  margin: 0 0.5rem;
   background-color: var(--first-button-color);
   font-size: var(--font-size);
+  margin-left: auto;
 }
 
 .button:hover {
@@ -154,10 +153,6 @@ input[class*="DatePicker__input"] {
 
 .button:disabled {
   background-color: var(--first-button-color-disabled);
-}
-
-.schedule {
-  padding: 0 0.75rem;
 }
 
 .table {
@@ -226,8 +221,7 @@ input[class*="DatePicker__input"] {
   .lastColumn {
     flex-direction: row;
   }
-  .calendarContainer,
-  .button {
+  .calendarContainer {
     margin: 1rem 0 0;
   }
   .fakeInput {
