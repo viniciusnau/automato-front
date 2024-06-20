@@ -1,3 +1,3 @@
 export const PATH = {
-  base: "http://15.228.227.85/api",
+  base: "https://automato.defensoria.sc.def.br/api",
 };

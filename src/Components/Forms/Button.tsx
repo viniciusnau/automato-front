@@ -12,17 +12,23 @@ interface iButton {
   title?: string;
   disabled?: any;
   style?: any;
+  id?: string;
+  ref?: React.Ref<HTMLButtonElement>;
 }
 
 const Button: React.FC<iButton> = ({
   className,
+  id,
   onClick,
   children,
   disabled,
+  ref,
   ...props
 }) => {
   return (
     <button
+      id={id}
+      ref={ref} 
       className={`${styles.container} ${className}`}
       onClick={onClick}
       disabled={disabled}
