@@ -5,12 +5,14 @@ interface TranscriptState {
   data: any[];
   loading: boolean;
   error: boolean;
+  fakeData: any[] | boolean;
 }
 
 const initialState: TranscriptState = {
   data: [],
   loading: false,
   error: false,
+  fakeData: false,
 };
 
 const transcriptSlice = createSlice({
@@ -32,10 +34,13 @@ const transcriptSlice = createSlice({
       state.error = true;
       state.data = [];
     },
+    setFakeDataWords: (state, action) => {
+      state.fakeData = action.payload;
+    },
   },
 });
 
-export const { getTranscript, getTranscriptSuccess, getTranscriptFailure } =
+export const { getTranscript, getTranscriptSuccess, getTranscriptFailure, setFakeDataWords } =
   transcriptSlice.actions;
 
 export default transcriptSlice.reducer;

@@ -94,7 +94,7 @@ const PlayerCutAudio: React.FC<IPlayer> = ({ audioFile }) => {
                 autoPlayAfterSrcChange={true}
             />
             {audioFile && (
-                <div className={styles.bar}>
+                <div id='slider' className={styles.bar}>
                     <Slider
                         className={styles.slider}
                         value={sliderValues}

@@ -193,12 +193,14 @@ const Visualization: React.FC<iVisualization> = ({ colorInverted }) => {
         <div className={styles.textContainer}>
           <div className={styles.buttonContainer}>
             <BiSolidEdit
+              id="edit-button"
               size={28}
               onClick={handleEditText}
               className={styles.copy}
               style={{ color: isColorInverted ? "#fafafa" : "initial" }}
             />
             <BiSolidFile
+              id="copy-button"
               size={28}
               onClick={handleCopyText}
               className={styles.copy}

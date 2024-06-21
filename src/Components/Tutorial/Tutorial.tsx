@@ -5,12 +5,18 @@ import { FaPlayCircle } from 'react-icons/fa';
 import tutorialStyles from './TutorialStyles';
 import styles from './Tutorial.module.css';
 import Button from '../Forms/Button';
-// import audioFile from '../../Assets/test.mp3';
 import videoFile from '../../Assets/file.mp4';
+import { setFakeData } from '../../Services/Slices/transcriptionsSlice';
+import { setFakeDataWords } from '../../Services/Slices/transcriptSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Tutorial = () => {
     const [run, setRun] = useState(false);
     const navigate = useNavigate();
+    const transcriptions = useSelector(
+        (state: any) => state.transcriptionsSlice.data
+    );
+    const dispatch = useDispatch();
 
     const handleJoyrideCallback = (data: any) => {
         const { action, index, status } = data;
@@ -43,8 +49,31 @@ const Tutorial = () => {
                     });
             }
         }
+        if (index === 7 && action === 'next') {
+            navigate('/automato/');
+            if (transcriptions.length === 0 || transcriptions.length !== 0) {
+                const fakeData = [
+                    {
+                        name: 'seu_audio.mp4',
+                        created_at: new Date().toLocaleDateString('pt-BR'),
+                        code: '1',
+                        id: 1,
+                    },
+                ];
+
+                dispatch(setFakeData(fakeData));
+            }
+        }
+        if (index === 8 && action === 'next') {
+            navigate('/automato/visualizacao/');
+        }
+        if (index === 9 && action === 'next') {
+            const loremIpsum = generateLoremIpsum();
+            dispatch(setFakeData(loremIpsum));
+        }
         if (status === 'finished' || status === 'skipped') {
             setRun(false);
+            dispatch(setFakeData(false));
         }
     };
 
@@ -68,22 +97,58 @@ const Tutorial = () => {
         {
             target: '#upload-button',
             content:
-                'Você irá clicar aqui para fazer upload do seu arquivo de áudio. Formatos de arquivo suportados: MP3, MP4, WAV, FLAC, AMR, OGG.',
+                'Clique aqui para fazer upload do seu arquivo de áudio. Formatos de arquivo suportados: MP3, MP4, WAV, FLAC, AMR, OGG.',
         },
         {
-            target: '.slider',
+            target: '#slider',
             content:
-                'Você irá clicar aqui regular o tempo inicial e final de duração da sua transcrição.',
+                'Regule aqui o tempo inicial e final de duração da sua transcrição.',
         },
         {
             target: '#transcribe-button',
             content: 'Clique aqui para transcrever seu áudio.',
         },
-        // {
-        //     target: '#transcricoes',
-        //     content: 'Clique aqui para ver suas transcrições.',
-        // },
+        {
+            target: '#transcricoes',
+            content: 'Clique aqui para ver suas transcrições.',
+        },
+        {
+            target: '#details-transcribe',
+            content: 'Clique aqui para ver os detalhes de sua transcrição.',
+        },
+        {
+            target: '#edit-button',
+            content: 'Clique aqui para editar sua transcrição.',
+        },
+        {
+            target: '#copy-button',
+            content: 'Clique aqui para copiar sua transcrição.',
+        },
+        {
+            target: '#content-visualizacao',
+            content: 'Clique aqui para editar sua transcrição.',
+        },
+        {
+            target: '#redefine-button',
+            content: 'Clique aqui para editar sua transcrição.',
+        },
+        {
+            target: '#back-button',
+            content: 'Clique aqui para editar sua transcrição.',
+        },
+        {
+            target: '#save-button',
+            content: 'Clique aqui para copiar sua transcrição.',
+        },
+        {
+            target: '#delete-transcribe',
+            content: 'Clique aqui para deletar sua transcrição.',
+        },
     ];
+
+    const generateLoremIpsum = () => {
+        return "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    }
 
     const handleStartTutorial = () => {
         setRun(true);

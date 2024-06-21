@@ -169,6 +169,7 @@ const Table: React.FC<TableProps> = ({
                             </Button>
                           ) : column.property === "delete" ? (
                             <Button
+                              id="delete-transcribe"
                               onClick={() => handleDeleteClick(row.id)}
                               className={styles.button}
                             >
@@ -181,6 +182,7 @@ const Table: React.FC<TableProps> = ({
                             </Button>
                           ) : column.property === "details" ? (
                             <Button
+                              id="details-transcribe"
                               onClick={() => handleDetailsClick(row.id)}
                               className={styles.button}
                             >
