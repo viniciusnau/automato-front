@@ -181,6 +181,7 @@ const Table: React.FC<TableProps> = ({
                               />
                             </Button>
                           ) : column.property === "details" ? (
+                            <div id='details' >
                             <Button
                               id="details-transcribe"
                               onClick={() => handleDetailsClick(row.id)}
@@ -188,6 +189,7 @@ const Table: React.FC<TableProps> = ({
                             >
                               <MdArrowForward size={isResponsive ? 18 : 24} />
                             </Button>
+                            </div>
                           ) : (
                             <div
                               className={styles.tableCell}

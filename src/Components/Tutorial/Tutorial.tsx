@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Joyride, { Step } from 'react-joyride';
+import { ACTIONS, EVENTS, ORIGIN, STATUS, CallBackProps } from 'react-joyride';
 import { FaPlayCircle } from 'react-icons/fa';
 import tutorialStyles from './TutorialStyles';
 import styles from './Tutorial.module.css';
 import Button from '../Forms/Button';
-import videoFile from '../../Assets/file.mp4';
+import videoFile from '../../Assets/seu_audio.mp4';
 import { setFakeData } from '../../Services/Slices/transcriptionsSlice';
 import { setFakeDataWords } from '../../Services/Slices/transcriptSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,10 +17,15 @@ const Tutorial = () => {
     const transcriptions = useSelector(
         (state: any) => state.transcriptionsSlice.data
     );
+    const { fakeDataWords } = useSelector(
+        (state: any) => state.transcriptSlice.fakeDataWords
+    );
     const dispatch = useDispatch();
 
-    const handleJoyrideCallback = (data: any) => {
+    const handleJoyrideCallback = async (data: CallBackProps) => {
         const { action, index, status } = data;
+
+        console.log(`Action: ${action}, Index: ${index}, Status: ${status}`);
 
         if (index === 3 && action === 'next') {
             navigate('/automato/transcrever');
@@ -32,7 +38,7 @@ const Tutorial = () => {
                 fetch(videoFile)
                     .then((res) => res.blob())
                     .then((blob) => {
-                        const file = new File([blob], 'file.mp4', {
+                        const file = new File([blob], 'seu_audio.mp4', {
                             type: 'video/mp4',
                         });
                         const dataTransfer = new DataTransfer();
@@ -58,22 +64,36 @@ const Tutorial = () => {
                         created_at: new Date().toLocaleDateString('pt-BR'),
                         code: '1',
                         id: 1,
+                        details: 'details',
+                        delete: 'delete',
                     },
                 ];
 
                 dispatch(setFakeData(fakeData));
             }
         }
-        if (index === 8 && action === 'next') {
-            navigate('/automato/visualizacao/');
+        if (action === `next` && index === 10) {
+            // setTimeout(() => {
+            const handleData = async () => {
+                console.log(fakeDataWords);
+                navigate('/automato/visualizacao/');
+            };
+            handleData();
+            // }, 900);
         }
-        if (index === 9 && action === 'next') {
-            const loremIpsum = generateLoremIpsum();
-            dispatch(setFakeData(loremIpsum));
+        if (index === 11 && action === 'next') {
+            const editButton = document.getElementById('edit-button');
+            if (editButton) {
+                editButton.click();
+            } else {
+                console.error('Elemento #edit-button não encontrado.');
+            }
         }
         if (status === 'finished' || status === 'skipped') {
             setRun(false);
+            dispatch(setFakeDataWords(false));
             dispatch(setFakeData(false));
+            navigate('/automato/');
         }
     };
 
@@ -82,10 +102,7 @@ const Tutorial = () => {
             target: '#logo',
             content: 'Clique na logo para ir para a página inicial.',
         },
-        {
-            target: '#logout',
-            content: 'Clique aqui para sair do seu login.',
-        },
+        { target: '#logout', content: 'Clique aqui para sair do seu login.' },
         {
             target: '#redefinir-senha',
             content: 'Clique aqui para redefinir sua senha.',
@@ -96,8 +113,7 @@ const Tutorial = () => {
         },
         {
             target: '#upload-button',
-            content:
-                'Clique aqui para fazer upload do seu arquivo de áudio. Formatos de arquivo suportados: MP3, MP4, WAV, FLAC, AMR, OGG.',
+            content: 'Clique aqui para fazer upload do seu arquivo de áudio.',
         },
         {
             target: '#slider',
@@ -113,20 +129,40 @@ const Tutorial = () => {
             content: 'Clique aqui para ver suas transcrições.',
         },
         {
-            target: '#details-transcribe',
+            target: '#delete-transcribe',
+            content: 'Clique aqui para deletar sua transcrição.',
+        },
+        {
+            target: '#details',
             content: 'Clique aqui para ver os detalhes de sua transcrição.',
-        },
+        }, //9
         {
-            target: '#edit-button',
-            content: 'Clique aqui para editar sua transcrição.',
-        },
-        {
-            target: '#copy-button',
+            target: '#copy-button-div',
             content: 'Clique aqui para copiar sua transcrição.',
         },
         {
-            target: '#content-visualizacao',
+            target: '#edit-button-div',
             content: 'Clique aqui para editar sua transcrição.',
+        },
+        {
+            target: '#yellow',
+            content:
+                'Palavras marcadas por amarelo representam um índice de confiança de 60% a 80%.',
+        },
+        {
+            target: '#orange',
+            content:
+                'Palavras marcadas por laranja representam um índice de confiança de 40% a 60%.',
+        },
+        {
+            target: '#red',
+            content:
+                'Palavras marcadas por vermelho representam um índice de confiança de 10% a 30%.',
+        },
+        {
+            target: '#text',
+            content:
+                'As demais palavras sem cores representam um altíssimo nivel de confiança.',
         },
         {
             target: '#redefine-button',
@@ -140,18 +176,12 @@ const Tutorial = () => {
             target: '#save-button',
             content: 'Clique aqui para copiar sua transcrição.',
         },
-        {
-            target: '#delete-transcribe',
-            content: 'Clique aqui para deletar sua transcrição.',
-        },
     ];
-
-    const generateLoremIpsum = () => {
-        return "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    }
 
     const handleStartTutorial = () => {
         setRun(true);
+        const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        dispatch(setFakeDataWords(loremIpsum));
     };
 
     useEffect(() => {
@@ -175,8 +205,10 @@ const Tutorial = () => {
                 continuous={true}
                 scrollToFirstStep={true}
                 showProgress={true}
+                scrollDuration={500}
                 showSkipButton={true}
                 run={run}
+                debug={true}
                 disableCloseOnEsc={true}
                 disableOverlayClose={true}
                 hideCloseButton={true}
@@ -185,7 +217,7 @@ const Tutorial = () => {
                     close: 'Fechar',
                     last: 'Fim',
                     next: 'Próximo',
-                    open: 'Abrir',
+                    open: 'Clique aqui para começar o tutorial',
                     skip: 'Sair',
                 }}
                 styles={tutorialStyles}
