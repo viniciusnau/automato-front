@@ -28,6 +28,7 @@ const Visualization: React.FC<iVisualization> = ({ colorInverted }) => {
     const { state } = useLocation();
     const [content, setContent] = useState<any>();
     const [separatedWords, setSeparatedWords] = useState<any>();
+    const [separatedFakeWords, setSeparatedFakeWords] = useState<any>();
     const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
     const [handleModal, setHandleModal] = useState<boolean>(false);
     const [isColorInverted, setIsColorInverted] = useState<{
@@ -109,6 +110,70 @@ const Visualization: React.FC<iVisualization> = ({ colorInverted }) => {
             setBackup(data.transcript);
         }
     };
+    console.log(separatedWords)
+
+    const fakeHighlightedText = () => {
+        console.log(fakeDataWords)
+        setSeparatedFakeWords(fakeDataWords?.results?.transcripts?.split(' '));
+        const highlightedElements: JSX.Element[] = [];
+        separatedFakeWords?.map((word: string, index: number) => {
+            const handleRange = index <= 10 ? index : 10;
+            const previousWords = separatedFakeWords
+                .slice(index - handleRange, index)
+                .join(' ');
+
+            var shouldHighlight = content?.uncertain_words?.find(
+                (item: any) => {
+                    return (
+                        item.previous_words === previousWords &&
+                        item.word === word
+                    );
+                }
+            );
+
+            const element = (
+                <React.Fragment key={index}>
+                    <div
+                        className={`${shouldHighlight && styles.uncertain}`}
+                        style={{
+                            backgroundColor: shouldHighlight
+                                ? decimalToHexColor(shouldHighlight?.confidence)
+                                : 'transparent',
+                        }}
+                        onMouseEnter={() => {
+                            handleMouseToggle(shouldHighlight, true);
+                        }}
+                        onMouseLeave={() => {
+                            handleMouseToggle(shouldHighlight, false);
+                        }}
+                    >
+                        <span
+                            className={styles.word}
+                            style={{
+                                color: isColorInverted ? '#fafafa' : 'initial',
+                            }}
+                        >
+                            {word}
+                        </span>
+                        {shouldHighlight?.showTooltip && (
+                            <div className={styles.tpContainer}>
+                                <span className={styles.tooltip}>
+                                    Começa em:{' '}
+                                    {formatTime(shouldHighlight?.start_time)},
+                                    Termina em:{' '}
+                                    {formatTime(shouldHighlight?.end_time)}
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                    <p> </p>
+                </React.Fragment>
+            );
+
+            highlightedElements.push(element);
+        });
+        return highlightedElements;
+    }
 
     const highlightedText = () => {
         const highlightedElements: JSX.Element[] = [];
@@ -233,7 +298,7 @@ const Visualization: React.FC<iVisualization> = ({ colorInverted }) => {
                         </div>
                     </div>
                     <div id="text" className={styles.text}>
-                        {fakeDataWords ? fakeDataWords : highlightedText()}
+                        {fakeDataWords ?  fakeHighlightedText() : highlightedText()}
                     </div>
 
                     {handleModal && (

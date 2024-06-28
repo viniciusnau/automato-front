@@ -138,7 +138,7 @@ const Table: React.FC<TableProps> = ({
             </div>
           ))}
         </div>
-        <div className={styles.tableBody}>
+        <div id="tableBody" className={styles.tableBody}>
           {loading ? (
             <div style={{ marginBottom: "3rem" }}>
               <Loading size="4rem" type="spin" />

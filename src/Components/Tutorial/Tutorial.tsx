@@ -17,13 +17,23 @@ const Tutorial = () => {
     const transcriptions = useSelector(
         (state: any) => state.transcriptionsSlice.data
     );
-    const { fakeDataWords } = useSelector(
-        (state: any) => state.transcriptSlice.fakeDataWords
-    );
     const dispatch = useDispatch();
+    const [stepIndex, setStepIndex] = useState(0);
+    const { fakeDataWords } = useSelector(
+    (state: any) => state.transcriptSlice.fakeDataWords
+    );
 
     const handleJoyrideCallback = async (data: CallBackProps) => {
-        const { action, index, status } = data;
+        const { action, index, status, type } = data;
+
+        // if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
+        //     setTimeout(() => {
+        //         setStepIndex((prevIndex) => prevIndex + 1);
+        //     }, 1000);
+        // }
+
+        const loremIpsum =
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
 
         console.log(`Action: ${action}, Index: ${index}, Status: ${status}`);
 
@@ -72,22 +82,16 @@ const Tutorial = () => {
                 dispatch(setFakeData(fakeData));
             }
         }
-        if (action === `next` && index === 10) {
-            // setTimeout(() => {
-            const handleData = async () => {
-                console.log(fakeDataWords);
-                navigate('/automato/visualizacao/');
-            };
-            handleData();
-            // }, 900);
+        if (index === 9 && action === 'next') {
+            navigate('/automato/visualizacao');
         }
         if (index === 11 && action === 'next') {
-            const editButton = document.getElementById('edit-button');
-            if (editButton) {
-                editButton.click();
-            } else {
-                console.error('Elemento #edit-button não encontrado.');
-            }
+            // const editButton = document.getElementById('edit-button');
+            // if (editButton) {
+            //     editButton.click();
+            // } else {
+            //     console.error('Elemento #edit-button não encontrado.');
+            // }
         }
         if (status === 'finished' || status === 'skipped') {
             setRun(false);
@@ -180,8 +184,7 @@ const Tutorial = () => {
 
     const handleStartTutorial = () => {
         setRun(true);
-        const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-        dispatch(setFakeDataWords(loremIpsum));
+        dispatch(setFakeDataWords(true));
     };
 
     useEffect(() => {
@@ -205,13 +208,12 @@ const Tutorial = () => {
                 continuous={true}
                 scrollToFirstStep={true}
                 showProgress={true}
-                scrollDuration={500}
                 showSkipButton={true}
                 run={run}
-                debug={true}
                 disableCloseOnEsc={true}
                 disableOverlayClose={true}
                 hideCloseButton={true}
+                // getHelpers={StoreHelpers()}
                 locale={{
                     back: 'Voltar',
                     close: 'Fechar',
