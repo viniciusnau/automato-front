@@ -9,6 +9,7 @@ import deleteFileSlice from './Slices/deleteFileSlice';
 import sketchSlice from './Slices/sketchSlice';
 import a11ySlice from './Slices/a11ySlice';
 import cutAudioSlice from './Slices/cutAudioSlice';
+import fakeDataSlice from './Slices/fakeDataSlice';
 
 const reducer = combineReducers({
     transcriptionsSlice,
@@ -21,6 +22,7 @@ const reducer = combineReducers({
     sketchSlice,
     a11ySlice,
     cutAudioSlice,
+    fakeDataSlice,
 });
 
 export const store = configureStore({ reducer });

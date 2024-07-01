@@ -12,6 +12,7 @@ import Transcribe from './Pages/Transcribe/Transcribe';
 import Callback from './Pages/Callback/Callback';
 import NotFound from './Pages/NotFound/NotFound';
 import Tutorial from './Components/Tutorial/Tutorial';
+import { RunProvider } from './Components/Tutorial/RunContext';
 
 function App() {
     const cursorRef = useRef<HTMLDivElement | null>(null);
@@ -68,103 +69,105 @@ function App() {
     }, []);
 
     return (
-        <div
-            className={`App ${colorInverted ? 'invert-colors' : ''} ${
-                grayscale ? 'grayscale' : ''
-            }`}
-            style={
-                {
-                    fontSize: `${fontSize}rem`,
-                    '--font-size': `${fontSize}rem`,
-                    cursor: `${customCursor ? 'none' : 'auto'}`,
-                    '--cursor-pointer': `${customCursor ? 'none' : 'pointer'}`,
-                    '--cursor-not-allowed': `${
-                        customCursor ? 'none' : 'not-allowed'
-                    }`,
-                    '--cursor-default': `${customCursor ? 'none' : 'default'}`,
-                    '--cursor-text': `${customCursor ? 'none' : 'text'}`,
-                    ...appStyles,
-                } as any
-            }
-            onMouseEnter={customCursor ? handleMouseEnter : undefined}
-            onMouseLeave={customCursor ? handleMouseLeave : undefined}
-            onMouseMove={customCursor ? handleMouseMove : undefined}
-            onClick={handleOutsideClick}
-        >
+        <RunProvider>
             <div
-                ref={cursorRef}
-                className={`${customCursor ? 'cursor' : ''}`}
-                style={{
-                    top: customCursor ? mousePosition.y + 'px' : 'auto',
-                    left: customCursor ? mousePosition.x + 'px' : 'auto',
-                }}
-            />
-            <BrowserRouter>
-                <Header />
-                <main>
-                    <Routes>
-                        <Route
-                            path="/automato/"
-                            element={
-                                <ProtectedRoute
-                                    Component={Transcriptions}
-                                    path="/automato/"
-                                />
-                            }
-                        />
-                        <Route path="/automato/login/" element={<Login />} />
-                        <Route
-                            path="/automato/alterar-senha/"
-                            element={<ResetPassword />}
-                        />
-                        <Route
-                            path="/automato/transcrever/"
-                            element={
-                                <ProtectedRoute
-                                    Component={Transcribe}
-                                    path="/automato/transcrever/"
-                                />
-                            }
-                        />
-                        <Route
-                            path="/automato/visualizacao/"
-                            element={
-                                <ProtectedRoute
-                                    Component={Visualization}
-                                    path="/automato/visualizacao/"
-                                />
-                            }
-                        />
-                        <Route
-                            path="/automato/visualizacao/:id/"
-                            element={
-                                <ProtectedRoute
-                                    Component={Visualization}
-                                    path="/automato/visualizacao/:id"
-                                />
-                            }
-                        />
-                        <Route
-                            path="/automato/callback/:apiToken"
-                            element={<Callback />}
-                        />
-                        <Route path="*" element={<NotFound />} />
-                    </Routes>
-                </main>
-                <Tutorial />
-                <A11y
-                    setColorInverted={setColorInverted}
-                    colorInverted={colorInverted}
-                    setFontSize={setFontSize}
-                    setGrayscale={setGrayscale}
-                    grayscale={grayscale}
-                    setCustomCursor={setCustomCursor}
-                    mousePosition={mousePosition}
-                    isOpenModal={isOpenModal}
-                    setIsOpenModal={setIsOpenModal}
+                className={`App ${colorInverted ? 'invert-colors' : ''} ${
+                    grayscale ? 'grayscale' : ''
+                }`}
+                style={
+                    {
+                        fontSize: `${fontSize}rem`,
+                        '--font-size': `${fontSize}rem`,
+                        cursor: `${customCursor ? 'none' : 'auto'}`,
+                        '--cursor-pointer': `${customCursor ? 'none' : 'pointer'}`,
+                        '--cursor-not-allowed': `${
+                            customCursor ? 'none' : 'not-allowed'
+                        }`,
+                        '--cursor-default': `${customCursor ? 'none' : 'default'}`,
+                        '--cursor-text': `${customCursor ? 'none' : 'text'}`,
+                        ...appStyles,
+                    } as any
+                }
+                onMouseEnter={customCursor ? handleMouseEnter : undefined}
+                onMouseLeave={customCursor ? handleMouseLeave : undefined}
+                onMouseMove={customCursor ? handleMouseMove : undefined}
+                onClick={handleOutsideClick}
+            >
+                <div
+                    ref={cursorRef}
+                    className={`${customCursor ? 'cursor' : ''}`}
+                    style={{
+                        top: customCursor ? mousePosition.y + 'px' : 'auto',
+                        left: customCursor ? mousePosition.x + 'px' : 'auto',
+                    }}
                 />
-            </BrowserRouter>
-        </div>
+                <BrowserRouter>
+                    <Header />
+                    <main>
+                        <Routes>
+                            <Route
+                                path="/automato/"
+                                element={
+                                    <ProtectedRoute
+                                        Component={Transcriptions}
+                                        path="/automato/"
+                                    />
+                                }
+                            />
+                            <Route path="/automato/login/" element={<Login />} />
+                            <Route
+                                path="/automato/alterar-senha/"
+                                element={<ResetPassword />}
+                            />
+                            <Route
+                                path="/automato/transcrever/"
+                                element={
+                                    <ProtectedRoute
+                                        Component={Transcribe}
+                                        path="/automato/transcrever/"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/automato/visualizacao/"
+                                element={
+                                    <ProtectedRoute
+                                        Component={Visualization}
+                                        path="/automato/visualizacao/"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/automato/visualizacao/:id/"
+                                element={
+                                    <ProtectedRoute
+                                        Component={Visualization}
+                                        path="/automato/visualizacao/:id"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/automato/callback/:apiToken"
+                                element={<Callback />}
+                            />
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                    </main>
+                    <Tutorial />
+                    <A11y
+                        setColorInverted={setColorInverted}
+                        colorInverted={colorInverted}
+                        setFontSize={setFontSize}
+                        setGrayscale={setGrayscale}
+                        grayscale={grayscale}
+                        setCustomCursor={setCustomCursor}
+                        mousePosition={mousePosition}
+                        isOpenModal={isOpenModal}
+                        setIsOpenModal={setIsOpenModal}
+                    />
+                </BrowserRouter>
+            </div>
+        </RunProvider>
     );
 }
 

@@ -1,39 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Joyride, { Step } from 'react-joyride';
-import { ACTIONS, EVENTS, ORIGIN, STATUS, CallBackProps } from 'react-joyride';
+import { CallBackProps } from 'react-joyride';
 import { FaPlayCircle } from 'react-icons/fa';
 import tutorialStyles from './TutorialStyles';
 import styles from './Tutorial.module.css';
 import Button from '../Forms/Button';
 import videoFile from '../../Assets/seu_audio.mp4';
 import { setFakeData } from '../../Services/Slices/transcriptionsSlice';
-import { setFakeDataWords } from '../../Services/Slices/transcriptSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { setFakeDataWords } from '../../Services/Slices/fakeDataSlice';
+import { fakeData } from '../Consts';
+import { useRun } from './RunContext';
 
 const Tutorial = () => {
-    const [run, setRun] = useState(false);
+    const [start, setStart] = useState(false);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const transcriptions = useSelector(
         (state: any) => state.transcriptionsSlice.data
     );
-    const dispatch = useDispatch();
-    const [stepIndex, setStepIndex] = useState(0);
-    const { fakeDataWords } = useSelector(
-    (state: any) => state.transcriptSlice.fakeDataWords
-    );
+    const { setRun } = useRun();
 
     const handleJoyrideCallback = async (data: CallBackProps) => {
         const { action, index, status, type } = data;
-
-        // if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
-        //     setTimeout(() => {
-        //         setStepIndex((prevIndex) => prevIndex + 1);
-        //     }, 1000);
-        // }
-
-        const loremIpsum =
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
 
         console.log(`Action: ${action}, Index: ${index}, Status: ${status}`);
 
@@ -95,6 +85,7 @@ const Tutorial = () => {
         }
         if (status === 'finished' || status === 'skipped') {
             setRun(false);
+            setStart(false)
             dispatch(setFakeDataWords(false));
             dispatch(setFakeData(false));
             navigate('/automato/');
@@ -183,8 +174,9 @@ const Tutorial = () => {
     ];
 
     const handleStartTutorial = () => {
-        setRun(true);
-        dispatch(setFakeDataWords(true));
+        setStart(true)
+        setRun(true)
+        // dispatch(setFakeDataWords(fakeData));
     };
 
     useEffect(() => {
@@ -209,7 +201,7 @@ const Tutorial = () => {
                 scrollToFirstStep={true}
                 showProgress={true}
                 showSkipButton={true}
-                run={run}
+                run={start}
                 disableCloseOnEsc={true}
                 disableOverlayClose={true}
                 hideCloseButton={true}
