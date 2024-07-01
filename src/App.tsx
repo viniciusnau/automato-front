@@ -11,6 +11,7 @@ import Visualization from "./Pages/Visualization/Visualization";
 import Transcribe from "./Pages/Transcribe/Transcribe";
 import Callback from "./Pages/Callback/Callback";
 import NotFound from "./Pages/NotFound/NotFound";
+import Tutorial from "./Components/Tutorial/Tutorial";
 
 function App() {
   const cursorRef = useRef<HTMLDivElement | null>(null);
@@ -153,6 +154,7 @@ function App() {
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
         />
+        <Tutorial breakpoint={"test"}/>
       </BrowserRouter>
     </div>
   );

@@ -57,7 +57,8 @@ const Header = () => {
                           }}
                         >
                           <span
-                            className={`${styles.route} ${styles.modalItem}`}
+                            className={`${styles.route} ${styles.modalItem} logout`}
+                            id="logout"
                           >
                             Sair
                           </span>
