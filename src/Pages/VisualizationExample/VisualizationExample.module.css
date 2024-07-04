@@ -1,0 +1,106 @@
+@import "../../colors.css";
+
+.container {
+  display: block;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  height: auto;
+  max-height: 40rem;
+  overflow-y: auto;
+  margin: 7.5rem auto;
+  border: 0.5rem solid var(--fifth-color);
+  border-radius: 0.85rem;
+  overflow-x: hidden;
+  z-index: 1;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.copy {
+  margin: 0.5rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+}
+
+.text {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  white-space: pre-wrap;
+  padding: 0.75rem 1.25rem;
+}
+
+.word {
+  /* Ensure there's no conflicting style here */
+}
+
+.uncertain {
+  border-radius: 0.25rem;
+  padding: 0.35rem;
+}
+
+.tpContainer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 0.2s ease-in-out forwards;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: var(--second-button-color);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.35rem;
+  height: auto;
+  width: 10rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 0.75rem 0 0 0;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  line-height: 1.25rem;
+  z-index: 2;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 750px) {
+  .container {
+    display: block;
+  }
+  .textContainer {
+    max-height: 50vh;
+    padding: 0.75rem 0.75rem 2.5rem 0.75rem;
+  }
+  .text {
+    line-height: 1rem; /* Adjust line-height if necessary */
+  }
+}
+
+@media (min-width: 751px) {
+  .textContainer {
+    min-width: 25%;
+    min-height: 25%;
+    padding: 0.75rem 3rem 3rem;
+  }
+  .text {
+    line-height: 1.5rem; /* Adjust line-height if necessary */
+  }
+}

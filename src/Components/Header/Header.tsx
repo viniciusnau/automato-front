@@ -112,8 +112,9 @@ const Header = () => {
               {isLoggedIn() && (
                 <>
                   <span
-                    className={`${styles.route} ${styles.logout}`}
-                    onClick={() => logout(navigate)}
+                      className={`${styles.route} ${styles.logout}`}
+                      id="logout"
+                      onClick={() => logout(navigate)}
                   >
                     Sair
                   </span>

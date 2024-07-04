@@ -179,7 +179,7 @@ const Transcribe: React.FC = () => {
                                 document.getElementById('file')?.click();
                                 }}
                             >
-                                <MdUpload size={isResponsive ? 18 : 24} color="#1e293b" />
+                                <MdUpload id="upload" size={isResponsive ? 18 : 24} color="#1e293b" />
                             </Button>
                             <Input
                                 className={styles.file}
@@ -189,7 +189,7 @@ const Transcribe: React.FC = () => {
                                 onChange={handleFileChange}
                             />
                             </div>
-                            <div className={styles.schedule}>
+                            <div id='transcribe-bttn' className={styles.schedule}>
                             <Button
                                 className={`${styles.button} ${styles.schedule}`}
                                 onClick={handleSubmit}

@@ -14,7 +14,7 @@ const tutorialStyles = {
         color: '#277618',
     },
     buttonClose: {
-        color: '#277618',
+        display: 'none',
     },
     tooltip: {
         borderRadius: '4px',

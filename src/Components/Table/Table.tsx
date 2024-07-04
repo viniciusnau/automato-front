@@ -117,7 +117,7 @@ const Table: React.FC<TableProps> = ({
   }, [colorInvertedState]);
 
   return (
-    <div className={styles.content}>
+    <div id='table' className={styles.content}>
       <div className={styles.header}>
         {title && (
           <div
@@ -173,6 +173,7 @@ const Table: React.FC<TableProps> = ({
                               className={styles.button}
                             >
                               <MdDelete
+                                  id="delete"
                                 size={isResponsive ? 12 : 24}
                                 className={`${styles.button} ${
                                   loadingStates[row.id] ? styles.spin : ""
@@ -184,7 +185,7 @@ const Table: React.FC<TableProps> = ({
                               onClick={() => handleDetailsClick(row.id)}
                               className={styles.button}
                             >
-                              <MdArrowForward size={isResponsive ? 18 : 24} />
+                              <MdArrowForward id="details" size={isResponsive ? 18 : 24} />
                             </Button>
                           ) : (
                             <div

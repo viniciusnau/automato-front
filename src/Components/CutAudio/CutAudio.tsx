@@ -93,21 +93,19 @@ const PlayerCutAudio: React.FC<IPlayer> = ({ audioFile }) => {
                 layout="stacked-reverse"
                 autoPlayAfterSrcChange={true}
             />
-            {audioFile && (
-                <div className={styles.bar}>
-                    <Slider
-                        className={styles.slider}
-                        value={sliderValues}
-                        onChange={handleSliderChange}
-                        aria-labelledby="range-slider"
-                        color="success"
-                        valueLabelDisplay="auto"
-                        valueLabelFormat={(value) => formatTime(value)}
-                        min={0}
-                        max={durationPlayer}
-                    />
-                </div>
-            )}
+            <div id="slider" className={styles.bar}>
+                <Slider
+                    className={styles.slider}
+                    value={sliderValues}
+                    onChange={handleSliderChange}
+                    aria-labelledby="range-slider"
+                    color="success"
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(value) => formatTime(value)}
+                    min={0}
+                    max={durationPlayer}
+                />
+            </div>
         </div>
     );
 };
