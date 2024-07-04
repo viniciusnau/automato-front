@@ -11,6 +11,8 @@ import Visualization from "./Pages/Visualization/Visualization";
 import Transcribe from "./Pages/Transcribe/Transcribe";
 import Callback from "./Pages/Callback/Callback";
 import NotFound from "./Pages/NotFound/NotFound";
+import Tutorial from "./Components/Tutorial/Tutorial";
+import VisualizationExample from "./Pages/VisualizationExample/VisualizationExample";
 
 function App() {
   const cursorRef = useRef<HTMLDivElement | null>(null);
@@ -130,6 +132,15 @@ function App() {
               }
             />
             <Route
+                path="/automato/exemplo-visualizacao/:id/"
+                element={
+                  <ProtectedRoute
+                      Component={VisualizationExample}
+                      path="/automato/exemplo-visualizacao/:id/"
+                  />
+                }
+            />
+            <Route
               path="/automato/visualizacao/:id/"
               element={
                 <ProtectedRoute
@@ -153,6 +164,7 @@ function App() {
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}
         />
+        <Tutorial breakpoint={"test"}/>
       </BrowserRouter>
     </div>
   );

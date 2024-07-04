@@ -104,9 +104,6 @@ const Modal = ({
         />
 
         <div className={styles.controls}>
-          <Button onClick={handleReset} className={styles.button}>
-            Redefinir
-          </Button>
           <Button
             onClick={() => {
               setHandleModal(!handleModal);
@@ -114,6 +111,9 @@ const Modal = ({
             className={styles.button}
           >
             Voltar
+          </Button>
+          <Button onClick={handleReset} className={styles.button}>
+            Redefinir
           </Button>
           <Button onClick={handleSubmit} className={styles.button}>
             Salvar
